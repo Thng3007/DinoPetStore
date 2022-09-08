@@ -1,0 +1,63 @@
+﻿@model DinoPetStore.EF.PHIEUNHAPKHO
+
+@{
+    ViewBag.Title = "Trang chỉnh sửa kho hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>TRANG CHINH SỬA KHO </h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.MAPHIEUNK)
+
+        <div class="form-group">
+            <label><strong>Ngày Nhập:</strong></label>
+            @Html.ValidationMessageFor(model => model.NGAYNK, "", new { @class = "text-danger" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NGAYNK, new { htmlAttributes = new { @class = "form-control" }, @Required = "required" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label><strong>Tên sản phẩm:</strong></label>
+            <div class="col-md-10">
+                @Html.DropDownList("MASP")
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label><strong>Số Lượng:</strong></label>
+            @Html.ValidationMessageFor(model => model.SOLUONG, "", new { @class = "text-danger" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SOLUONG, new { htmlAttributes = new { @class = "form-control", @Required = "required" } })
+
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Cập Nhật" class="btn btn-success" /> |
+                <a href="@Url.Action("Index", "KhoHang")" class="btn btn-danger btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </span>
+                    <span class="text">Huỷ</span>
+                </a>
+
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

@@ -1,0 +1,94 @@
+﻿@using PagedList.Mvc;
+@using DinoPetStore.EF;
+@model PagedList.PagedList<DinoPetStore.EF.DONDATHANG>
+
+@{
+    ViewBag.Title = "Đơn đặt hàng -Dino Store";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2 style="padding-top:10px">ĐƠN ĐẶT HÀNG</h2>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary text-center">DANH SÁCH THƯƠNG HIỆU</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"><div id="dataTable_filter" class="dataTables_filter"></div></div><div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                            <thead>
+                                <tr role="row">
+                                    <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 155.281px;">Phương Thức Thanh Toán</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px;">Ngày Đặt</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px;">Ngày Giao</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px;">Mã Khách Hàng</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px;">Tên Khách Hàng</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px;">Tổng tiền</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px;">Chi tiết đơn hàng</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @*@Html.DisplayFor(modelItem => item.DATHANHTOAN)*@
+                                            @if (item.DATHANHTOAN == true)
+                                            {
+                                                <label>Ship COD thanh toán khi nhận hàng</label>
+                                            }
+                                            else
+                                            {
+                                                <label>Chuyển khoản</label>
+                                            }
+                                        </td>
+                                        @**
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TINHTRANGDH)
+                                        </td>
+                                        *@
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NGAYDAT)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NGAYGIAO)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.MAKH)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.KHACHHANG.HOTENKH)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TONGTIEN)
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("ChiTietDonHang", "DonHang", new { id = item.MADH })">
+                                                <img style="margin-left:25px" src="~/img/info_25px.png" />
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    Trang @(@Model.PageNumber>Model.PageCount?Model.PageCount: Model.PageNumber)/@Model.PageCount
+</div>
+<div align="center">@Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))</div>
+<link href="~/Content/phantrang.css" rel="stylesheet" />
+

@@ -1,0 +1,56 @@
+﻿@model DinoPetStore.EF.PHIEUNHAPKHO
+
+@{
+    ViewBag.Title = "Xóa sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>XÓA SẢN PHẨM KHỎI KHO</h2>
+
+<h3 style="color: red;">Bạn có chắc chắn muốn xóa không?</h3>
+<div>
+    <h4>PHIEUNHAPKHO</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Ngày nhập:
+
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NGAYNK)
+        </dd>
+
+        <dt>
+            Mã sản phẩm:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MASP)
+        </dd>
+
+        <dt>
+            Số lượng:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SOLUONG)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa" class="btn btn-default" /> |
+            <a href="@Url.Action("Index", "KhoHang")" class="btn btn-danger btn-icon-split">
+                <span class="icon text-white-50">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </span>
+                <span class="text">Huỷ</span>
+            </a>
+        </div>
+    }
+</div>

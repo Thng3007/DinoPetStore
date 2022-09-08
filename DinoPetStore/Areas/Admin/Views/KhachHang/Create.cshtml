@@ -1,0 +1,96 @@
+﻿@model DinoPetStore.EF.KHACHHANG
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>TẠO MỚI KHÁCH HÀNG</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <label><strong>Họ Tên Khách: </strong></label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.HOTENKH, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.HOTENKH, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label><strong>Số Điện Thoại: </strong></label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DIENTHOAI, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DIENTHOAI, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label><strong>Địa Chỉ: </strong></label>
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.DIACHI, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DIACHI, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label><strong>Tên Đăng Nhập: </strong></label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TENDNKH, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TENDNKH, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label><strong>Mật Khẩu Khách: </strong></label>
+        <div class="col-md-10">
+            @Html.PasswordFor(model => model.MATKHAUKH, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MATKHAUKH, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label><strong>Email:</strong></label>
+        @Html.ValidationMessageFor(model => model.EMAIL, "", new { @class = "text-danger" })
+        <div class="col-md-10">
+            <input class="input-validation-error input-full" Required="required" htmlattributes="{ class = form-control }" id="EMAIL" name="EMAIL" type="email">
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label><strong>Ngày Sinh:</strong></label>
+        @Html.ValidationMessageFor(model => model.NGAYSINH, "", new { @class = "text-danger" })
+        <div class="col-md-10">
+            <input class="input-full" Required="required" htmlattributes="{ class = form-control }" id="NGAYSINH" name="NGAYSINH" type="date">
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label><strong>Hình Ảnh:</strong></label>
+        @Html.ValidationMessageFor(model => model.HINHANH, "", new { @class = "text-danger" })
+        <div class="col-md-10">
+            <input class="input-full"  htmlattributes="{ class = form-control }" id="fileUpload" type="file" name="fileUpload" accept="image/jpeg,image/jpg,image/png">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Tạo Mới" class="btn btn-success" /> |
+            <a href="@Url.Action("Index", "KhachHang")" class="btn btn-danger btn-icon-split">
+                <span class="icon text-white-50">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </span>
+                <span class="text">Huỷ</span>
+            </a>
+
+        </div>
+    </div>
+</div>
+}

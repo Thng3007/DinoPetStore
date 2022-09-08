@@ -1,0 +1,27 @@
+﻿@model DinoPetStore.EF.MAUSAC
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>TRANG CHI TIẾT MÀU SẮC</h2>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Tên màu sắc:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TENMAUSAC)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MAMAUSAC }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

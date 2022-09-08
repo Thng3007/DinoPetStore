@@ -1,0 +1,46 @@
+﻿@model DinoPetStore.EF.KICHTHUOC
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>TRANG XÓA KÍCH THƯỚC</h2>
+
+<h3>Bạn có chắc chắn muốn xóa không?</h3>
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Mã sản phẩm:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MASP)
+        </dd>
+        <dt>
+            Tên kích thước:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TENKICHTHUOC)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+<div class="form-actions no-color">
+    <input type="submit" value="Xoá" class="btn btn-success" /> |
+    <a href="@Url.Action("Index", "KichThuoc")" class="btn btn-danger btn-icon-split">
+        <span class="icon text-white-50">
+            <i class="fas fa-exclamation-triangle"></i>
+        </span>
+        <span class="text">Huỷ</span>
+    </a>
+</div>
+    }
+</div>

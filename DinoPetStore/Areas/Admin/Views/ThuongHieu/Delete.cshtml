@@ -1,0 +1,53 @@
+﻿@model DinoPetStore.EF.THUONGHIEU
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>TRANG XÓA THƯƠNG HIỆU SẢN PHẨM</h1>
+
+<h3>Bạn có chắc chắn muốn xóa thương hiệu này không?</h3>
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Mã Thương Hiệu:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MATH)
+        </dd>
+        <dt>
+            Tên Thương Hiệu:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TENTH)
+        </dd>
+
+        <dt>
+            Logo Thương Hiệu:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LOGO)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+              <input type="submit" value="Cập Nhật" class="btn btn-success" /> |
+                <a href="@Url.Action("Index", "Hinh")" class="btn btn-danger btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </span>
+                    <span class="text">Huỷ</span>
+                </a>
+        </div>
+    }
+</div>

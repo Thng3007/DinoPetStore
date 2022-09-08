@@ -1,0 +1,62 @@
+﻿@model DinoPetStore.EF.PHANQUYEN
+
+@{
+    ViewBag.Title = "Xoá Phân Quyền";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h3 style="color: red;">Bạn chắc chắn muốn xoá quyền của Admin @Model.ADMIN.HOTEN ?</h3>
+<div>
+    <hr />
+    <div>
+
+        <dl class="dl-horizontal">
+            <dt>
+                Mã chức năng quyền:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MACHUCNANG)
+            </dd>
+
+            <dt>
+                Tên chức năng quyền:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CHUCNANG_QUYEN.TENCN)
+            </dd>
+            <dt>
+                Tên quản trị:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ADMIN.HOTEN)
+            </dd>
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <div class="col-md-offset-2 col-md-10">
+                    <button type="submit" class="btn btn-success btn-icon-split">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-check">
+
+                            </i>
+                        </span>
+                        <span class="text">Xoá</span>
+                    </button> |
+
+                    <a href="@Url.Action("listadmin", "Admin")" class="btn btn-danger btn-icon-split">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                        <span class="text">Huỷ</span>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,44 @@
+﻿@model DinoPetStore.EF.HINH
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h3>Bạn có chắc chắn muốn xóa không?</h3>
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            <label><strong>Tên Sản Phẩm:</strong></label><br />
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SANPHAM.TENSP)
+        </dd>
+        <dt>
+            <label><strong>Hình Ảnh:</strong></label><br />
+        </dt>
+
+        <dd>
+            <img src="@Url.Content("~/img/"+  Model.HINH1)" width="250px" />
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+<div class="form-actions no-color">
+    <input type="submit" value="Xoá" class="btn btn-success" /> |
+    <a href="@Url.Action("Index", "Hinh")" class="btn btn-danger btn-icon-split">
+        <span class="icon text-white-50">
+            <i class="fas fa-exclamation-triangle"></i>
+        </span>
+        <span class="text">Huỷ</span>
+    </a>
+</div>
+    }
+</div>

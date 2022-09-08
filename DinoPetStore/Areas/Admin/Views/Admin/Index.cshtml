@@ -1,0 +1,47 @@
+﻿@model DinoPetStore.EF.ADMIN
+@{
+    ViewBag.Title = "Trang Chủ";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    .text {
+        color: black;
+        position: absolute;
+        top: 20px;
+        margin-left: 20px;
+        background: rgb(255 255 255 / 42%);
+    }
+    
+</style>
+<img src="~/img/slider-image/pet2.jpg" style="height:max-content; color:white; " />
+<section id="home-articles">
+    <div class="wrapper">
+        <div class="inner">
+            <h2 class="section-title text-center" style="text-align:center">
+                @{ var ad = Session["Taikhoanadmin"] as DinoPetStore.EF.ADMIN;}
+                Nghe nhạc thư giãn nhé <span>Admin @ad.HOTEN</span>
+            </h2>
+            <div class="grid">
+
+                <div id="owl-home-articles-slider" class="owl-carousel owl-theme">
+                    <div class="item grid__item">
+                        <div class="article-item">
+                            <div class="article-img">
+                                <a style="text-align:center" href="https://www.youtube.com/watch?v=M5QY2_8704o&ab_channel=WorkMusicLab">
+
+                                    <div class="blog-post-audio">
+                                        <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/38AFNvoXP-U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+                                        <iframe width="1118" height="629" src="https://www.youtube.com/embed/IBKIzCxy55o" title="Chilling Vibes 🍀 Lofi Hip Hop Mix [Beats To Relax/ Chill to] - Rainy Night ~ SpongeBob Lofi" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

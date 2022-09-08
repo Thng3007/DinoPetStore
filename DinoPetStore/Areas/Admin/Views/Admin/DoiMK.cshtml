@@ -1,0 +1,79 @@
+﻿@model DinoPetStore.Areas.Admin.Models.DoiMKadmin
+
+@{
+    ViewBag.Title = "Đổi Mật Khẩu";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Đổi Mật Khẩu Quản Trị Viên</h2>
+
+@using (Html.BeginForm("DoiMK", "Admin", FormMethod.Post))
+
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+    <div style="color:red;font-size:small;text-align:initial">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    </div>
+    <div class="form-group">
+        <label><strong>Xác nhận mật khẩu cũ:</strong></label>
+        <div style="color:red;font-size:small;text-align:initial">
+            @Html.ValidationMessageFor(model => model.Checkpass, "", new { @class = "text-danger" })
+            @ViewBag.Thongbao
+        </div>
+        <div class="col-md-10">
+            @Html.PasswordFor(model => model.Checkpass, new { htmlAttributes = new { @class = "form-control" } })
+
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <label><strong>Nhập mật khẩu mới:</strong></label>
+        <div style="color:red;font-size:small;text-align:initial">
+            @Html.ValidationMessageFor(model => model.NewPass, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-10">
+            @Html.PasswordFor(model => model.NewPass, new { htmlAttributes = new { @class = "form-control" } })
+
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <label><strong>Xác nhận mật khẩu mới:</strong></label>
+        <div style="color:red;font-size:small;text-align:initial">
+            @Html.ValidationMessageFor(model => model.ConfirmPass, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-10">
+            @Html.PasswordFor(model => model.ConfirmPass, new { htmlAttributes = new { @class = "form-control" } })
+
+        </div>
+    </div>
+
+    <br />
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-success btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-check">
+
+                        </i>
+                    </span>
+                    <span class="text">Cập Nhật</span>
+                </button> |
+
+                <a href="@Url.Action("thongtinadmin", "Admin")" class="btn btn-danger btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </span>
+                    <span class="text">Huỷ</span>
+                </a>
+            </div>
+        </div>
+  </div>
+
+}
+

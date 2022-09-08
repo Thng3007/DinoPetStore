@@ -1,0 +1,45 @@
+﻿@model DinoPetStore.EF.LOAI
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h1>TRANG XÓA LOẠI SẢN PHẨM</h1>
+
+<h3>Bạn có chắc chắn muốn xóa loại này?</h3>
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Mã Loại:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MALOAI)
+        </dd>
+        <dt>
+            Tên Loại:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TENLOAI)
+        </dd>
+
+    </dl>
+    <br />
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa" class="btn btn-default" /> |
+            <a href="@Url.Action("Index", "Loai")" class="btn btn-danger btn-icon-split">
+                <span class="icon text-white-50">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </span>
+                <span class="text">Huỷ</span>
+            </a>
+        </div>
+    }
+</div>
+

@@ -1,0 +1,122 @@
+﻿@using DinoPetStore.EF
+@using PagedList.Mvc;
+@model PagedList.PagedList<DinoPetStore.EF.SANPHAM>
+@{
+    ViewBag.Title = "Trang quản lý sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+@helper Truncate(string input, int length)
+{
+    if (input.Length < length)
+    {
+        @input
+    }
+    else
+    {
+        @input.Substring(0, length)<text>...</text>
+    }
+}
+
+<h2>TRANG QUẢN LÝ SẢN PHẨM</h2>
+
+<h5 style="width:100%; padding-top:10px">
+    <u>
+        <a href="@Url.Action("Create", "SanPham")" class="btn btn-success btn-icon-split">
+            <span class="icon text-white-50">
+                <img style="margin-left:25px" src="~/img/icons/add.png" />
+            </span>
+            <span class="text">THÊM MỚI SẢN PHẨM</span>
+        </a>
+    </u>
+</h5>
+
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary text-center">DANH SÁCH THƯƠNG HIỆU</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"><div id="dataTable_filter" class="dataTables_filter"></div></div><div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                            <thead>
+                                <tr role="row">
+                                    <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 155.281px;">
+                                        Tên Sản Phẩm
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px;">
+                                        Giá Mua
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 260.344px;">
+                                        Giá Bán
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px;">
+                                        Thương Hiệu
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px;">
+                                        Loại
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px;">
+                                        Tồn Kho
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px;">
+                                        Ảnh Bìa
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px;">
+                                        Mô Tả
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TENSP)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DONGIAMUA)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DONGIABAN)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.THUONGHIEU.TENTH)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.LOAI.TENLOAI)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.SOLUONG)
+                                        </td>
+                                        <td>
+                                            <img src="@Url.Content("~/img/"+  item.HINHANH)" width="150" />
+                                        </td>
+                                        <td>
+                                            @Truncate(item.MOTA, 50)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Sửa", "Edit", new { id = item.MASP }) |
+                                            @Html.ActionLink("Chi tiết", "Details", new { id = item.MASP }) |
+                                            @Html.ActionLink("Xóa", "Delete", new { id = item.MASP })
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    Trang @(@Model.PageNumber>Model.PageCount?Model.PageCount: Model.PageNumber)/@Model.PageCount
+</div>
+<div align="center">@Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))</div>
+<link href="~/Content/phantrang.css" rel="stylesheet" />
+

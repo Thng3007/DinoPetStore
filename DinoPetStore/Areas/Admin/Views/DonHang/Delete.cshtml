@@ -1,0 +1,76 @@
+﻿@model DinoPetStore.EF.DONDATHANG
+
+@{
+    ViewBag.Title = "Xoá Đơn Hàng - Dino Pet Store";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<h3>Bạn Chắc Chắn Muốn Xoá Đơn Hàng Này</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Mã Khách Hàng :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MAKH)
+        </dd>
+
+        <dt>
+            Ngày Đặt :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NGAYDAT)
+        </dd>
+
+        <dt>
+            Ngày Giao :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NGAYGIAO)
+        </dd>
+
+        <dt>
+            Tình Trạng Đơn Hàng
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TINHTRANGDH)
+        </dd>
+
+        <dt>
+            Đã Thanh Toán :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DATHANHTOAN)
+        </dd>
+
+        <dt>
+            Tổng Tiền
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TONGTIEN)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+<div class="form-actions no-color">
+        <input type="submit" value="Xoá" class="btn btn-success" /> |
+        <a href="@Url.Action("DonDatHang", "DonHang")" class="btn btn-danger btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-exclamation-triangle"></i>
+            </span>
+            <span class="text">Huỷ</span>
+        </a>
+</div>
+    }
+</div>

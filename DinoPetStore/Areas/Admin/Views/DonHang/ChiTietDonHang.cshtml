@@ -1,0 +1,105 @@
+﻿@using PagedList.Mvc;
+@using DinoPetStore.EF;
+@model PagedList.PagedList<DinoPetStore.EF.CTDONDATHANG>
+
+
+@{
+    ViewBag.Title = "Chi tiết đơn hàng - Dino Store";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@*Chi Tiết Đơn hàng*@
+<div class="title_ne1"></div>
+<h2 style="padding-top:10px">CHI TIẾT ĐƠN HÀNG</h2>
+<br />
+
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary text-center">DANH SÁCH THƯƠNG HIỆU</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"><div id="dataTable_filter" class="dataTables_filter"></div></div><div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                            <thead>
+                                <tr role="row">
+                                    <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 155.281px; text-align: center">Tình Trạng Đơn Hàng</th>
+                                    <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 155.281px; text-align: center">Mã ĐH</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px; text-align: center">Mã SP</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px; text-align: center">Sản phẩm</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px; text-align: center">Số lượng</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px; text-align: center">Đơn giá</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px; text-align: center">Đơn Giá</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px; text-align: center">Thành tiền</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DONDATHANG.TINHTRANGDH)
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.MADH)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.MASP)
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("sanpham", "User", new { id = item.MASP })" target="_blank">
+                                                <img src="~/img/@item.SANPHAM.HINHANH" style="width: 80px;vertical-align:middle" />
+                                                <br>
+                                                <span style="font-weight: 700; color: #F60">@item.SANPHAM.TENSP</span>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.SANPHAM.TENSP)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.SANPHAM.SOLUONG)
+                                        </td>
+                                        <td>
+                                            <span style="font-weight: 700; color: #F60; font-size: 14px">@Html.DisplayFor(modelItem => item.DONGIA)<sup> VNĐ</sup></span>
+                                        </td>
+                                        <td>
+                                            <span style="font-weight: 700; color: #F60; font-size: 14px">@Html.DisplayFor(modelItem => item.THANHTIEN)<sup> VNĐ</sup></span>
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Xóa", "Delete", new { id = item.MADH })
+                                        </td>
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    Trang @(@Model.PageNumber>Model.PageCount?Model.PageCount: Model.PageNumber)/@Model.PageCount
+</div>
+<div align="center">@Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))</div>
+<link href="~/Content/phantrang.css" rel="stylesheet" />
+
+
+@*roadlinktop*@
+<ul class="roadlinktop">
+    <a href=@Url.Action("DonDatHang", "DonHang" )>
+        <br />
+    <li><span style="font-size:15px">Trở lại đơn hàng</span></li>
+    </a>
+</ul>

@@ -1,0 +1,69 @@
+﻿@model IEnumerable<DinoPetStore.EF.ADMIN>
+
+@{
+    ViewBag.Title = "Danh Sách Phân Quyền";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2 style="padding-top:10px">DANH SÁCH NGƯỜI QUẢN TRỊ - PHÂN QUYỀN</h2>
+
+<h5 style="width:100%; padding-top:20px">
+    <u>
+        <a href="@Url.Action("DSQuyen", "AdminPQ")" class="btn btn-success btn-icon-split">
+            <span class="icon text-white-50">
+                <img style="margin-left:25px" src="~/img/icons/ico_st.png" />
+            </span>
+            <span class="text">DANH SÁCH PHÂN QUYỀN</span>
+        </a>
+    </u>
+</h5>
+<h5 style="width:100%; padding-top:10px">
+    <u>
+        <a href="@Url.Action("Create", "AdminPQ")" class="btn btn-success btn-icon-split">
+            <span class="icon text-white-50">
+                <img style="margin-left:25px" src="~/img/icons/add.png" />
+            </span>
+            <span class="text">CẤP PHÂN QUYỀN CHO ADMIN</span>
+        </a>
+</u>
+</h5>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary text-center">Quản Lý Admin - Phân Quyền Admin</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <div class="row"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="dataTable_length"><label>Show <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select></label></div></div><div class="col-sm-12 col-md-6"><div id="dataTable_filter" class="dataTables_filter"></div></div></div><div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                            <thead>
+                                <tr role="row"><th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="LOAITAIKHOAN: activate to sort column descending" style="width: 155.281px;">Loại Tài Khoản</th><th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="HOTEN: activate to sort column ascending" style="width: 264.344px;">Họ Tên</th><th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="CHITIET: activate to sort column ascending" style="width: 111.406px;">Chi Tiết</th></tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TENLOAI)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.HOTEN)
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("ChiTietDSPhanQuyen", "AdminPQ", new { id = item.MAADMIN })">
+                                                <img style="margin-left:25px" src="~/img/info_25px.png" />
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
