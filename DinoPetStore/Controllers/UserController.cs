@@ -27,20 +27,22 @@ namespace DinoPetStore.Controllers
 
                           select new ProductViewModel
                           {
-                              MASP = a.MASP,
+                              MASP =  a.MASP,
                               TENSP = a.TENSP,
                               DONGIABAN = a.DONGIABAN,
                               HINHANH = a.HINHANH,
-                              MATH = a.MATH,
-                              MALOAI = a.MALOAI,
+                              MATH =  a.MATH,
+                              MALOAI =  a.MALOAI,
                               TENTH = b.TENTH,
                               TENLOAI = c.TENLOAI,
-                              SOLUONG = a.SOLUONG,
-                              MOTA = a.MOTA,
+                              SOLUONG =  a.SOLUONG,
+                              MOTA =  a.MOTA,
                               TENMAUSAC = d.TENMAUSAC,
                               LOGO = b.LOGO
                           }).OrderBy(x => x.MASP).Take(count: 6).ToList();
             return View(allacc);
+
+
         }
 
 

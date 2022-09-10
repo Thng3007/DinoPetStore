@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DinoPetStore.EF;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace DinoPetStore.Models
 {
     public class LienheModel
     {
-        DataClassesDataContext data = new DataClassesDataContext();
+        DinoStoreDbContext data = new DinoStoreDbContext();
 
         [Display(Name = "Họ và tên:")]
         [Required(ErrorMessage = " Họ tên không được để trống. ")]
