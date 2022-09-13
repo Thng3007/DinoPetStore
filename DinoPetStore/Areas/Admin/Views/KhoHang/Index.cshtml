@@ -7,12 +7,16 @@
 }
 
 
-<h5 style="width:100%; padding-top:10px">
+<h4 style="width: 100%; padding-top:20px;">
     <u>
-        <img style="margin-left:25px" src="~/img/icons/add.png" />
-        @Html.ActionLink("THÊM MỚI SỐ LƯỢNG SẢN PHẨM NHẬP KHO", "Create")
+        <a href="@Url.Action("Create", "KhoHang")" class="btn btn-success btn-icon-split">
+            <span class="icon text-white-50">
+                <img style="margin-left:25px" src="~/img/icons/add.png" />
+            </span>
+            <span class="text">THÊM MỚI SỐ LƯỢNG SẢN PHẨM NHẬP KHO</span>
+        </a>
     </u>
-</h5>
+</h4>
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
@@ -28,6 +32,7 @@
                                 <tr role="row">
                                     <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 155.281px;">Ngày Nhập</th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px;">Mã Sản Phẩm</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px;">Tên Sản Phẩm</th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px;">Số Lượng</th>
                                 </tr>
                             </thead>
@@ -41,6 +46,9 @@
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.MASP)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.SANPHAM.TENSP)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.SOLUONG)

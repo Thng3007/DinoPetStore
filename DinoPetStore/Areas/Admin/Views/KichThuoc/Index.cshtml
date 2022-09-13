@@ -12,8 +12,12 @@
 
 <h5 style="width:100%; padding-top:10px">
     <u>
-        <img style="margin-left:25px" src="~/img/icons/add.png" />
-        @Html.ActionLink("THÊM MỚI KÍCH THƯỚC", "Create")
+        <a href="@Url.Action("Create", "KichThuoc")" class="btn btn-success btn-icon-split">
+            <span class="icon text-white-50">
+                <img style="margin-left:25px" src="~/img/icons/add.png" />
+            </span>
+            <span class="text">THÊM MỚI KÍCH THƯỚC</span>
+        </a>
     </u>
 </h5>
 

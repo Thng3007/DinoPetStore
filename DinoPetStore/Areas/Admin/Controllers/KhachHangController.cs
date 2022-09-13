@@ -73,7 +73,9 @@ namespace DinoPetStore.Areas.Admin.Controllers
         public ActionResult Create(KHACHHANG kh, HttpPostedFileBase fileUpLoad)
         {
             if (Session["Taikhoanadmin"] == null)
+            {
                 return RedirectToAction("dangnhap", "Admin");
+            }
             else
             {
 
@@ -88,14 +90,17 @@ namespace DinoPetStore.Areas.Admin.Controllers
                     {
                         var fileName = Path.GetFileName(fileUpLoad.FileName);
                         var path = Path.Combine(Server.MapPath("~/img/"), fileName);
+                        var mahoamkKhach = MahoaMD5.GetMD5(kh.MATKHAUKH);
                         if (System.IO.File.Exists(path))
+                        {
                             ViewBag.Thongbao = "Hình ảnh đã tồn tại";
+                        }
                         else
                         {
                             fileUpLoad.SaveAs(path);
                         }
                         kh.HINHANH = fileName;
-                        kh.MATKHAUKH = MahoaMD5.GetMD5(kh.MATKHAUKH);
+                        kh.MATKHAUKH = mahoamkKhach;
                         db.KHACHHANGs.Add(kh);
                         db.SaveChanges();
 

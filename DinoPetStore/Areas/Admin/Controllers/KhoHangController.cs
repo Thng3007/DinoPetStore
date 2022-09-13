@@ -32,7 +32,7 @@ namespace DinoPetStore.Areas.Admin.Controllers
                 }
                 if (pageSize == null)
                 {
-                    pageSize = 10;
+                    pageSize = 8;
                 }
 
                 var khohang = data.PHIEUNHAPKHOes.ToList();

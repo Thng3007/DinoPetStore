@@ -9,6 +9,7 @@ using DinoPetStore.App_Start;
 using System.IO;
 using System.Data.Linq;
 using System.Security.Cryptography;
+using Newtonsoft.Json.Serialization;
 
 namespace DinoPetStore.Areas.Admin.Controllers
 {
@@ -101,9 +102,9 @@ namespace DinoPetStore.Areas.Admin.Controllers
             }
         }
 
-        [HttpPost, ActionName("Create")]
+        [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Them(ADMIN admin, HttpPostedFileBase fileUp)
+        public ActionResult Create(ADMIN admin, HttpPostedFileBase fileUp)
         {
             if (Session["Taikhoanadmin"] == null)
             {
@@ -113,21 +114,28 @@ namespace DinoPetStore.Areas.Admin.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var check = data.ADMINs.FirstOrDefault(e => e.EMAIL == admin.EMAIL);
-                    var fileName = Path.GetFileName(fileUp.FileName);
-                    var path = Path.Combine(Server.MapPath("~/img/"), fileName);
-                    if (System.IO.File.Exists(path))
+                    try
                     {
-                        ViewBag.Thongbao = "Hình Ảnh Đã Được Sử Dụng Hoặc Tồn Tại";
-                    }
-                    else
-                    {
-                        fileUp.SaveAs(path);
-                    }
+                        var fileName = Path.GetFileName(fileUp.FileName);
+                        var path = Path.Combine(Server.MapPath("~/img/"), fileName);
+                        if (System.IO.File.Exists(path))
+                        {
+                            ViewBag.Thongbao = "Hình Ảnh Đã Được Sử Dụng Hoặc Tồn Tại";
+                        }
+                        else
+                        {
+                            fileUp.SaveAs(path);
+                        }
                         admin.AVATAR = fileName;
-                        admin.MATKHAU = MahoaMD5.GetMD5(admin.MATKHAU);
                         data.ADMINs.Add(admin);
                         data.SaveChanges();
+                    }
+                    catch(Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
+
+
                 }
 
                 return RedirectToAction("listadmin", "Admin");

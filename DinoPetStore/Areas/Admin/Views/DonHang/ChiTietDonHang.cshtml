@@ -45,6 +45,17 @@
                                     <tr>
 
                                         <td>
+                                            
+                                            @*@{
+                                                if ( item.DONDATHANG.TINHTRANGDH == false) 
+                                                {
+                                                    Html.Display("<strong>Đang Giao Hàng</strong>");
+                                                }
+                                                else
+                                                {
+                                                    Html.Display("<strong>Đã Giao Hàng</strong>");
+                                                }
+                                            }*@
                                             @Html.DisplayFor(modelItem => item.DONDATHANG.TINHTRANGDH)
                                         </td>
 

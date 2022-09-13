@@ -7,7 +7,7 @@
 
 <h2>TẠO MỚI KHÁCH HÀNG</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "KhachHang", FormMethod.Post, new { @enctype = "multipart/form-data" })) 
 {
     @Html.AntiForgeryToken()
     
