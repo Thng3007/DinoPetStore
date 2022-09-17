@@ -1,1 +1,189 @@
-﻿
+﻿<!DOCTYPE html>
+<html>
+    <header>
+        <title>Dino's Pet Store</title>
+    </header>
+
+    <body>
+        <h3>Dino's Pet Store</h3>
+        @RenderBody()
+
+    </body>
+
+    <footer id="footer">
+            <div id="ft-social-network" class="clearfix large--hide">
+                <a href="https://www.facebook.com/thng1701" class="fb-icon"><i class="fa fa-facebook" aria-hidden="true"></i> Facebook</a>
+                <a href="https://www.facebook.com/thng1701" class="mess-icon"><i class="fab fa-facebook-messenger" aria-hidden="true"></i> Messenger</a>
+                <a href="https://www.youtube.com/" class="yt-icon"><i class="fa fa-youtube" aria-hidden="true"></i> Youtube</a>
+            </div>
+            <div class="ft-content">
+                <div class="wrapper">
+                    <div class="inner">
+                        <div class="grid">
+                            <div class="grid__item large--four-twelfths medium--one-whole small--one-whole">
+                                <div class="ft-contact">
+                                    <h3>Hệ thống cửa hàng thú cưng</h3>
+                                    <div class="ft-contact-address">
+                                        Địa chỉ: Đường B19 KDC 91B, phường An Khánh, quận Ninh Kiều, Cần Thơ
+                                    </div>
+                                    <div class="ft-contact-tel">
+                                        Số điện thoại: <a href="tel:0939542288">0939542288</a>
+                                    </div>
+                                    <div class="ft-contact-email">
+                                        Email: <a href="mailto:thng1701@gmail.com">thng1701@gmail.com</a>
+                                    </div>
+                                    <div class="ft-certification">
+                                        <a href="javascript:void(0)"><img src="~/img/ft_certi_img15eef.png" alt="Đã thông báo Bộ Công Thương" /></a>
+                                        <a href="javascript:void(0)"><img src="~/img/ft_certi_img25eef.png" alt="Đã đăng ký Bộ Công Thương" /></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="grid__item large--two-twelfths medium--one-third small--one-half">
+                                <div class="ft-nav">
+                                    <h3>Liên kết nhanh</h3>
+                                    <ul class="no-bullets">
+                                        <li>
+                                            <a href="@Url.Action("gioithieu","User")">Giới thiệu</a>
+                                        </li>
+
+                                        <li>
+                                            <a>Chính sách đổi trả</a>
+                                        </li>
+
+                                        <li>
+                                            <a>Chính sách bảo mật</a>
+                                        </li>
+
+                                        <li>
+                                            <a>Điều khoản dịch vụ</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="grid__item large--two-twelfths medium--one-third small--one-half">
+                                <div class="ft-oh">
+                                    <h3>Giờ hoạt động</h3>
+                                    <div class="ft-oh-desc">
+                                        Từ 8:00 - 23:00 tất cả các ngày trong tuần (bao gồm cả các ngày lễ, ngày Tết).
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="grid__item large--four-twelfths medium--one-third small--one-whole">
+                                <div class="ft-subscribe">
+                                    <h3>Kết nối với chúng tôi</h3>
+                                    <div class="ft-sub-desc">
+                                        <a href="https://www.facebook.com/thng1701" class="fb-icon"><i class="fa fa-facebook" aria-hidden="true"></i> Facebook</a>
+                                        <a href="https://www.facebook.com/thng1701" class="mess-icon"><i class="fab fa-facebook-messenger" aria-hidden="true"></i> Messenger</a>
+                                        <a href="https://www.youtube.com/" class="yt-icon"><i class="fa fa-youtube" aria-hidden="true"></i> Youtube</a>
+                                    </div>
+                                    <div class="ft-sub-wrapper">
+
+                                        <form accept-charset='UTF-8' action='mailto:thng1701@gmail.com' class='contact-form' method='post'>
+                                            <input name='form_type' type='hidden' value='customer'>
+                                            <input name='utf8' type='hidden' value='✓'>
+
+
+
+
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ft-copyrights-wrapper">
+                <div class="wrapper">
+
+                    <div class="inner">
+                        <div class="grid">
+                            <div class="grid__item large--one-third small--one-whole">
+                                <div class="ft-links text-left">
+
+                                    <div class="payment text-right text-lm-center" style="margin-right:50px">
+                                        <img src="~/img/icons/payment.png" alt="" class="img-responsive" style="width:250px">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="grid__item large--one-third small--one-whole">
+                                <div class="ft-social-network text-center" style="margin-top:5px">
+
+                                    <a href="https://www.facebook.com/thng1701"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+
+                                    <a href="https://www.facebook.com/thng1701" class="mess-icon"><i class="fab fa-facebook-messenger" aria-hidden="true"></i></a>
+
+                                    <a href="https://www.youtube.com/"><i class="fa fa-youtube" aria-hidden="true"></i></a>
+
+                                </div>
+                            </div>
+                            <div class="grid__item large--one-third small--one-whole">
+                                <div class="ft-copyrights text-right" style="padding-top:5px">
+                                    Copyrights © 2022 by <a target="_blank" href="mailto:thng1701@gmail.com">Thanh Nguyễn</a>.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div id="fixed-social-network" class="medium--hide small--hide">
+
+            @* Hiển thị logo liên kết đường dẫn bên góc phải trang *@
+            <a href="https://www.facebook.com/thng1701" class="fb-icon"><i class="fa fa-facebook" aria-hidden="true"></i> Facebook</a>
+            <a href="https://www.facebook.com/thng1701" class="mess-icon"><i class="fab fa-facebook-messenger" aria-hidden="true"></i> Messenger</a>
+            <a href="https://www.youtube.com/" class="yt-icon"><i class="fa fa-youtube" aria-hidden="true"></i> Youtube</a>
+            <a href="javascript:void(0)" id="back-to-top"><i class="fa fa-angle-up" aria-hidden="true"></i> Top</a>
+        </div>
+        <div class="hotline-phone-ring-wrap" style="margin-bottom:50px">
+            <div class="hotline-phone-ring">
+                <div class="hotline-phone-ring-circle"></div>
+                <div class="hotline-phone-ring-circle-fill"></div>
+                <div class="hotline-phone-ring-img-circle">
+                    <a href="tel:0939542288" class="pps-btn-img">
+                        <img src="https://nguyenhung.net/wp-content/uploads/2019/05/icon-call-nh.png" alt="Gọi điện thoại" width="50">
+                    </a>
+                </div>
+            </div>
+            <div class="hotline-bar">
+                <a href="tel:0939542288">
+                    <span class="text-hotline">0939542288</span>
+                </a>
+            </div>
+        </div>
+        <link href="~/Content/Call.css" rel="stylesheet" />
+        <!-- Messenger Plugin chat Code -->
+        <div id="fb-root"></div>
+
+        <!-- Your Plugin chat code -->
+        <div id="fb-customer-chat" class="fb-customerchat">
+        </div>
+
+        <script>
+            var chatbox = document.getElementById('fb-customer-chat');
+            chatbox.setAttribute("page_id", "108011378303902");
+            chatbox.setAttribute("attribution", "biz_inbox");
+        </script>
+
+        <!-- Your SDK code -->
+        <script>
+            window.fbAsyncInit = function () {
+                FB.init({
+                    xfbml: true,
+                    version: 'v14.0'
+                });
+            };
+
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        </script>
+    </footer>
+</html>
