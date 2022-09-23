@@ -1,189 +1,287 @@
-﻿<!DOCTYPE html>
+﻿<!--
+author: W3layouts
+author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
 <html>
-    <header>
-        <title>Dino's Pet Store</title>
-    </header>
+<head>
+    <title>Dino's Pet Store</title>
+    <!-- for-mobile-apps -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="application/x-javascript">
+        addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+               function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- //for-mobile-apps -->
+    <link href="~/Asses/User/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/Asses/User/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- font-awesome icons -->
+    <link href="~/Asses/User/css/font-awesome.css" rel="stylesheet">
+    <!-- //font-awesome icons -->
+    <!-- js -->
+    <script src="~/Asses/User/js/jquery-1.11.1.min.js"></script>
+    <!-- //js -->
+    <link href='//fonts.googleapis.com/css?family=Raleway:400,100,100italic,200,200italic,300,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+    <!-- start-smoth-scrolling -->
+    <script type="text/javascript" src="~/Asses/User/js/move-top.js"></script>
+    <script type="text/javascript" src="~/Asses/User/js/easing.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
+            });
+        });
+    </script>
+    <!-- start-smoth-scrolling -->
+</head>
 
-    <body>
-        <h3>Dino's Pet Store</h3>
-        @RenderBody()
-
-    </body>
-
-    <footer id="footer">
-            <div id="ft-social-network" class="clearfix large--hide">
-                <a href="https://www.facebook.com/thng1701" class="fb-icon"><i class="fa fa-facebook" aria-hidden="true"></i> Facebook</a>
-                <a href="https://www.facebook.com/thng1701" class="mess-icon"><i class="fab fa-facebook-messenger" aria-hidden="true"></i> Messenger</a>
-                <a href="https://www.youtube.com/" class="yt-icon"><i class="fa fa-youtube" aria-hidden="true"></i> Youtube</a>
+<body>
+    <!-- header -->
+    <div class="agileits_header">
+        <div class="container">
+            <div class="w3l_offers">
+                <p>Khuyến Mãi Mua Lần Đầu. Nhập Ngay Code "SALE70%" . <a href="@Url.Action("sanpham", "User")">Mua Ngay Thôi</a></p>
             </div>
-            <div class="ft-content">
-                <div class="wrapper">
-                    <div class="inner">
-                        <div class="grid">
-                            <div class="grid__item large--four-twelfths medium--one-whole small--one-whole">
-                                <div class="ft-contact">
-                                    <h3>Hệ thống cửa hàng thú cưngzzz</h3>
-                                    <div class="ft-contact-address">
-                                        Địa chỉ: Đường B19 KDC 91B, phường An Khánh, quận Ninh Kiều, Cần Thơ
-                                    </div>
-                                    <div class="ft-contact-tel">
-                                        Số điện thoại: <a href="tel:0939542288">0939542288</a>
-                                    </div>
-                                    <div class="ft-contact-email">
-                                        Email: <a href="mailto:thng1701@gmail.com">thng1701@gmail.com</a>
-                                    </div>
-                                    <div class="ft-certification">
-                                        <a href="javascript:void(0)"><img src="~/img/ft_certi_img15eef.png" alt="Đã thông báo Bộ Công Thương" /></a>
-                                        <a href="javascript:void(0)"><img src="~/img/ft_certi_img25eef.png" alt="Đã đăng ký Bộ Công Thương" /></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="grid__item large--two-twelfths medium--one-third small--one-half">
-                                <div class="ft-nav">
-                                    <h3>Liên kết nhanh</h3>
-                                    <ul class="no-bullets">
-                                        <li>
-                                            <a href="@Url.Action("gioithieu","User")">Giới thiệu</a>
-                                        </li>
+            <div class="agile-login">
+                <ul>
+                    <li><a href="@Url.Action("dangky", "User")"> Đăng Ký </a></li>
+                    <li><a href="@Url.Action("dangnhap", "User")">Login</a></li>
+                    <li><a href="@Url.Action("Lienhe", "User")">Help</a></li>
 
-                                        <li>
-                                            <a>Chính sách đổi trả</a>
-                                        </li>
-
-                                        <li>
-                                            <a>Chính sách bảo mật</a>
-                                        </li>
-
-                                        <li>
-                                            <a>Điều khoản dịch vụ</a>
-                                        </li>
-
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="grid__item large--two-twelfths medium--one-third small--one-half">
-                                <div class="ft-oh">
-                                    <h3>Giờ hoạt động</h3>
-                                    <div class="ft-oh-desc">
-                                        Từ 8:00 - 23:00 tất cả các ngày trong tuần (bao gồm cả các ngày lễ, ngày Tết).
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="grid__item large--four-twelfths medium--one-third small--one-whole">
-                                <div class="ft-subscribe">
-                                    <h3>Kết nối với chúng tôi</h3>
-                                    <div class="ft-sub-desc">
-                                        <a href="https://www.facebook.com/thng1701" class="fb-icon"><i class="fa fa-facebook" aria-hidden="true"></i> Facebook</a>
-                                        <a href="https://www.facebook.com/thng1701" class="mess-icon"><i class="fab fa-facebook-messenger" aria-hidden="true"></i> Messenger</a>
-                                        <a href="https://www.youtube.com/" class="yt-icon"><i class="fa fa-youtube" aria-hidden="true"></i> Youtube</a>
-                                    </div>
-                                    <div class="ft-sub-wrapper">
-
-                                        <form accept-charset='UTF-8' action='mailto:thng1701@gmail.com' class='contact-form' method='post'>
-                                            <input name='form_type' type='hidden' value='customer'>
-                                            <input name='utf8' type='hidden' value='✓'>
-
-
-
-
-                                        </form>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </ul>
             </div>
-            <div class="ft-copyrights-wrapper">
-                <div class="wrapper">
-
-                    <div class="inner">
-                        <div class="grid">
-                            <div class="grid__item large--one-third small--one-whole">
-                                <div class="ft-links text-left">
-
-                                    <div class="payment text-right text-lm-center" style="margin-right:50px">
-                                        <img src="~/img/icons/payment.png" alt="" class="img-responsive" style="width:250px">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="grid__item large--one-third small--one-whole">
-                                <div class="ft-social-network text-center" style="margin-top:5px">
-
-                                    <a href="https://www.facebook.com/thng1701"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-
-                                    <a href="https://www.facebook.com/thng1701" class="mess-icon"><i class="fab fa-facebook-messenger" aria-hidden="true"></i></a>
-
-                                    <a href="https://www.youtube.com/"><i class="fa fa-youtube" aria-hidden="true"></i></a>
-
-                                </div>
-                            </div>
-                            <div class="grid__item large--one-third small--one-whole">
-                                <div class="ft-copyrights text-right" style="padding-top:5px">
-                                    Copyrights © 2022 by <a target="_blank" href="mailto:thng1701@gmail.com">Thanh Nguyễn</a>.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="product_list_header">
+                <form action="#" method="post" class="last">
+                    <input type="hidden" name="cmd" value="_cart">
+                    <input type="hidden" name="display" value="1">
+                    <button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
+                </form>
             </div>
-        <div id="fixed-social-network" class="medium--hide small--hide">
-
-            @* Hiển thị logo liên kết đường dẫn bên góc phải trang *@
-            <a href="https://www.facebook.com/thng1701" class="fb-icon"><i class="fa fa-facebook" aria-hidden="true"></i> Facebook</a>
-            <a href="https://www.facebook.com/thng1701" class="mess-icon"><i class="fab fa-facebook-messenger" aria-hidden="true"></i> Messenger</a>
-            <a href="https://www.youtube.com/" class="yt-icon"><i class="fa fa-youtube" aria-hidden="true"></i> Youtube</a>
-            <a href="javascript:void(0)" id="back-to-top"><i class="fa fa-angle-up" aria-hidden="true"></i> Top</a>
+            <div class="clearfix"> </div>
         </div>
-        <div class="hotline-phone-ring-wrap" style="margin-bottom:50px">
-            <div class="hotline-phone-ring">
-                <div class="hotline-phone-ring-circle"></div>
-                <div class="hotline-phone-ring-circle-fill"></div>
-                <div class="hotline-phone-ring-img-circle">
-                    <a href="tel:0939542288" class="pps-btn-img">
-                        <img src="https://nguyenhung.net/wp-content/uploads/2019/05/icon-call-nh.png" alt="Gọi điện thoại" width="50">
-                    </a>
+    </div>
+
+    <div class="logo_products">
+        <div class="container">
+            <div class="w3ls_logo_products_left1">
+                <ul class="phone_email">
+                    <li><i class="fa fa-phone" aria-hidden="true"></i>Ship Cod Toàn Quốc Gọi Vào Số : (+084) 939 542 288</li>
+
+                </ul>
+            </div>
+            <div class="w3ls_logo_products_left">
+                <h1><a href="@Url.Action("Index", "User")">Dino's Pet Store</a></h1>
+            </div>
+            <div class="w3l_search">
+                <form action="#" method="post">
+                    <input type="search" name="Search" placeholder="Nhập để tìm kiếm sản phẩm..." required="">
+                    <button type="submit" class="btn btn-default search" aria-label="Left Align">
+                        <i class="fa fa-search" aria-hidden="true"> </i>
+                    </button>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    <!-- //header -->
+    <!-- navigation -->
+    <div class="navigation-agileits">
+        <div class="container">
+            <nav class="navbar navbar-default">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header nav_2">
+                    <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
                 </div>
-            </div>
-            <div class="hotline-bar">
-                <a href="tel:0939542288">
-                    <span class="text-hotline">0939542288</span>
-                </a>
+                <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="@Url.Action("Index", "User")" class="act">Trang Chủ</a></li>
+                        <li class="active"><a href="@Url.Action("sanpham", "User")" class="act">Sản Phẩm</a></li>
+
+                        <!-- Mega Menu -->
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Loại Sản Phẩm<b class="caret"></b></a>
+                            <ul class="dropdown-menu multi-column columns-3">
+                                <div class="row">
+                                    <div class="multi-gd-img">
+                                        <ul class="multi-column-dropdown">
+                                            <h6>All Household</h6>
+                                            <li><a href="household.html">Thức Ăn Cho Mèo</a></li>
+                                            <li><a href="household.html">Thức Ăn Cho Chó</a></li>
+                                            <li><a href="household.html">Sữa Tắm Cho Chó</a></li>
+                                            <li><a href="household.html">Quần Áo Cho Mèo</a></li>
+                                            <li><a href="household.html">Phụ Kiện Vệ Sinh</a></li>
+                                            <li><a href="household.html">Sức Khỏe Cho Thú Cưng </a></li>
+                                            <li><a href="household.html">Đồ Chơi</a></li>
+                                            <li><a href="household.html">Khác</a></li>
+
+                                        </ul>
+                                    </div>
+
+
+                                </div>
+                            </ul>
+                        </li>
+                        <li><a href="#">Thương Hiệu</a></li>
+                        <li><a href="#">Giảm Giá</a></li>
+                        <li><a href="@Url.Action("Lienhe", "User")">Liên Hệ</a></li>
+                        <li>
+                            @if (Session["Taikhoan"] != null)
+                            {
+                                var kh = Session["Taikhoan"] as DinoPetStore.EF.KHACHHANG;
+                                <a href="@Url.Action("thongtincanhan","User")">
+                                    <span>
+                                        <img class="img-profile rounded-circle" style="height: 3.5rem; width: 3rem"  src="@Url.Content("~/img/" + kh.HINHANH)"/>
+                                    </span>
+                                </a>
+
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("dangnhap", "User")"> Tài Khoản</a>
+                            }
+                        </li>
+                        <li>
+                            @if (Session["Taikhoan"] != null)
+                            {
+                                <a href="@Url.Action("dangxuat","User")"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+                            }
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <!-- //navigation -->
+    <!-- //top-header and slider -->
+    <!-- top-brands -->
+    @RenderSection("slide", required: false)
+    <!-- //top-brands -->
+    <!--RenderBody-->
+
+    @RenderBody()
+
+    <!-- //footer -->
+    <div class="footer">
+        <div class="container">
+            <div class="w3_footer_grids">
+                <div class="col-md-3 w3_footer_grid">
+                    <h3>LIÊN HỆ</h3>
+
+                    <ul class="address">
+                        <li><i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i>Số 35 B19 , KDC 91B <span>Ninh Kiều, Cẩn Thơ.</span></li>
+                        <li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a href="mailto:thng1701@gmail.com">thng1701@gmail.com</a></li>
+                        <li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>(+84) 939 542 288</li>
+                    </ul>
+                </div>
+                <div class="col-md-3 w3_footer_grid">
+                    <h3>THÔNG TIN VỀ CHÚNG TÔI</h3>
+                    <ul class="info">
+                        <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="@Url.Action("gioithieu", "User")">Về Chúng Tôi</a></li>
+                        <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="@Url.Action("Lienhe", "User")">Liên Hệ</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 w3_footer_grid">
+                    <h3>SẢN PHẨM</h3>
+                    <ul class="info">
+                        <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="@Url.Action("sanpham", "User")">Sản Phẩm</a></li>
+                        <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="@Url.Action("thuonghieu", "User")">Thương Hiệu</a></li>
+                        <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="personalcare.html">Tin Tức</a></li>
+                        <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="packagedfoods.html">Giải Trí</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 w3_footer_grid">
+                    <h3>Cá Nhân</h3>
+                    <ul class="info">
+                        <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="checkout.html">Giỏ Hàng Của Tôi</a></li>
+                        <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="@Url.Action("dangnhap", "User")">Đăng Nhập</a></li>
+                        <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="@Url.Action("dangky", "User")">Đăng Ký</a></li>
+                    </ul>
+                </div>
+
+                <div class="clearfix"> </div>
             </div>
         </div>
-        <link href="~/Content/Call.css" rel="stylesheet" />
-        <!-- Messenger Plugin chat Code -->
-        <div id="fb-root"></div>
 
-        <!-- Your Plugin chat code -->
-        <div id="fb-customer-chat" class="fb-customerchat">
+        <div class="footer-copy">
+
+            <div class="container">
+                <p>© 2022 Dino's Pet Store'. All rights reserved | Design by <strong>Thanh Nguyen</strong></p>
+            </div>
         </div>
 
-        <script>
-            var chatbox = document.getElementById('fb-customer-chat');
-            chatbox.setAttribute("page_id", "108011378303902");
-            chatbox.setAttribute("attribution", "biz_inbox");
-        </script>
+    </div>
+    <div class="footer-botm">
+        <div class="container">
+            <div class="w3layouts-foot">
+                <ul>
+                    <li><a href="https://www.facebook.com/thng1701" class="w3_agile_facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                    <li><a href="https://www.youtube.com/" class="w3_agile_vimeo"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                </ul>
+            </div>
+            <div class="payment-w3ls">
+                <img src="~/img/icons/card.png" alt=" " class="img-responsive">
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    <!-- //footer -->
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/Asses/User/js/bootstrap.min.js"></script>
 
-        <!-- Your SDK code -->
-        <script>
-            window.fbAsyncInit = function () {
-                FB.init({
-                    xfbml: true,
-                    version: 'v14.0'
-                });
-            };
+    <!-- top-header and slider -->
+    <!-- here stars scrolling icon -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            /*
+                var defaults = {
+                containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear'
+                };
+            */
 
-            (function (d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id)) return;
-                js = d.createElement(s); js.id = id;
-                js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
-                fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));
-        </script>
-    </footer>
+            $().UItoTop({ easingType: 'easeOutQuart' });
+
+        });
+    </script>
+    <!-- //here ends scrolling icon -->
+    <script src="~/Asses/User/js/minicart.min.js"></script>
+    <script>
+        // Mini Cart
+        paypal.minicart.render({
+            action: '#'
+        });
+
+        if (~window.location.search.indexOf('reset=true')) {
+            paypal.minicart.reset();
+        }
+    </script>
+    <!-- main slider-banner -->
+    <script src="~/Asses/User/js/skdslider.min.js"></script>
+    <link href="~/Asses/User/css/skdslider.css" rel="stylesheet" />
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            jQuery('#demo1').skdslider({ 'delay': 5000, 'animationSpeed': 2500, 'showNextPrev': true, 'showPlayButton': true, 'autoSlide': true, 'animationType': 'fading' });
+
+            jQuery('#responsive').change(function () {
+                $('#responsive_wrapper').width(jQuery(this).val());
+            });
+
+        });
+    </script>
+    <!-- //main slider-banner -->
+</body>
 </html>

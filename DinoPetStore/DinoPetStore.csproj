@@ -1997,6 +1997,17 @@
     <Content Include="Asses\Admin\vendor\jquery\jquery.min.js" />
     <Content Include="Asses\Admin\vendor\jquery\jquery.slim.js" />
     <Content Include="Asses\Admin\vendor\jquery\jquery.slim.min.js" />
+    <Content Include="Asses\User\css\bootstrap.css" />
+    <Content Include="Asses\User\css\font-awesome.css" />
+    <Content Include="Asses\User\css\skdslider.css" />
+    <Content Include="Asses\User\css\style.css" />
+    <Content Include="Asses\User\js\bootstrap.min.js" />
+    <Content Include="Asses\User\js\easing.js" />
+    <Content Include="Asses\User\js\jquery-1.11.1.min.js" />
+    <Content Include="Asses\User\js\minicart.min.js" />
+    <Content Include="Asses\User\js\move-top.js" />
+    <Content Include="Asses\User\js\responsiveslides.min.js" />
+    <Content Include="Asses\User\js\skdslider.min.js" />
     <Content Include="Asses\User\slick-theme.css" />
     <Content Include="Asses\User\slick.css" />
     <Content Include="Asses\User\style.css" />
@@ -2244,10 +2255,6 @@
     <Content Include="img\banner-image\2.jpg" />
     <Content Include="img\banner-image\3.jpg" />
     <Content Include="img\banner-image\9.jpg" />
-    <Content Include="img\banner-image\banner.png" />
-    <Content Include="img\banner-image\bradcam.png" />
-    <Content Include="img\banner-image\contact_bg.png" />
-    <Content Include="img\banner-image\dog.png" />
     <Content Include="img\banner-image\get_upto.png" />
     <Content Include="img\banner-image\img.png" />
     <Content Include="img\blog-image\2.jpg" />
@@ -2273,6 +2280,7 @@
     <Content Include="img\icons\bg_Texbox.png" />
     <Content Include="img\icons\bg_title.png" />
     <Content Include="img\icons\block.png" />
+    <Content Include="img\icons\card.png" />
     <Content Include="img\icons\cash_50px.png" />
     <Content Include="img\icons\female.png" />
     <Content Include="img\icons\food_truck_50px.png" />
@@ -2759,6 +2767,15 @@
     <Content Include="Content\bootstrap-grid.rtl.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Asses\User\fonts\fontawesome-webfont.eot" />
+    <Content Include="Asses\User\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Asses\User\fonts\fontawesome-webfont.woff" />
+    <Content Include="Asses\User\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Asses\User\fonts\FontAwesome.otf" />
+    <Content Include="Asses\User\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Asses\User\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Asses\User\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Asses\User\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
@@ -2782,6 +2799,8 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\Lienhe.cshtml" />
+    <Content Include="Views\User\dangnhap.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

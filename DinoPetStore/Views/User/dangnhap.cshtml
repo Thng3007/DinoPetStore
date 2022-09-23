@@ -1,0 +1,74 @@
+﻿@model DinoPetStore.Models.DangNhapModel
+@{
+    ViewBag.Title = "Đăng Nhập";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="breadcrumbs">
+    <div class="container">
+        <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+            <li><a href="@Url.Action("Index", "User")"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Trang Chủ</a></li>
+            <li class="active">Trang Đăng Nhập</li>
+        </ol>
+    </div>
+</div>
+<!-- //breadcrumbs -->
+<!-- login -->
+<div class="login">
+    <div class="container">
+        <h2>Đăng Nhập</h2>
+
+        <h4 style="color:red; text-align:center"> @ViewBag.Thongbao</h4>
+        <div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
+            @using (Html.BeginForm("dangnhap", "User", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+
+                <div class="form-horizontal">
+
+                    <div style="color:red;font-size:small;text-align:initial">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    </div>
+
+
+                    <div class="form-group" style="text-align:left;">
+                        @Html.LabelFor(model => model.tendn, htmlAttributes: new { @class = "control-label" })
+                        <div style="color:red;font-size:small;text-align:initial">
+                            @Html.ValidationMessageFor(model => model.tendn, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line input-full " data-val="true" data-val-required=" Tên đăng nhập không được để trống. " id="tendn" name="tendn" type="text" value="">
+
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="text-align:left;">
+                        @Html.LabelFor(model => model.matkhau, htmlAttributes: new { @class = "control-label " })
+                        <div style="color:red;font-size:small;text-align:initial">
+                            @Html.ValidationMessageFor(model => model.matkhau, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-10">
+                            <input class="form-control text-box single-line input-full" data-val="true" data-val-length="Độ dài mật khẩu ít nhất 6 - 20 ký tự. " data-val-length-max="20" data-val-length-min="6" data-val-required="Mật khẩu không được để trống. " id="matkhau" name="matkhau" type="password" value="">
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Đăng nhập" class="btn btn--full" />
+                        </div>
+                    </div>
+                    <div class="forgot">
+                        <a href="@Url.Action("QuenMK", "User")">Quên Mật Khẩu?</a>
+                    </div>
+                </div>
+
+            }
+
+        </div>
+        <h4>Dành Cho Khách Hàng Mới</h4>
+        <p><a href="@Url.Action("dangky", "User")">Đăng Ký Ngay !!</a> (hoặc) trở về <a href="@Url.Action("Index", "User")">Trang Chủ<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
+    </div>
+</div>
+<!-- //login -->

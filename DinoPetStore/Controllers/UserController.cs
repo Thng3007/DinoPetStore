@@ -499,7 +499,7 @@ namespace DinoPetStore.Controllers
 
 
         [NonAction]
-        public void sendcontact(string Name, string Email, string Subject, string Content)
+        public void Sendcontact(string Name, string Email, string Subject, string Content)
         {
             KHACHHANG kh = new KHACHHANG();
             var fromEmail = new MailAddress("thanhb1807525@student.ctu.edu.com", "Dino Pet Store"); //email
@@ -553,6 +553,36 @@ namespace DinoPetStore.Controllers
         public ActionResult thongbaolienhe()
         {
             return View();
+        }
+
+
+        [NonAction]
+        public void sendcontact(string name, string email, string Subject, string message)
+        {
+            KHACHHANG kh = new KHACHHANG();
+            var fromEmail = new MailAddress("thanh170120@outlook.com.vn");
+            var toEmail = new MailAddress(kh.EMAIL);
+            var fromEmailPassword = "thanh30072020"; // password
+            string subject = Subject;
+            string body = "<br/> Họ tên: " + name + "<br/><br/> Email: " + " " + email + "<br/><br/> Nội dung: " + message;
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.office365.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromEmail.Address, fromEmailPassword)
+            };
+
+            using (var tinnhan = new MailMessage(fromEmail, toEmail)
+            {
+                Subject = subject,
+                Body = body,
+                IsBodyHtml = true
+            }) smtp.Send(tinnhan);
+
         }
     }
 }
