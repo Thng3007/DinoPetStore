@@ -17,14 +17,14 @@ namespace DinoPetStore.Controllers
         //Xay dung trang Gio hang
         public ActionResult GioHang()
         {
-            List<GioHang> dsGiohang = LayGioHang();
-            if (dsGiohang.Count == 0)
-            {
-                return RedirectToAction("Index", "User");
-            }
-            ViewBag.Tongsoluong = TongSoLuong();
-            ViewBag.Tongtien = TongTien();
-            return View(dsGiohang);
+            //List<GioHang> dsGiohang = LayGioHang();
+            //if (dsGiohang.Count == 0)
+            //{
+            //    return RedirectToAction("Index", "User");
+            //}
+            //ViewBag.Tongsoluong = TongSoLuong();
+            //ViewBag.Tongtien = TongTien();
+            return View(/*dsGiohang*/);
         }
 
         public List<GioHang> LayGioHang()

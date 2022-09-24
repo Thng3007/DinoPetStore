@@ -49,13 +49,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <div class="agile-login">
                 <ul>
                     <li><a href="@Url.Action("dangky", "User")"> Đăng Ký </a></li>
-                    <li><a href="@Url.Action("dangnhap", "User")">Login</a></li>
                     <li><a href="@Url.Action("Lienhe", "User")">Help</a></li>
 
                 </ul>
             </div>
             <div class="product_list_header">
-                <form action="#" method="post" class="last">
+                <form action="@Html.ActionLink("GiohangPartial", "GioHang")" method="post" class="last">
                     <input type="hidden" name="cmd" value="_cart">
                     <input type="hidden" name="display" value="1">
                     <button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
@@ -204,7 +203,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <div class="col-md-3 w3_footer_grid">
                     <h3>Cá Nhân</h3>
                     <ul class="info">
-                        <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="checkout.html">Giỏ Hàng Của Tôi</a></li>
+                        <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="@Url.Action("GioHang", "GioHang")">Giỏ Hàng Của Tôi</a></li>
                         <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="@Url.Action("dangnhap", "User")">Đăng Nhập</a></li>
                         <li><i class="fa fa-arrow-right" aria-hidden="true"></i><a href="@Url.Action("dangky", "User")">Đăng Ký</a></li>
                     </ul>
