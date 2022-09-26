@@ -37,6 +37,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         });
     </script>
     <!-- start-smoth-scrolling -->
+
+
 </head>
 
 <body>
@@ -76,11 +78,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <h1><a href="@Url.Action("Index", "User")">Dino's Pet Store</a></h1>
             </div>
             <div class="w3l_search">
-                <form action="#" method="post">
-                    <input type="search" name="Search" placeholder="Nhập để tìm kiếm sản phẩm..." required="">
-                    <button type="submit" class="btn btn-default search" aria-label="Left Align">
-                        <i class="fa fa-search" aria-hidden="true"> </i>
-                    </button>
+                <form action="@Url.Action("Ketquatimkiem", "User")">
+                    @using (Html.BeginForm(FormMethod.Get))
+                    {
+                        <input id="SearchString" type="search" name="SearchString" placeholder="Nhập để tìm kiếm sản phẩm..." required="">
+                        <button type="submit" class="btn btn-default search" aria-label="Left Align">
+                            <i class="fa fa-search" aria-hidden="true"> </i>
+                        </button>
+                    }
                     <div class="clearfix"></div>
                 </form>
             </div>
@@ -105,33 +110,39 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="@Url.Action("Index", "User")" class="act">Trang Chủ</a></li>
-                        <li class="active"><a href="@Url.Action("sanpham", "User")" class="act">Sản Phẩm</a></li>
 
                         <!-- Mega Menu -->
+                        <li class="active"><a href="@Url.Action("gioithieu", "User")" class="act">Giới Thiệu</a></li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Loại Sản Phẩm<b class="caret"></b></a>
+                            <a href="@Url.Action("sanpham", "User")" class="dropdown-toggle" data-toggle="dropdown">Sản Phẩm<b class="caret"></b></a>
                             <ul class="dropdown-menu multi-column columns-3">
                                 <div class="row">
                                     <div class="multi-gd-img">
                                         <ul class="multi-column-dropdown">
-                                            <h6>All Household</h6>
-                                            <li><a href="household.html">Thức Ăn Cho Mèo</a></li>
-                                            <li><a href="household.html">Thức Ăn Cho Chó</a></li>
-                                            <li><a href="household.html">Sữa Tắm Cho Chó</a></li>
-                                            <li><a href="household.html">Quần Áo Cho Mèo</a></li>
-                                            <li><a href="household.html">Phụ Kiện Vệ Sinh</a></li>
-                                            <li><a href="household.html">Sức Khỏe Cho Thú Cưng </a></li>
-                                            <li><a href="household.html">Đồ Chơi</a></li>
-                                            <li><a href="household.html">Khác</a></li>
-
+                                            <h6>Loại Sản Phẩm</h6>
+                                            <li>
+                                                @Html.Action("loai", "User")
+                                            </li>
                                         </ul>
                                     </div>
-
-
                                 </div>
                             </ul>
                         </li>
-                        <li><a href="#">Thương Hiệu</a></li>
+                        <li class="dropdown">
+                            <a href="@Url.Action("thuonghieu", "User")" class="dropdown-toggle" data-toggle="dropdown">Thương Hiệu<b class="caret"></b></a>
+                            <ul class="dropdown-menu multi-column columns-3">
+                                <div class="row">
+                                    <div class="multi-gd-img">
+                                        <ul class="multi-column-dropdown">
+                                            <h6>Các Thương Hiệu</h6>
+                                            <li>
+                                                @Html.Action("thuonghieu", "User")
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </ul>
+                        </li>
                         <li><a href="#">Giảm Giá</a></li>
                         <li><a href="@Url.Action("Lienhe", "User")">Liên Hệ</a></li>
                         <li>
@@ -140,7 +151,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 var kh = Session["Taikhoan"] as DinoPetStore.EF.KHACHHANG;
                                 <a href="@Url.Action("thongtincanhan","User")">
                                     <span>
-                                        <img class="img-profile rounded-circle" style="height: 3.5rem; width: 3rem"  src="@Url.Content("~/img/" + kh.HINHANH)"/>
+                                        <img class="img-profile rounded-circle" style="height: 3.5rem; width: 3rem" src="@Url.Content("~/img/" + kh.HINHANH)" />
                                     </span>
                                 </a>
 
@@ -156,6 +167,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <a href="@Url.Action("dangxuat","User")"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
                             }
                         </li>
+                        <li><a href="@Url.Action("blogs")"</li>
                     </ul>
                 </div>
             </nav>
@@ -170,6 +182,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <!--RenderBody-->
 
     @RenderBody()
+
+
+
 
     <!-- //footer -->
     <div class="footer">

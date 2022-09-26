@@ -9,6 +9,7 @@ using System.Net.Mail;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Antlr.Runtime;
 
 namespace DinoPetStore.Controllers
 {
@@ -156,13 +157,6 @@ namespace DinoPetStore.Controllers
         }
         #endregion
 
-        #region Lấy hình thương hiệu
-        public ActionResult hinhthuonghieu()
-        {
-            var listthuonghieu = from THUONGHIEU in data.THUONGHIEUx select THUONGHIEU;
-            return PartialView(listthuonghieu);
-        }
-        #endregion
 
         #region Lấy sản phẩm theo loại sản phẩm
         public ActionResult SPTheoloai(int id)
@@ -180,6 +174,15 @@ namespace DinoPetStore.Controllers
             return View(sanpham);
         }
         #endregion
+
+
+        //#region Lấy sản phẩm giảm giá
+        //public ActionResult GiamGia(int id)
+        //{
+        //    var giam = from SANPHAM in data.GIAMGIAs where SANPHAM.MASP == id select SANPHAM;
+        //    return View(giam);
+        //}
+        //#endregion
 
 
         #region Đăng Ký
@@ -328,7 +331,7 @@ namespace DinoPetStore.Controllers
         public ActionResult dangxuat()
         {
             Session.Clear();
-            return RedirectToAction("index", "User");
+            return RedirectToAction("Index", "User");
         }
         #endregion
 
@@ -366,9 +369,9 @@ namespace DinoPetStore.Controllers
             var verifyUrl = "/User/" + emailFor + "/" + activationCode;
             var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
 
-            var fromEmail = new MailAddress("thanhb1807525@student.ctu.edu.com", "Thanh"); //mail của mình để gửi mail đổi mật khẩu cho khách
+            var fromEmail = new MailAddress("thanh170120@outlook.com", "Thanh"); //mail của mình để gửi mail đổi mật khẩu cho khách
             var toEmail = new MailAddress(emailId);
-            var fromEmailPassword = "wLY72exP"; //Mật khẩu của tài khoản mail
+            var fromEmailPassword = "Thanh30072020"; //Mật khẩu của tài khoản mail
             string subject = "";
             string body = "";
             if (emailFor == "ResetPassword")
@@ -495,35 +498,6 @@ namespace DinoPetStore.Controllers
         public ActionResult QuenMKxacnhan()
         {
             return View();
-        }
-
-
-        [NonAction]
-        public void Sendcontact(string Name, string Email, string Subject, string Content)
-        {
-            KHACHHANG kh = new KHACHHANG();
-            var fromEmail = new MailAddress("thanhb1807525@student.ctu.edu.com", "Dino Pet Store"); //email
-            var toEmail = new MailAddress(kh.EMAIL);
-            var fromEmailPassword = "wLY72exP"; // password
-            string subject = Subject;
-            string body = "<br/> Họ tên: " + Name + "<br/><br/> Email: " + " " + Email + "<br/><br/> Nội dung: " + Content;
-
-            var smtp = new SmtpClient
-            {
-                Host = "smtp.office365.com",
-                Port = 587,
-                EnableSsl = true,
-                DeliveryMethod = SmtpDeliveryMethod.Network,
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(fromEmail.Address, fromEmailPassword)
-            };
-
-            using (var message = new MailMessage(fromEmail, toEmail)
-            {
-                Subject = subject,
-                Body = body,
-                IsBodyHtml = true
-            }) smtp.Send(message);
         }
 
 

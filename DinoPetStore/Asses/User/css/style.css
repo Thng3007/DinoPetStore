@@ -474,6 +474,7 @@ ul.multi-column-dropdown h6 {
 .column div.agile_top_brand_left_grid {
 	position: relative;
 	margin:0;
+    height: 602.44px
 }
 .agile_top_brand_left_grid figure {
 	margin: 0;
@@ -567,6 +568,7 @@ p.w3l-ad {
 }
 .hover14.column {
     border: 1px solid #c0bebe;
+    padding-block: 5px;
 }
 .stars {
     text-align: center;
@@ -1812,11 +1814,10 @@ a.callbacks1_s3.active,a.callbacks1_s3:focus{
 }
 /*--//slider end here--*/
 /*-- about-slid --*/
-.about-slid{
-	background: url(../images/22.jpg)no-repeat 0px center fixed;
-	background-size: cover;
-	text-align: center;
-	padding: 6em 0;
+.about-slid {
+    background-size: cover;
+    text-align: center;
+    padding: 6em 0;
 }
 .about-slid-info {
 	width: 75%;

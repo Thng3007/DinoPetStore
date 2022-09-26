@@ -2241,8 +2241,6 @@
     <Content Include="images\thumb-image\thumb-1.jpg" />
     <Content Include="images\thumb-image\thumb-2.jpg" />
     <Content Include="images\thumb-image\thumb-3.jpg" />
-    <Content Include="img\14.jpg" />
-    <Content Include="img\8.jpg" />
     <Content Include="img\account.png" />
     <Content Include="img\banner-image\1.jpg" />
     <Content Include="img\banner-image\10.jpg" />
@@ -2256,7 +2254,6 @@
     <Content Include="img\banner-image\3.jpg" />
     <Content Include="img\banner-image\9.jpg" />
     <Content Include="img\banner-image\get_upto.png" />
-    <Content Include="img\banner-image\img.png" />
     <Content Include="img\blog-image\2.jpg" />
     <Content Include="img\blog-image\3.jpg" />
     <Content Include="img\blog-image\4.jpg" />
@@ -2265,13 +2262,11 @@
     <Content Include="img\cat1.png" />
     <Content Include="img\category-image\1.jpg" />
     <Content Include="img\category-image\2.jpg" />
-    <Content Include="img\Cature.jpg" />
     <Content Include="img\dog.png" />
     <Content Include="img\dogandcat.png" />
     <Content Include="img\dogandcat1.png" />
     <Content Include="img\ft_certi_img15eef.png" />
     <Content Include="img\ft_certi_img25eef.png" />
-    <Content Include="img\GT1.png" />
     <Content Include="img\icons\accept.png" />
     <Content Include="img\icons\add.png" />
     <Content Include="img\icons\bgBack.jpg" />
@@ -2314,6 +2309,7 @@
     <Content Include="img\icons\mail_1.png" />
     <Content Include="img\icons\mail_send.png" />
     <Content Include="img\icons\male.png" />
+    <Content Include="img\icons\offer.png" />
     <Content Include="img\icons\payment.png" />
     <Content Include="img\icons\policy-2.png" />
     <Content Include="img\icons\policy-3.png" />
@@ -2338,7 +2334,6 @@
     <Content Include="img\logo\LogoSP\SmartHeart.png" />
     <Content Include="img\logo\LogoSP\Whiskas.png" />
     <Content Include="img\logo\petlove.png" />
-    <Content Include="img\pet960x1050.jpg" />
     <Content Include="img\petlove.png" />
     <Content Include="img\plus.png" />
     <Content Include="img\product-image\10.jpg" />
@@ -2497,7 +2492,6 @@
     <Content Include="img\slider-image\slide2.jpg" />
     <Content Include="img\soldout5eef.png" />
     <Content Include="img\test-ava.jpg" />
-    <Content Include="img\test.jpg" />
     <Content Include="Scripts\backtotop.js" />
     <Content Include="Asses\Admin\scss\navs\_global.scss" />
     <Content Include="Asses\Admin\scss\navs\_sidebar.scss" />
@@ -2801,6 +2795,11 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\Lienhe.cshtml" />
     <Content Include="Views\User\dangnhap.cshtml" />
+    <Content Include="Views\User\loai.cshtml" />
+    <Content Include="Views\User\thuonghieu.cshtml" />
+    <Content Include="Views\User\Ketquatimkiem.cshtml" />
+    <Content Include="Views\User\giam.cshtml" />
+    <Content Include="Views\User\gioithieu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
