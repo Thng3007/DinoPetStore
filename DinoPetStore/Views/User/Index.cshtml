@@ -77,11 +77,11 @@
                                                                         <input type="hidden" name="business" value=" " />
                                                                         <input type="hidden" name="item_name" value="@i.TENSP" />
                                                                         <input type="hidden" name="amount" value="@i.DONGIABAN" />
-                                                                        <input type="hidden" name="discount_amount" value="1.00" />
+                                                                        <input type="hidden" name="discount_amount" value="@i.GIAMGIA" />
                                                                         <input type="hidden" name="currency_code" value="VND" />
                                                                         <input type="hidden" name="return" value=" " />
                                                                         <input type="hidden" name="cancel_return" value=" " />
-                                                                        <input type="submit" name="submit" value="Add to cart" class="button" />
+                                                                        <input type="submit" name="submit" value="THÊM VÀO GIỎ" onclick="window.location.href ='@Url.Action("ThemGiohang", "GioHang", new { @iMASP = i.MASP, @strURL = Request.Url.ToString() })'" class="button" />
                                                                     </fieldset>
                                                                 </form>
                                                             </div>
@@ -135,12 +135,20 @@
                                                                         <input type="hidden" name="add" value="1" />
                                                                         <input type="hidden" name="business" value=" " />
                                                                         <input type="hidden" name="item_name" value="@i.TENSP" />
-                                                                        <input type="hidden" name="amount" value="@i.DONGIABAN" />
+                                                                        <input type="hidden" name="amount" value="@String.Format("{0:0,0}", @i.DONGIABAN)" />
                                                                         <input type="hidden" name="discount_amount" value="@i.GIAMGIA" />
                                                                         <input type="hidden" name="currency_code" value="VND" />
                                                                         <input type="hidden" name="return" value=" " />
                                                                         <input type="hidden" name="cancel_return" value=" " />
-                                                                        <input type="submit" name="submit" value="Add to cart" class="button" />
+                                                                        @if (i.SOLUONG != 0)
+                                                                        {
+                                                                            <input type="submit" name="submit" value="THÊM VÀO GIỎ" onclick="window.location.href ='@Url.Action("ThemGiohang", "GioHang", new { @iMASP = i.MASP, @strURL = Request.Url.ToString() })'" class="button" />
+                                                                        }
+                                                                        @if(i.SOLUONG == 0)
+                                                                        {
+                                                                            <input type="submit" name="submit" value="TẠM HẾT HÀNG"  onclick="window.location.href=" #"  class="button" />
+                                                                        }
+
                                                                     </fieldset>
                                                                 </form>
                                                             </div>
@@ -230,8 +238,6 @@
                     <p><a href="#"> <img src="~/img/logo/LogoSP/Flexi.png" alt="Flexi" />Flexi</a></p>
                 </div>
             </div>
-
-
 
             <div class="clearfix"></div>
         </div>
