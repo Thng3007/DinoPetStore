@@ -126,7 +126,7 @@ namespace DinoPetStore.Controllers
                              HINH1 = h.HINH1,
                              THANHTOANON = a.THANHTOANON
                          };
-            return View(detail.SingleOrDefault());
+            return View(detail.FirstOrDefault());
         }
         #endregion
 
@@ -274,7 +274,7 @@ namespace DinoPetStore.Controllers
         {
             if (Session["Taikhoan"] == null)
             {
-                return RedirectToAction("index", "User");
+                return RedirectToAction("Index", "User");
 
             }
             return View();

@@ -1,0 +1,146 @@
+﻿@model DinoPetStore.Models.DangKyModel
+@{
+    ViewBag.Title = "Đăng Ký";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- breadcrumbs -->
+<div class="breadcrumbs">
+    <div class="container">
+        <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+            <li><a href="@Url.Action("Index", "User")"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Trang Chủ</a></li>
+            <li class="active">Trang Đăng Ký</li>
+        </ol>
+    </div>
+</div>
+<!-- //breadcrumbs -->
+<!-- register -->
+<div class="register">
+    <div class="container">
+        <h2>Đăng Ký Tài Khoản Mới</h2>
+        <div class="login-form-grids">
+            <h5>Thông Tin Cá Nhân</h5>
+            <form method="post" accept-charset="UTF-8">
+                @using (Html.BeginForm("dangky", "User", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div style="color:red;font-size:small;text-align:initial">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            </div>
+                            @if (@ViewBag.Success != null)
+                            {
+                                <div class="alert alert-success">@ViewBag.Success = "Đăng ký thành công";</div>
+                            }
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.hoten, "", new { @class = "control-label" })
+                            <div style="color:red;font-size:small;text-align:initial">
+                                @Html.ValidationMessageFor(model => model.hoten, "", new { @class = "text-danger" })
+                            </div>
+                            <input class="input-full" data-val="true" data-val-length="Họ tên không hợp lệ" data-val-length-max="20" data-val-length-min="1" data-val-required=" Họ tên không được để trống. " htmlattributes="{ class = form-control }" id="hoten" name="hoten" type="text" value="" placeholder="Nhập họ tên">
+                        </div>
+
+                        <div class="register-check-box">
+                            <div class="check">
+                                <label class="checkbox"><input type="checkbox" name="checkbox"><i>  </i>Đăng Ký Nhận Tin Sản Phẩm Mới</label>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.dienthoai, htmlAttributes: new { @class = "control-label" })
+                            <div style="color:red;font-size:small;text-align:initial">
+                                @Html.ValidationMessageFor(model => model.dienthoai, "", new { @class = "text-danger" })
+                            </div>
+                            <input class="input-validation-error input-full" data-val="true" data-val-length="Số điện thoại không hợp lệ" data-val-length-max="11" data-val-length-min="9" data-val-required=" Số điện thoại không được để trống. " htmlattributes="{ class = form-control }" id="dienthoai" name="dienthoai" type="text" onkeypress="return isNumberKey(event)" placeholder="Nhập số điện thoại">
+                        </div>
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ngaysinh, htmlAttributes: new { @class = "control-label" })
+                            <div style="color:red;font-size:small;text-align:initial">
+                                @Html.ValidationMessageFor(model => model.ngaysinh, "", new { @class = "text-danger" })
+                            </div>
+                            <input class="input-full" htmlattributes="{ class = form-control }" id="ngaysinh" name="ngaysinh" type="date">
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.diachi, htmlAttributes: new { @class = "control-label" })
+                            <div style="color:red;font-size:small;text-align:initial">
+                                @Html.ValidationMessageFor(model => model.diachi, "", new { @class = "text-danger" })
+                            </div>
+                            <textarea class="input-full" cols="20" htmlattributes="{ class = form-control }" id="diachi" name="diachi" rows="2" placeholder="Nhập địa chỉ"></textarea>
+                        </div>
+
+                        <hr />
+
+                        <h6>Thông Tin Đăng Nhập</h6>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.tendn, htmlAttributes: new { @class = "control-label" })
+                            <div style="color:red;font-size:small;text-align:initial">
+                                @Html.ValidationMessageFor(model => model.tendn, "", new { @class = "text-danger" })
+                            </div>
+                            <input class="input-full" data-val="true" data-val-required=" Tên đang nhập không được để trống. " htmlattributes="{ class = form-control }" id="tendn" name="tendn" type="text" value="" placeholder="Nhập tên đăng nhập">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.matkhau, htmlAttributes: new { @class = "control-label" })
+                        <div style="color:red;font-size:small;text-align:initial">
+                            @Html.ValidationMessageFor(model => model.matkhau, "", new { @class = "text-danger" })
+                        </div>
+                        <input class="input-full" data-val="true" data-val-length="Độ dài mật khẩu ít nhất 6 ký tự. " data-val-length-max="20" data-val-length-min="6" data-val-required=" mật khẩu không được để trống. " htmlattributes="{ class = form-control }" id="matkhau" name="matkhau" type="password" placeholder="Nhập mật khẩu">
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.xacnhanmatkhau, htmlAttributes: new { @class = "control-label" })
+                        <div style="color:red;font-size:small;text-align:initial">
+                            @Html.ValidationMessageFor(model => model.xacnhanmatkhau, "", new { @class = "text-danger" })
+                        </div>
+                        <input class="input-full" data-val="true" data-val-equalto=" Xác nhận mật khẩu không đúng. " data-val-equalto-other="*.matkhau" htmlattributes="{ class = form-control }" id="xacnhanmatkhau" name="xacnhanmatkhau" type="password" placeholder="Nhập lại mật khẩu">
+                    </div>
+
+                    <div class="form-group input-full">
+                        @Html.LabelFor(model => model.hinhanh, htmlAttributes: new { @class = "control-label" })
+                        <div style="color:red;font-size:small;text-align:initial">
+                            @Html.ValidationMessageFor(model => model.hinhanh, "", new { @class = "text-danger" })
+                        </div>
+                        <input class="input-full" htmlattributes="{ class = form-control }" id="hinhanh" type="file" name="hinhanh" accept="image/jpeg,image/jpg,image/png" value="">
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label " })
+                        <div style="color:red;font-size:small;text-align:initial">
+                            @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                        </div>
+                        <input class="input-validation-error input-full" data-val="true" data-val-required=" Email không được để trống. " htmlattributes="{ class = form-control }" id="email" name="email" type="email" placeholder="Nhập email">
+                    </div>
+
+
+
+                    <div class="register-check-box">
+                        <div class="check">
+                            <label class="checkbox"><input type="checkbox" name="checkbox"><i>  </i>Tôi Chấp Nhận Điều Khoản</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                            <input type="submit" value="Đăng Ký" class="btn btn--full" />
+                    </div>
+
+
+                }
+            </form>
+
+
+        </div>
+        <div class="register-home">
+            <a href="@Url.Action("Index", "User")">Trang Chủ</a>
+        </div>
+    </div>
+</div>
+<!-- //register -->

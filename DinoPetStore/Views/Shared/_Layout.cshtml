@@ -144,6 +144,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             </ul>
                         </li>
                         <li><a href="#">Giảm Giá</a></li>
+                        <li><a href="@Url.Action("tintuc")">Tin Tức</a></li>
+                        <li><a href="@Url.Action("giaitri")">Giải Trí</a></li>
                         <li><a href="@Url.Action("Lienhe", "User")">Liên Hệ</a></li>
                         <li>
                             @if (Session["Taikhoan"] != null)
@@ -167,7 +169,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <a href="@Url.Action("dangxuat","User")"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
                             }
                         </li>
-                        <li><a href="@Url.Action("blogs")"</li>
                     </ul>
                 </div>
             </nav>

@@ -2800,6 +2800,12 @@
     <Content Include="Views\User\Ketquatimkiem.cshtml" />
     <Content Include="Views\User\giam.cshtml" />
     <Content Include="Views\User\gioithieu.cshtml" />
+    <Content Include="Views\User\thongtincanhan.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\User\Chitiet.cshtml" />
+    <Content Include="Views\User\hinhanh.cshtml" />
+    <Content Include="Views\User\dangky.cshtml" />
+    <Content Include="Views\User\sanpham.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

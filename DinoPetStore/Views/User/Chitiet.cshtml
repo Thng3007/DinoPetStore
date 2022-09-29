@@ -1,0 +1,140 @@
+﻿
+@{
+    ViewBag.Title = "Chitiet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- breadcrumbs -->
+<div class="breadcrumbs">
+    <div class="container">
+        <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+            <li><a href="@Url.Action("Index", "User")"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Trang Chủ</a></li>
+            <li class="active">Trang Chi Tiết</li>
+        </ol>
+    </div>
+</div>
+<!-- //breadcrumbs -->
+<div class="products">
+    <div class="container">
+        <div class="agileinfo_single">
+
+            <div class="col-md-4 agileinfo_single_left">
+                <img id="example" src="@Url.Content("~/img/" + Model.HINHANH)" alt=" " class="img-responsive">
+            </div>
+            <div class="col-md-8 agileinfo_single_right">
+                <h2>@Model.TENSP</h2>
+                <div class="rating1">
+                    <span class="starRating">
+                        <input id="rating5" type="radio" name="rating" value="5">
+                        <label for="rating5">5</label>
+                        <input id="rating4" type="radio" name="rating" value="4">
+                        <label for="rating4">4</label>
+                        <input id="rating3" type="radio" name="rating" value="3" checked="">
+                        <label for="rating3">3</label>
+                        <input id="rating2" type="radio" name="rating" value="2">
+                        <label for="rating2">2</label>
+                        <input id="rating1" type="radio" name="rating" value="1">
+                        <label for="rating1">1</label>
+                    </span>
+                </div>
+                <div class="w3agile_description">
+                    <h4>Mô Tả :</h4>
+                    <p>
+                        @Model.MOTA
+                    </p>
+                </div>
+                <div class="snipcart-item block">
+                    <div class="snipcart-thumb agileinfo_single_right_snipcart">
+                        <h4 class="m-sing">@String.Format("{0:0,0}", @Model.DONGIABAN)₫</h4>
+                    </div>
+                    <div class="snipcart-details agileinfo_single_right_details">
+                        <form action="#" method="post">
+                            <fieldset>
+                                <input type="hidden" name="cmd" value="_cart">
+                                <input type="hidden" name="add" value="1">
+                                <input type="hidden" name="business" value=" ">
+                                <input type="hidden" name="item_name" value="@Model.TENSP">
+                                <input type="hidden" name="amount" value="@String.Format("{0:0,0}", @Model.DONGIABAN)">
+                                <input type="hidden" name="discount_amount" value="@Model.GIAMGIA">
+                                <input type="hidden" name="currency_code" value="VND">
+                                <input type="hidden" name="return" value=" ">
+                                <input type="hidden" name="cancel_return" value=" ">
+                                <input type="submit" name="submit" value="Add to cart" class="button">
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+
+
+        <hr /> 
+        <br />
+        <div class="grid">
+            <div class="grid__item large--nine-twelfths medium--one-whole small--one-whole">
+                <div class="product-description-wrapper">
+                    <div class="tab clearfix">
+
+                        <button class="pro-tablinks active" onclick="openProTabs(event, 'protab1')" id="defaultOpenProTabs">Thông tin sản phẩm</button>
+                    </div>
+
+                    <div id="protab3" class="pro-tabcontent" style="display: block;">
+                        <p></p><h2>@Model.TENSP</h2><p>@Model.MOTA</p><p>
+                            <span class="wysiwyg-font-size-medium">
+                                <strong><span>1. Hình ảnh sản phẩm</span></strong>
+                            </span>
+                        </p><p> <img class="product-image-feature" src="@Url.Content("~/img/" + @Model.HINHANH)" alt="@Model.TENSP" data-zoom-image="~/img/@Model.HINHANH"></p><p>
+                            <span class="wysiwyg-font-size-medium">
+                                <strong> 2. HƯỚNG DẪN SỬ DỤNG: </strong>
+                            </span>
+                        </p><p>@Html.Action("hinhanh", new { id = Model.MASP })</p><p><span class="wysiwyg-font-size-medium"></span><span class="wysiwyg-font-size-medium"></span></p>
+                        <p></p>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <style>
+            .product-description-wrapper  {
+                border: 1px solid #e6e6e6;
+            }
+            #product-wrapper .product-description-wrapper div.tab button.active {
+                background: rgba(0,0,0,0.5);
+            }
+             div.tab {
+                display: block;
+                position: relative;
+                background: rgba(0,0,0,0.5);
+                height: 49px
+            }
+
+            .clearfix ::after {
+                content: '';
+                display: none;
+                clear: both;
+            }
+            p {
+                display: block;
+                margin: 10px;
+                padding: 10px
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+            button {
+                background: black;
+                color: white;
+                height: inherit;
+            }
+        </style>
+    </div>
+</div>

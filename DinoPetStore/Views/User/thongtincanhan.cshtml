@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Thông Tin Cá Nhân";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var kh = Session["Taikhoan"] as DinoPetStore.EF.KHACHHANG;
+}
+
+
+<!-- breadcrumbs -->
+<div class="breadcrumbs">
+    <div class="container">
+        <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+            <li><a href="@Url.Action("Index", "User")"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Trang Chủ</a></li>
+            <li class="active">Thông Tin Cá Nhân</li>
+        </ol>
+    </div>
+</div>
+<!-- //breadcrumbs -->
+<div id="PageContainer" class="is-moved-by-drawer">
+    <main class="main-content" role="main">
+        <section id="page-wrapper">
+            <div class="wrapper" style="text-align: center">
+                <div class="inner" style="display: block; font-weight: 300; box-sizing: border-box;">
+                    <div class="grid">
+                        <div class="grid__item two-thirds medium-down--one-whole">
+                            <br />
+                            <br />
+                            <ul style="margin: 12px; font-weight: 400; font-size: 150px; display: inline-block; color: black; -webkit-text-decorations-in-effect: line-through; ">
+                                <img src="@Url.Content("~/img/" + @kh.HINHANH)" alt="" width="130" height="130">
+                                <li>
+                                    Tên khách hàng: @kh.HOTENKH
+                                </li>
+                                <li>
+                                    Tên đăng nhập: @kh.TENDNKH
+                                </li>
+
+                                <li>
+                                    Ngày sinh : @string.Format("{0:dd/MM/yyyy}", @kh.NGAYSINH)
+                                </li>
+
+                                <li>
+                                    Địa Chỉ: @kh.DIACHI
+                                </li>
+
+                                <li>
+                                    Số điện thoại: @kh.DIENTHOAI
+                                </li>
+
+                                <li>
+                                    Email: @kh.EMAIL
+                                </li>
+                            </ul>
+                            <a href="@Url.Action("Edit","User",new {id = kh.MAKH })">
+                                <h7>Sửa Thông Tin Cá Nhân</h7>
+                            </a>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+</div>
+
