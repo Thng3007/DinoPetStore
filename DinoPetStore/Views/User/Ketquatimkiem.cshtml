@@ -4,77 +4,62 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div id="PageContainer" class="is-moved-by-drawer">
-    <main class="main-content" role="main">
-
-
-        <section id="collection-wrapper">
-            <div class="wrapper">
-
-                <div class="inner">
-                    <div class="grid">
-                        <div class="grid__item large--one-whole">
-
-                            <h1 class="search-h1 text-center" style="margin-block-start: 10px"><strong>Kết quả tìm kiếm</strong><br></h1>
-                            <div class="grid-uniform search-body-wrapper">
-                                <!-- begin grid search results-->
-
-                                @foreach (var i in Model)
-                                {
-                                    <div class="search-item grid__item large--one-quarter medium--one-third small--one-half">
-                                        <div class="product-item">
-                                            <div class="product-normal">
-                                                <div class="product-img">
-                                                    <a href="~/User/chitiet/@i.MASP">
-                                                        <img src="@Url.Content("~/img/"+ @i.HINHANH)" height="255">
-                                                    </a>
-                                                    <div class="product-tags">
-                                                    </div>
-                                                    <div class="product-actions text-center clearfix">
-                                                        <div>
-                                                            <button type="button" class="btnBuyNow buy-now medium--hide small--hide" onclick="window.location.href='@Url.Action("ThemGiohang", "GioHang", new { @iMASP= i.MASP, @strURL=Request.Url.ToString() })'"><span>Thêm Giỏ Hàng</span></button>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                                <!--thanh nhỏ ở dưỡi-->
-                                                <div class="product-variants-info">
-                                                    <div class="product-variants-count">
-
-                                                        <div class="list-variants-img medium--hide small--hide">
-                                                            <div class="inner">
-                                                                <ul class="no-bullets clearfix text-center">
-                                                                    @*@Html.Action("listhinhanhnhoduoi", new { id = i.MASP })*@
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="product-title">
-                                                    <a href="~/User/chitiet/@i.MASP">@i.TENSP</a>
-                                                </div>
-
-                                                <div class="product-price clearfix">
-                                                    <span class="current-price">@String.Format("{0:0,0}", @i.DONGIABAN)₫</span>
-
-                                                    @*<span class="original-price"><s>580,000₫</s></span>*@ <!--Gia goc-->
-
-                                                </div>
+<div class="products">
+    <div class="container">
+        <h2> Kết Quả Tìm Kiếm </h2>
+        <div class="col-md-8 products-right">
+            <div class="agile_top_brands_grids">
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-4 top_brand_left">
+                        <div class="hover14 column">
+                            <div class="agile_top_brand_left_grid">
+                                <div class="agile_top_brand_left_grid1">
+                                    <figure>
+                                        <div class="snipcart-item block">
+                                            <div class="snipcart-thumb">
+                                                <a href="@Url.Action("Chitiet", "User", new { id = item.MASP })"><img title=" " alt=" Ảnh Sản Phẩm @item.TENSP " src="@Url.Content("~/img/" + @item.HINHANH)" style="height: 295px; width: 175px;"></a>
+                                                <p>@item.TENSP</p>
+                                                <h4>@String.Format("{0:0,0}", @item.DONGIABAN)</h4>
                                             </div>
-
-
+                                            <div class="snipcart-details top_brand_home_details">
+                                                <form action="#" method="post">
+                                                    <fieldset>
+                                                        <input type="hidden" name="cmd" value="_cart">
+                                                        <input type="hidden" name="add" value="1">
+                                                        <input type="hidden" name="business" value=" ">
+                                                        <input type="hidden" name="item_name" value="@item.TENSP">
+                                                        <input type="hidden" name="amount" value="@String.Format("{0:0,0}", @item.DONGIABAN)">
+                                                        @*<input type="hidden" name="discount_amount" value="@item.GIAMGIA">*@
+                                                        <input type="hidden" name="currency_code" value="VND">
+                                                        <input type="hidden" name="return" value=" ">
+                                                        <input type="hidden" name="cancel_return" value=" ">
+                                                        @if (item.SOLUONG != 0)
+                                                        {
+                                                            <input type="submit" name="submit" value="THÊM VÀO GIỎ" onclick="window.location.href ='@Url.Action("ThemGiohang", "GioHang", new { @iMASP = item.MASP, @strURL = Request.Url.ToString() })'" class="button" />
+                                                        }
+                                                        @if (item.SOLUONG == 0)
+                                                        {
+                                                            <button type="submit" onclick="window.location.href=" #"><span>TẠM HẾT HÀNG</span></button>
+                                                        }
+                                                    </fieldset>
+                                                </form>
+                                            </div>
                                         </div>
-
-                                    </div>
-                                }
+                                    </figure>
+                                </div>
                             </div>
                         </div>
+                        <br />
+
                     </div>
-                </div>
-            </div>
 
 
-        </section>
-        </ma
+                }
+                <div class="clearfix"> </div>
 
+
+            </div> <!--end agile_top_brands_grids-->
+        </div>
+    </div>
+</div>

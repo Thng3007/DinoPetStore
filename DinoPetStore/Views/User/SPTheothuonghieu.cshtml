@@ -1,16 +1,16 @@
-﻿@using PagedList.Mvc;
-@model PagedList.IPagedList<DinoPetStore.Models.ProductViewModel>
+﻿
 @{
-    ViewBag.Title = "sanpham";
+    ViewBag.Title = "Sản Phẩm Theo Thương Hiệu";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 
 <!-- breadcrumbs -->
 <div class="breadcrumbs">
     <div class="container">
         <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
             <li><a href="@Url.Action("Index", "User")"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Trang Chủ</a></li>
-            <li class="active">Sản Phẩm</li>
+            <li class="active">Sản Phẩm Theo Thương Hiệu</li>
         </ol>
     </div>
 </div>
@@ -61,7 +61,7 @@
                                                         <input type="hidden" name="business" value=" ">
                                                         <input type="hidden" name="item_name" value="@item.TENSP">
                                                         <input type="hidden" name="amount" value="@String.Format("{0:0,0}", @item.DONGIABAN)">
-                                                        <input type="hidden" name="discount_amount" value="@item.GIAMGIA">
+                                                        @*<input type="hidden" name="discount_amount" value="@item.GIAMGIA">*@
                                                         <input type="hidden" name="currency_code" value="VND">
                                                         <input type="hidden" name="return" value=" ">
                                                         <input type="hidden" name="cancel_return" value=" ">
@@ -91,13 +91,6 @@
 
 
             </div> <!--end agile_top_brands_grids-->
-            <nav class="numbering">
-                <ul class="pagination paging">
-                    <li>
-                        <div>@Html.PagedListPager(Model, page => Url.Action("sanpham", new { page = page }))</div>
-                    </li>
-                </ul>
-            </nav>
         </div>
         <div class="clearfix"> </div>
     </div>

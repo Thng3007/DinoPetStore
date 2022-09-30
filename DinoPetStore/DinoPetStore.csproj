@@ -2806,6 +2806,8 @@
     <Content Include="Views\User\hinhanh.cshtml" />
     <Content Include="Views\User\dangky.cshtml" />
     <Content Include="Views\User\sanpham.cshtml" />
+    <Content Include="Views\User\SPTheothuonghieu.cshtml" />
+    <Content Include="Views\User\SPTheoloai.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
