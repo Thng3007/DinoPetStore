@@ -47,7 +47,7 @@ namespace DinoPetStore.Areas.Admin.Controllers
             }
             else
             {
-                var ad = from admin in db.CHUCNANG_QUYENs  select admin;
+                var ad = from admin in db.CHUCNANG_QUYEN  select admin;
                 return View(ad);
             }
         }
@@ -59,7 +59,7 @@ namespace DinoPetStore.Areas.Admin.Controllers
                 return RedirectToAction("dangnhap", "Admin");
             else
             {
-                ViewBag.MACHUCNANG = new SelectList(db.CHUCNANG_QUYENs.ToList().OrderBy(n => n.TENCN), "MACHUCNANG", "TENCN");
+                ViewBag.MACHUCNANG = new SelectList(db.CHUCNANG_QUYEN.ToList().OrderBy(n => n.TENCN), "MACHUCNANG", "TENCN");
                 ViewBag.MAADMIN = new SelectList(db.ADMINs.ToList().OrderBy(n => n.HOTEN), "MAADMIN", "HOTEN");
                 return View();
             }
@@ -72,7 +72,7 @@ namespace DinoPetStore.Areas.Admin.Controllers
                 return RedirectToAction("dangnhap", "Admin");
             else
             {
-                ViewBag.MACHUCNANG = new SelectList(db.CHUCNANG_QUYENs.ToList().OrderBy(n => n.TENCN), "MACHUCNANG", "TENCN");
+                ViewBag.MACHUCNANG = new SelectList(db.CHUCNANG_QUYEN.ToList().OrderBy(n => n.TENCN), "MACHUCNANG", "TENCN");
                 ViewBag.MAADMIN = new SelectList(db.ADMINs.ToList().OrderBy(n => n.HOTEN), "MAADMIN", "HOTEN");
                 db.PHANQUYENs.Add(pquyen);
                 db.SaveChanges();
@@ -118,7 +118,7 @@ namespace DinoPetStore.Areas.Admin.Controllers
             }
             else
             {
-                var ad = from admin in db.CHUCNANG_QUYENs select admin;
+                var ad = from admin in db.CHUCNANG_QUYEN select admin;
                 return View(ad);
             }
         }

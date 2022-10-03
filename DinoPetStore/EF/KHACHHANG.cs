@@ -5,7 +5,6 @@ namespace DinoPetStore.EF
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-    using System.Data.Entity.SqlServer.Utilities;
 
     [Table("KHACHHANG")]
     public partial class KHACHHANG

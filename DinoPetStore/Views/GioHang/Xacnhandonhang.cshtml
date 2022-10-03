@@ -4,35 +4,36 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div id="PageContainer" class="is-moved-by-drawer">
-    <main class="main-content" role="main">
-        <section id="page-wrapper">
-            <div class="wrapper">
-                <div class="inner">
+<!-- breadcrumbs -->
+<div class="breadcrumbs">
+    <div class="container">
+        <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+            <li><a href="@Url.Action("Index", "User")"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Trang Chủ</a></li>
+            <li class="active">Trang Xác Nhận Quên Mật Khẩu</li>
+        </ol>
+    </div>
+</div>
+<!-- //breadcrumbs -->
+<div class="login">
+    <div class="container">
+        <h1 style="text-align: center">
+            Thông Báo Xác Nhận Đơn Hàng
+        </h1>
+        <h3 style="text-align: center; color: coral; margin-top: 10px"> Đơn hàng của quý khách đã được chúng tôi ghi nhận. Chúng tôi sẽ liên hệ <br /> quý khách trong vòng 24H để xác nhận đơn hàng. <br /> Cảm ơn quý khách đã tin tưởng đặt hàng. ^^</h3>
 
-                    <div class="grid">
-                        <hr />
-                        <br />
-                        <h1>Đơn hàng của quý khách đã được chúng tôi ghi nhận. Chúng tôi sẽ liên hệ <br /> quý khách trong vòng 24H để xác nhận đơn hàng. <br /> Cảm ơn quý khách đã tin tưởng đặt hàng. ^^</h1>
-                        <div class="grid__item large--one-third push--large--one-third text-center">
-                            <a> <b>Liên hệ để được hỗ trợ:</b> <br /></a>
-                            <a href="https://www.facebook.com/thng1701" class="fb-icon"><i class="fa fa-facebook" aria-hidden="true"></i> Facebook</a>
-                            <a href="https://www.facebook.com/thng1701" class="mess-icon"><i class="fab fa-facebook-messenger" aria-hidden="true"></i> Messenger</a>
-                            <a <i class="fab fa-telegram" aria-hidden="true"></i> 0939542288</a>
-                            <hr />
-                            <a>
+        <div class="grid__item large--one-third push--large--one-third text-center">
+            <p <b>Liên hệ để được hỗ trợ:</b> <br /></p>
+            <a href="https://www.facebook.com/thng1701" class="fb-icon"><i class="fa fa-facebook" aria-hidden="true"></i> Facebook</a>
+            <br />
+            <a href="https://www.facebook.com/thng1701" class="mess-icon"><i class="fa fa-facebook-messenger" aria-hidden="true"></i> Messenger</a>
+            <br />
+            <a <i class="fa fa-telegram" aria-hidden="true"></i> 0939542288</a>
+            <hr />
+            <a>
 
-                                <u>@Html.ActionLink("Trở lại trang chủ", "Index", "User")</u>
-                            </a>
-                        </div>
-
-                        @*<h6>Nếu quý khách không nhập ngày giao khi đặt hàng thì đơn hàng sẽ được chúng tôi giao tới quý khách sau 7 ngày tính từ ngày </h6> @DateTime.Now*@
-                        <hr />
-                    </div>
-
-                </div>
-
-            </div>
-        </section>
+                <u>@Html.ActionLink("Trở lại trang chủ", "Index", "User")</u>
+            </a>
+        </div>
+    </div>
 </div>
 

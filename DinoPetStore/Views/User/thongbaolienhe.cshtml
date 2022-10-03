@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "Thông Báo Liên Hệ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- breadcrumbs -->
+<div class="breadcrumbs">
+    <div class="container">
+        <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+            <li><a href="@Url.Action("Index", "User")"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Trang Chủ</a></li>
+            <li class="active">Thông Báo Liên Hệ</li>
+        </ol>
+    </div>
+</div>
+<!-- //breadcrumbs -->
+<div class="about"">
+    <main class="main-content" role="main">
+        <section id="page-wrapper">
+            <div class="wrapper">
+                <div class="inner">
+
+                    <div class="grid">
+                        <div class="grid__item large--one-third push--large--one-third text-center">
+                            <h1>Email đã được gửi thành công</h1>
+                            <h2>Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất</h2>
+                            <br />
+                            <a href="@Url.Action("Lienhe","User")" style="border:1px solid;padding:5px 20px;">OK</a>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+</div>

@@ -36,7 +36,7 @@ namespace DinoPetStore.Controllers
                               MALOAI = a.MALOAI,
                               TENTH = b.TENTH,
                               TENLOAI = c.TENLOAI,
-                              SOLUONG = a.SOLUONG,
+                              SOLUONG = (int)a.SOLUONG,
                               MOTA = a.MOTA,
                               TENMAUSAC = d.TENMAUSAC,
                               LOGO = b.LOGO
@@ -75,7 +75,7 @@ namespace DinoPetStore.Controllers
                               MALOAI = a.MALOAI,
                               TENTH = b.TENTH,
                               TENLOAI = c.TENLOAI,
-                              SOLUONG = a.SOLUONG,
+                              SOLUONG = (int)a.SOLUONG,
                               MOTA = a.MOTA,
                               TENMAUSAC = d.TENMAUSAC,
                               LOGO = b.LOGO
@@ -120,7 +120,7 @@ namespace DinoPetStore.Controllers
                              MALOAI = a.MALOAI,
                              TENTH = b.TENTH,
                              TENLOAI = c.TENLOAI,
-                             SOLUONG = a.SOLUONG,
+                             SOLUONG = (int)a.SOLUONG,
                              MOTA = a.MOTA,
                              TENMAUSAC = d.TENMAUSAC,
                              HINH1 = h.HINH1,
@@ -369,7 +369,7 @@ namespace DinoPetStore.Controllers
             var verifyUrl = "/User/" + emailFor + "/" + activationCode;
             var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
 
-            var fromEmail = new MailAddress("thanh170120@outlook.com", "Thanh"); //mail của mình để gửi mail đổi mật khẩu cho khách
+            var fromEmail = new MailAddress("thanh170120@outlook.com.vn", "Thanh"); //mail của mình để gửi mail đổi mật khẩu cho khách
             var toEmail = new MailAddress(emailId);
             var fromEmailPassword = "Thanh30072020"; //Mật khẩu của tài khoản mail
             string subject = "";
@@ -384,7 +384,7 @@ namespace DinoPetStore.Controllers
             var smtp = new SmtpClient
             {
                 Host = "smtp.office365.com",
-                Port = 587,
+                Port = 25,
                 EnableSsl = true,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
                 UseDefaultCredentials = false,
@@ -473,10 +473,11 @@ namespace DinoPetStore.Controllers
             var message = "";
             if (ModelState.IsValid)
             {
+                var mahoa_matkhau = MahoaMD5.GetMD5(model.NewPassword);
                 KHACHHANG kh = data.KHACHHANGs.SingleOrDefault(n => n.KHOIPHUCMATKHAU == model.Resetcode);
                 if (kh != null)
                 {
-                    kh.MATKHAUKH = model.NewPassword;
+                    kh.MATKHAUKH = mahoa_matkhau;
                     kh.KHOIPHUCMATKHAU = "";
                     UpdateModel(kh);
                     data.SaveChanges();
@@ -500,6 +501,42 @@ namespace DinoPetStore.Controllers
             return View();
         }
 
+        public ActionResult thongbaolienhe()
+        {
+            return View();
+        }
+
+
+        [NonAction]
+        public void sendcontact(string name, string email, string Subject, string message)
+        {
+            KHACHHANG kh = new KHACHHANG();
+            var fromEmail = new MailAddress("thanh170120@outlook.com.vn");
+            var toEmail = new MailAddress(kh.EMAIL);
+            var fromEmailPassword = "Thanh30072020"; // password
+            string subject = Subject;
+            string body = "<br/> Họ tên: " + name + "<br/><br/> Email: " + " " + email + "<br/><br/> Nội dung: " + message;
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.office365.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromEmail.Address, fromEmailPassword)
+            };
+
+            using (var tinnhan = new MailMessage(fromEmail, toEmail)
+            {
+                Subject = subject,
+                Body = body,
+                IsBodyHtml = true
+            }) smtp.Send(tinnhan);
+
+        }
+
+
 
         [HttpGet]
         public ActionResult Lienhe()
@@ -521,42 +558,6 @@ namespace DinoPetStore.Controllers
 
             }
             return View(lienhe);
-        }
-
-
-        public ActionResult thongbaolienhe()
-        {
-            return View();
-        }
-
-
-        [NonAction]
-        public void sendcontact(string name, string email, string Subject, string message)
-        {
-            KHACHHANG kh = new KHACHHANG();
-            var fromEmail = new MailAddress("thanh170120@outlook.com.vn");
-            var toEmail = new MailAddress(kh.EMAIL);
-            var fromEmailPassword = "thanh30072020"; // password
-            string subject = Subject;
-            string body = "<br/> Họ tên: " + name + "<br/><br/> Email: " + " " + email + "<br/><br/> Nội dung: " + message;
-
-            var smtp = new SmtpClient
-            {
-                Host = "smtp.office365.com",
-                Port = 587,
-                EnableSsl = true,
-                DeliveryMethod = SmtpDeliveryMethod.Network,
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(fromEmail.Address, fromEmailPassword)
-            };
-
-            using (var tinnhan = new MailMessage(fromEmail, toEmail)
-            {
-                Subject = subject,
-                Body = body,
-                IsBodyHtml = true
-            }) smtp.Send(tinnhan);
-
         }
     }
 }

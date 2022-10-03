@@ -8,12 +8,12 @@ namespace DinoPetStore.EF
     public partial class DinoStoreDbContext : DbContext
     {
         public DinoStoreDbContext()
-            : base("name=DinoStoreDbContext")
+            : base("name=DinoStore")
         {
         }
 
         public virtual DbSet<ADMIN> ADMINs { get; set; }
-        public virtual DbSet<CHUCNANG_QUYEN> CHUCNANG_QUYENs { get; set; }
+        public virtual DbSet<CHUCNANG_QUYEN> CHUCNANG_QUYEN { get; set; }
         public virtual DbSet<CTDONDATHANG> CTDONDATHANGs { get; set; }
         public virtual DbSet<DONDATHANG> DONDATHANGs { get; set; }
         public virtual DbSet<GIAMGIA> GIAMGIAs { get; set; }

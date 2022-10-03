@@ -1,0 +1,228 @@
+﻿@using DinoPetStore.EF
+@model List<DinoPetStore.Models.GioHang>
+
+@{
+    ViewBag.Title = "ĐƠN ĐẶT HÀNG - KP PET'S HOME";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- breadcrumbs -->
+<div class="breadcrumbs">
+    <div class="container">
+        <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+            <li><a href="@Url.Action("Index", "User")"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Trang Chủ</a></li>
+            <li class="active">Giỏ Hàng</li>
+        </ol>
+    </div>
+</div>
+<!-- //breadcrumbs -->
+
+<div class="checkout">
+    <div class="container">
+        <h2>Tổng Sổ Lượng: <span>@ViewBag.Tongsoluong</span></h2>
+        <div class="checkout-right">
+            <table class="timetable_sub">
+                <thead>
+                    <tr>
+                        <th>Mã Sản Phẩm.</th>
+                        <th>Sản Phẩm</th>
+                        <th>Số Lượng</th>
+                        <th>Tên Sản Phẩm</th>
+
+                        <th>Giá Tiền</th>
+                        <th>Xóa</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+
+                    using (Html.BeginForm("CapnhatGiohang", "Giohang", new { @iMaSp = item.iMASP }))
+                    {
+                        <tr class="rem1">
+                            <td class="invert">@item.iMASP</td>
+                            <td class="invert-image"><a href="@Url.Action("Chitiet", "User")"><img src="~/img/@item.gHINHANH" alt="@item.gTENSP" class="img-responsive" /></a></td>
+                            <td class="invert" style="width: 250px">
+                                <div class="quantity">
+                                    <div class="quantity-select">
+                                        <div class="entry value-minus">&nbsp;</div>
+                                        <div class="entry value"><span>1</span></div>
+                                        <div class="entry value-plus active">&nbsp;</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="invert">@item.gTENSP</td>
+
+                            <td class="invert">@String.Format("{0:0,0}", item.dTHANHTIEN)</td>
+                            <td class="invert">
+                                <div class="rem" style="width: 100px">
+                                    <div class="close1"> </div>
+                                </div>
+                                <script>
+                                    $(document).ready(function (c) {
+                                        $('.close1').on('click', function (c) {
+                                            $('.rem1').fadeOut('slow', function (c) {
+                                                $('.rem1').remove();
+                                            });
+                                        });
+                                    });
+                                </script>
+                            </td>
+                            <td class="invert">
+                                <button class="btn-close-white">
+                                    @Html.ActionLink("Xóa", "XoaGiohang", new { @iMaSp = item.iMASP })
+                                </button>
+                            </td>
+                        </tr>
+                    }
+
+                }
+            </table>
+        </div>
+    </div>
+    <br />
+    <div class="container" id="infoOrder">
+        <h1 style=" margin-top:35px; color:black; padding-block: inherit; text-align: center"><b>THÔNG TIN ĐẶT HÀNG</b></h1>
+        @{
+            KHACHHANG kh = (KHACHHANG)Session["Taikhoan"];
+            DONDATHANG ddh;
+        }
+
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true)
+            <div class="main">
+                <div class="main-content">
+                    <div class="section">
+                        <div class="section-content section-customer-information no-mb">
+                            <div class="fieldset">
+                                <div class="field field-required field-two-thirds">
+                                    <div class="field-input-wrapper ">
+                                        <label class="field-label" for="billing_address_full_name">Họ và tên: </label>
+                                        <input placeholder="Họ và tên" autocapitalize="off" spellcheck="false" class="field-input text-capitalize" type="text" id="billing_address_full_name" name="billing_address_full_name" value="@kh.HOTENKH">
+                                    </div>
+                                </div>
+
+                                <div class="field field-required field-third">
+                                    <div class="field-input-wrapper ">
+                                        <label class="field-label" for="billing_address_phone">Số điện thoại: </label>
+                                        <input type="tel" pattern="\d*" placeholder="Số điện thoại" autocapitalize="off" spellcheck="false" class="field-input" id="billing_address_phone" name="billing_address_phone" value="@kh.DIENTHOAI">
+                                    </div>
+                                </div>
+
+                                <div class="field field-required">
+                                    <div class="field-input-wrapper ">
+                                        <label class="field-label" for="billing_address_address">Địa chỉ: </label>
+                                        <input placeholder="Địa chỉ" autocapitalize="off" spellcheck="false" class="field-input text-capitalize" id="billing_address_address" name="billing_address_address" type="text" value="@kh.DIACHI">
+                                    </div>
+                                </div>
+                                <div class="field field-required">
+                                    <div class="field-input-wrapper ">
+                                        <label class="field-label" for="billing_address_address">Email: </label>
+                                        <input placeholder="Email" autocapitalize="off" spellcheck="false" class="field-input text-capitalize" id="billing_address_address" name="billing_address_address" type="text" value="@kh.EMAIL">
+                                    </div>
+                                </div>
+                                <div class="field field-required">
+                                    <div class="field-input-wrapper">
+                                        <label>Ngày giao hàng:</label>
+
+                                        <input type="date" name="Ngaygiao" />
+
+                                    </div>
+                                </div>
+                                <div class="field field-required">
+                                    <div style="text-align: left; padding: 20px 0; margin-bottom: 10px">
+                                        <p style="color: #666; font-style: italic; font-size: 12px; text-align: left;">Vui lòng chọn một hình thức thanh toán để mua hàng</p>
+                                        <select id="sl_ThanhToan" name="sl_ThanhToan" class="textCtrl" onchange="ThayDoi();">
+                                            <option value="0">Chuyển khoản</option>
+                                            <option value="1" selected="selected">Ship COD thanh toán khi nhận hàng</option>
+                                        </select>
+                                    </div>
+                                    <table style="width: 685px; height: 100px; border: 1px solid rgb(208, 208, 208); text-align: center">
+                                        <tr>
+                                            <td style="text-align: left; padding-left: 20px">
+                                                <p class="Thanhtoan" target="_blank" style="display: none; color: #2d485a; padding-top: 10px; padding-bottom: 10px; ">
+                                                    <b style="color: rebeccapurple; font-size:15px">LƯU Ý:</b>
+                                                    <br /> - Chỉ nên chuyển khoản sau khi nhân viên bán hàng liên hệ đến bạn xác nhận đơn hàng<br />
+                                                    <br /> Ngân hàng Sacombank  - Số TK : <b style="color: #2d485a"> 070103218290 </b>
+                                                    <br /> MOMO - <b style="color: #2d485a"> SĐT: 0939542288 </b>
+                                                    <br /> Chủ TK : <b style="color: #2d485a"> Nguyễn Viết Thanh </b>
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <br />
+                            </div>
+                        </div>
+                        <div class="step-footer">
+                            @Html.ActionLink("TRỞ VỀ GIỎ HÀNG", "Giohang", "GioHang")
+                        </div>
+                        <div class="step-footer">
+                            <input type="Submit" class="step-footer-continue-btn btn" value="ĐẶT HÀNG" />
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        }
+    </div>
+</div>
+    
+    <script type="text/javascript">
+
+        ////Khi Click "Lấy từ thông tin tài khoản" thì Gán các giá trị của thông tin tài khoản cho thông tin giao hàng (Lưu ý phải có thư viện Js)
+        //$(function () {
+        //    $(".LayThongTin").click(function () {
+        //        document.getElementById('txt_HoTenNhan').value = $('#txt_HoTen').val();
+        //        document.getElementById('txt_DiaChiNhan').value = $('#txt_DiaChi').val();
+        //        document.getElementById('txt_DienThoaiNhan').value = $('#txt_DienThoai').val();
+        //    });
+        //});
+
+        ////Mặc định load lên thì Href liên kết đến bảo kim ẩn đi
+        //$(document).ready(function () {
+        //    $('.LinkBaoKim').hide();
+        //});
+
+        //Script Khi chọn hình thức thanh toán sẽ ẩn hiện Href liên kết đến bảo kim, Input xác nhận và ngược lại
+        function ThayDoi() {
+            var Chon = document.getElementById("sl_ThanhToan").value;
+            if (Chon == "0") {
+                $('.Thanhtoan').show();
+            }
+            else {
+                $('.Thanhtoan').hide();
+            }
+        };
+
+    </script>
+<style type="text/css">
+    #infoOrder {
+        background-color: antiquewhite;
+        align-items: center;
+        display: block; 
+        margin: 0 auto;
+        text-align: start;
+
+
+        }
+    input#billing_address_full_name  {
+        padding: 5px;
+        margin: 10px
+    }
+    input#billing_address_phone {
+        padding: 5px;
+        margin: 10px
+    }
+    input#billing_address_address {
+        padding: 5px;
+        margin: 10px
+    }
+    .btn {
+        padding: 20px;
+        background-color: skyblue;
+    }
+    
+</style>

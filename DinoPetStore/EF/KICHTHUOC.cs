@@ -2,7 +2,6 @@ namespace DinoPetStore.EF
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -16,7 +15,7 @@ namespace DinoPetStore.EF
 
         [Key]
         [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int MASP { get; set; }
 
         public int TENKICHTHUOC { get; set; }

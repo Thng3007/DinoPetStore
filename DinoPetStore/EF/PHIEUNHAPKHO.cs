@@ -10,12 +10,10 @@ namespace DinoPetStore.EF
     public partial class PHIEUNHAPKHO
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int MAPHIEUNK { get; set; }
 
         public DateTime NGAYNK { get; set; }
 
-        
         public int MASP { get; set; }
 
         public int SOLUONG { get; set; }

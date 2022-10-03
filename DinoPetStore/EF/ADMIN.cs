@@ -2,7 +2,6 @@ namespace DinoPetStore.EF
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -40,7 +39,7 @@ namespace DinoPetStore.EF
         public string TENDN { get; set; }
 
         [Required]
-        [StringLength(20)]
+        [StringLength(200)]
         public string MATKHAU { get; set; }
 
         [Required]
@@ -53,7 +52,5 @@ namespace DinoPetStore.EF
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PHANQUYEN> PHANQUYENs { get; set; }
-
-
     }
 }

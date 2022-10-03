@@ -24,7 +24,7 @@ namespace DinoPetStore.Controllers
             }
             ViewBag.Tongsoluong = TongSoLuong();
             ViewBag.Tongtien = TongTien();
-            return View(/*dsGiohang*/);
+            return View(dsGiohang);
         }
 
         public List<GioHang> LayGioHang()

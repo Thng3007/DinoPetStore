@@ -16,7 +16,6 @@ namespace DinoPetStore.EF
 
         [Key]
         [StringLength(100)]
-
         public string MACHUCNANG { get; set; }
 
         [StringLength(200)]

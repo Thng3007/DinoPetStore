@@ -11,12 +11,11 @@ namespace DinoPetStore.EF
     {
         [Key]
         [Column(Order = 0)]
-
         public int MAPQ { get; set; }
 
         [Key]
         [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int MAADMIN { get; set; }
 
         [Key]

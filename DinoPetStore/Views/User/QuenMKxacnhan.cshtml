@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Xác nhận quên mật khẩu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- breadcrumbs -->
+<div class="breadcrumbs">
+    <div class="container">
+        <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+            <li><a href="@Url.Action("Index", "User")"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Trang Chủ</a></li>
+            <li class="active">Trang Xác Nhận Quên Mật Khẩu</li>
+        </ol>
+    </div>
+</div>
+<!-- //breadcrumbs -->
+<div class="login">
+    <div class="container">
+        <h1 style="text-align: center">
+            Thông Báo Xác Nhận Quên Mật Khẩu
+        </h1>
+        <h3 style="text-align: center; color: coral; margin-top: 10px"> Email đã được gửi thành công!</h3>
+
+        <p style="font-size:30px; text-align:center; padding-top:25px; padding-bottom:20px">Hãy kiểm tra email của bạn để đặt lại mật khẩu</p>
+        <div class="grid__item large--one-third push--large--one-third text-center">
+            <a href="@Url.Action("index","User")" style="border:1px solid;padding:5px 30px;">Đồng ý</a>
+        </div>
+    </div>
+</div>
+
+

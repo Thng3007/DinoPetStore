@@ -283,11 +283,6 @@
     <Compile Include="Areas\Admin\Models\DangNhapModel.cs" />
     <Compile Include="Areas\Admin\Models\DoiMKadmin.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Models\DangKyModel.cs" />
-    <Compile Include="Models\DangNhapModel.cs" />
-    <Compile Include="Models\GioHang.cs" />
-    <Compile Include="Areas\Admin\Models\MahoaMD5.cs" />
-    <Compile Include="Areas\Admin\Controllers\KhachHangController.cs" />
     <Compile Include="EF\ADMIN.cs" />
     <Compile Include="EF\CHUCNANG_QUYEN.cs" />
     <Compile Include="EF\CTDONDATHANG.cs" />
@@ -303,6 +298,11 @@
     <Compile Include="EF\PHIEUNHAPKHO.cs" />
     <Compile Include="EF\SANPHAM.cs" />
     <Compile Include="EF\THUONGHIEU.cs" />
+    <Compile Include="Models\DangKyModel.cs" />
+    <Compile Include="Models\DangNhapModel.cs" />
+    <Compile Include="Models\GioHang.cs" />
+    <Compile Include="Areas\Admin\Models\MahoaMD5.cs" />
+    <Compile Include="Areas\Admin\Controllers\KhachHangController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2808,6 +2808,11 @@
     <Content Include="Views\User\sanpham.cshtml" />
     <Content Include="Views\User\SPTheothuonghieu.cshtml" />
     <Content Include="Views\User\SPTheoloai.cshtml" />
+    <Content Include="Views\User\thongbaolienhe.cshtml" />
+    <Content Include="Views\User\QuenMK.cshtml" />
+    <Content Include="Views\User\QuenMKxacnhan.cshtml" />
+    <Content Include="Views\User\ResetPassword.cshtml" />
+    <Content Include="Views\GioHang\DatHang.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

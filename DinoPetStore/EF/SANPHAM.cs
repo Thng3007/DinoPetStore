@@ -36,7 +36,7 @@ namespace DinoPetStore.EF
 
         public int? MAMAUSAC { get; set; }
 
-        public int SOLUONG { get; set; }
+        public int? SOLUONG { get; set; }
 
         [StringLength(100)]
         public string HINHANH { get; set; }
