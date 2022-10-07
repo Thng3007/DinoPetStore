@@ -286,6 +286,7 @@
     <Compile Include="EF\ADMIN.cs" />
     <Compile Include="EF\CHUCNANG_QUYEN.cs" />
     <Compile Include="EF\CTDONDATHANG.cs" />
+    <Compile Include="EF\DANHMUC.cs" />
     <Compile Include="EF\DinoStoreDbContext.cs" />
     <Compile Include="EF\DONDATHANG.cs" />
     <Compile Include="EF\GIAMGIA.cs" />
@@ -2734,6 +2735,7 @@
     <Content Include="Scripts\fastclick.min5eef.js" />
     <Content Include="Scripts\hoverchangeimage.js" />
     <Content Include="Scripts\jquery.fancybox.min.js" />
+    <Content Include="Scripts\site.js" />
     <Content Include="Views\GioHang\ThongBao.cshtml" />
     <Content Include="Views\GioHang\hinhthuonghieu.cshtml" />
     <Content Include="Views\GioHang\GiohangPartial.cshtml" />

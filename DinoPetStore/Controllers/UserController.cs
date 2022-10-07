@@ -47,6 +47,71 @@ namespace DinoPetStore.Controllers
         }
 
 
+        public JsonResult GetListItemByCategory(int categoryId)
+        {
+            var result = (from a in data.SANPHAMs
+                          join b in data.THUONGHIEUx on a.MATH equals b.MATH
+                          join c in data.LOAIs on a.MALOAI equals c.MALOAI
+                          join t in data.DANHMUCs on a.CategoryId equals t.CategoryId
+                          join d in data.MAUSACs on a.MAMAUSAC equals d.MAMAUSAC
+                          where (t.CategoryId == categoryId)
+                          select new ProductViewModel
+                          {
+                              MASP = a.MASP,
+                              TENSP = a.TENSP,
+                              DONGIABAN = a.DONGIABAN,
+                              HINHANH = a.HINHANH,
+                              MATH = a.MATH,
+                              MALOAI = a.MALOAI,
+                              TENTH = b.TENTH,
+                              TENLOAI = c.TENLOAI,
+                              SOLUONG = (int)a.SOLUONG,
+                              MOTA = a.MOTA,
+                              TENMAUSAC = d.TENMAUSAC,
+                              LOGO = b.LOGO
+                          }).OrderBy(x => x.MASP).Take(count: 6).ToList();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public JsonResult GetListItemDiscount()
+        {
+            try
+            {
+                var result = (from a in data.SANPHAMs
+                              join g in data.GIAMGIAs on a.MASP equals g.MASP
+                              join b in data.THUONGHIEUx on a.MATH equals b.MATH
+                              join c in data.LOAIs on a.MALOAI equals c.MALOAI
+                              join d in data.MAUSACs on a.MAMAUSAC equals d.MAMAUSAC
+
+                              select new ProductViewModel
+                              {
+                                  MASP = a.MASP,
+                                  TENSP = a.TENSP,
+                                  DONGIABAN = a.DONGIABAN,
+                                  HINHANH = a.HINHANH,
+                                  MATH = a.MATH,
+                                  MALOAI = a.MALOAI,
+                                  TENTH = b.TENTH,
+                                  TENLOAI = c.TENLOAI,
+                                  SOLUONG = (int)a.SOLUONG,
+                                  MOTA = a.MOTA,
+                                  TENMAUSAC = d.TENMAUSAC,
+                                  LOGO = b.LOGO
+                              }).OrderBy(x => x.MASP).ToList();
+
+                return Json(result, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+
+
+        }
+
+
         #region Lấy Sản Phẩm
         public ActionResult sanpham(int? page, int? pageSize)
         {
@@ -218,7 +283,7 @@ namespace DinoPetStore.Controllers
                 }
                 else
                 {
-                    var mahoa_matkhau = MahoaMD5.GetMD5(model.matkhau);
+                    var mahoa_matkhau = MahoaMD5.EncryptMD5(model.matkhau);
                     var kh = new KHACHHANG();
                     kh.HOTENKH = model.hoten;
                     kh.TENDNKH = model.tendn;
@@ -247,7 +312,7 @@ namespace DinoPetStore.Controllers
         [HttpPost]
         public ActionResult dangnhap(DangNhapModel model)
         {
-            var mahoa_matkhaudangnhap = MahoaMD5.GetMD5(model.matkhau);
+            var mahoa_matkhaudangnhap = MahoaMD5.EncryptMD5(model.matkhau);
             if (ModelState.IsValid)
             {
                 KHACHHANG kh = data.KHACHHANGs.SingleOrDefault(n => n.TENDNKH == model.tendn && n.MATKHAUKH == mahoa_matkhaudangnhap);
@@ -419,6 +484,8 @@ namespace DinoPetStore.Controllers
                 //gửi email               
 
                 var account = data.KHACHHANGs.SingleOrDefault(n => n.EMAIL == quenMK.Email);
+                //Đây làm gì có đoạn lấy pass gửi cho khách hàng nhỉ
+                // lấy link truy cập để vào trang đổi pass thôi
                 if (account != null)
                 {
                     //gửi mail để thay đổi mật khẩu
@@ -471,9 +538,13 @@ namespace DinoPetStore.Controllers
         public ActionResult ResetPassword(ResetPassword model)
         {
             var message = "";
+            //Giải mã pass ở đay à b
+            // đúng r 
+            // phải giải mã ko b ? 
+            //Đây là lưu lại pass mới thì là mã hóa cái passmowsii rồi update vào bảng khách hàng mà nhỉ
             if (ModelState.IsValid)
             {
-                var mahoa_matkhau = MahoaMD5.GetMD5(model.NewPassword);
+                var mahoa_matkhau = MahoaMD5.EncryptMD5(model.NewPassword);
                 KHACHHANG kh = data.KHACHHANGs.SingleOrDefault(n => n.KHOIPHUCMATKHAU == model.Resetcode);
                 if (kh != null)
                 {
@@ -510,29 +581,59 @@ namespace DinoPetStore.Controllers
         [NonAction]
         public void sendcontact(string name, string email, string Subject, string message)
         {
-            KHACHHANG kh = new KHACHHANG();
-            var fromEmail = new MailAddress("thanh170120@outlook.com.vn");
-            var toEmail = new MailAddress(kh.EMAIL);
-            var fromEmailPassword = "Thanh30072020"; // password
-            string subject = Subject;
-            string body = "<br/> Họ tên: " + name + "<br/><br/> Email: " + " " + email + "<br/><br/> Nội dung: " + message;
-
-            var smtp = new SmtpClient
+           try
             {
-                Host = "smtp.office365.com",
-                Port = 587,
-                EnableSsl = true,
-                DeliveryMethod = SmtpDeliveryMethod.Network,
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(fromEmail.Address, fromEmailPassword)
-            };
+                var fromEmail = new MailAddress("thanh170120@outlook.com.vn", "Thanh"); //mail của mình để gửi mail đổi mật khẩu cho khách
+                var toEmail = new MailAddress(email);
+                var fromEmailPassword = "Thanh30072020"; //Mật khẩu của tài khoản mail
+                string body = "<br/> Họ tên: " + name + "<br/><br/> Email: " + " " + email + "<br/><br/> Nội dung: " + message;
 
-            using (var tinnhan = new MailMessage(fromEmail, toEmail)
+                var smtp = new SmtpClient
+                {
+                    Host = "smtp.office365.com",
+                    Port = 25,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(fromEmail.Address, fromEmailPassword)
+                };
+
+                using (var mess = new MailMessage(fromEmail, toEmail)
+                {
+                    Subject = Subject,
+                    Body = body,
+                    IsBodyHtml = true
+                }) smtp.Send(mess);
+
+            }
+            catch(Exception ex)
             {
-                Subject = subject,
-                Body = body,
-                IsBodyHtml = true
-            }) smtp.Send(tinnhan);
+                var exxx = ex.Message;
+            }
+
+            //KHACHHANG kh = new KHACHHANG();
+            //var fromEmail = new MailAddress("thanh170120@outlook.com.vn");
+            //var toEmail = new MailAddress(email);
+            //var fromEmailPassword = "Thanh30072020"; // password
+            //string subject = Subject;
+            //string body = "<br/> Họ tên: " + name + "<br/><br/> Email: " + " " + email + "<br/><br/> Nội dung: " + message;
+
+            //var smtp = new SmtpClient
+            //{
+            //    Host = "smtp.office365.com",
+            //    Port = 587,
+            //    EnableSsl = true,
+            //    DeliveryMethod = SmtpDeliveryMethod.Network,
+            //    UseDefaultCredentials = false,
+            //    Credentials = new NetworkCredential(fromEmail.Address, fromEmailPassword)
+            //};
+
+            //using (var tinnhan = new MailMessage(fromEmail, toEmail)
+            //{
+            //    Subject = subject,
+            //    Body = body,
+            //    IsBodyHtml = true
+            //}) smtp.Send(tinnhan);
 
         }
 

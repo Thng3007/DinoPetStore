@@ -10,12 +10,8 @@ namespace DinoPetStore.EF
     public partial class KICHTHUOC
     {
         [Key]
-        [Column(Order = 0)]
         public int MAKICHTHUOC { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int MASP { get; set; }
 
         public int TENKICHTHUOC { get; set; }

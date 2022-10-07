@@ -10,16 +10,11 @@ namespace DinoPetStore.EF
     public partial class PHANQUYEN
     {
         [Key]
-        [Column(Order = 0)]
         public int MAPQ { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int MAADMIN { get; set; }
 
-        [Key]
-        [Column(Order = 2)]
+        [Required]
         [StringLength(100)]
         public string MACHUCNANG { get; set; }
 

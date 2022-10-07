@@ -4,7 +4,7 @@
 }
 
 
-@section slide {
+@section slider2 {   <!--1-->
     <div class="top-brands">
 
         <!-- main-slider -->
@@ -81,7 +81,7 @@
                                                                         <input type="hidden" name="currency_code" value="VND" />
                                                                         <input type="hidden" name="return" value=" " />
                                                                         <input type="hidden" name="cancel_return" value=" " />
-                                                                        <input type="submit" name="submit" value="THÊM VÀO GIỎ" onclick="window.location.href ='@Url.Action("ThemGiohang", "GioHang", new { @iMASP = i.MASP, @strURL = Request.Url.ToString() })'" class="button" />
+                                                                        <input type="submit" name="submit" value="THÊM VÀO GIỎ" onclick="fun_AddCard(@i.MASP)" class="button" />
                                                                     </fieldset>
                                                                 </form>
                                                             </div>
@@ -141,11 +141,11 @@
                                                                         <input type="hidden" name="cancel_return" value=" " />
                                                                         @if (i.SOLUONG != 0)
                                                                         {
-                                                                            <input type="submit" name="submit" value="THÊM VÀO GIỎ" onclick="window.location.href ='@Url.Action("ThemGiohang", "GioHang", new { @iMASP = i.MASP, @strURL = Request.Url.ToString() })'" class="button" />
+                                                                            <input type="submit" name="submit" value="THÊM VÀO GIỎ" onclick="fun_AddCard(@i.MASP)" class="button" />
                                                                         }
                                                                         @if (i.SOLUONG == 0)
                                                                         {
-                                                                            <input type="submit" name="submit" value="TẠM HẾT HÀNG" onclick="window.location.href=" #" class="button" />
+                                                                            <input type="submit" name="submit" value="TẠM HẾT HÀNG" class="button" />
                                                                         }
 
                                                                     </fieldset>
@@ -247,47 +247,196 @@
 <div class="newproducts-w3agile">
     <div class="container">
         <h3>GIẢM GIÁ</h3>
-        <div class="agile_top_brands_grids">
-            <div class="col-md-3 top_brand_left-1">
-                <div class="hover14 column">
-                    <div class="agile_top_brand_left_grid">
-                        <div class="agile_top_brand_left_grid_pos">
-                            <img src="~/img/icons/offer.png" alt=" " class="img-responsive">
-                        </div>
-                        <div class="agile_top_brand_left_grid1">
-                            <figure>
-                                <div class="snipcart-item block">
-                                    <div class="snipcart-thumb">
-                                        @*<a href="@Url.Action("Chitiet", "User" , new { id = i.MASP })"><img title=" " alt=" " src="images/14.png"></a>
-                                                <p>Fried-gram</p>
-                                                <h4>$35.99 <span>$55.00</span></h4>
-                                            </div>
-                                            <div class="snipcart-details top_brand_home_details">
-                                                <form action="#" method="post">
-                                                    <fieldset>
-                                                        <input type="hidden" name="cmd" value="_cart">
-                                                        <input type="hidden" name="add" value="1">
-                                                        <input type="hidden" name="business" value=" ">
-                                                        <input type="hidden" name="item_name" value="Fortune Sunflower Oil">
-                                                        <input type="hidden" name="amount" value="35.99">
-                                                        <input type="hidden" name="discount_amount" value="1.00">
-                                                        <input type="hidden" name="currency_code" value="USD">
-                                                        <input type="hidden" name="return" value=" ">
-                                                        <input type="hidden" name="cancel_return" value=" ">
-                                                        <input type="submit" name="submit" value="Add to cart" class="button">
-                                                    </fieldset>
-                                                </form>
-                                            </div>*@
-                                        @*@Html.Action("GiamGia", "User")*@
-                                    </div>
-                                </div>
-                            </figure>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="agile_top_brands_grids" id="itemdiscount">
+           
             <div class="clearfix"> </div>
         </div>
     </div> <!--end container-->
 </div>
 <!-- //new -->
+
+
+
+
+<script>
+    $(document).ready(function () {
+        fun_GetListItemDiscount();
+        GetListItemByCategory(1);
+        $("#expeditions-tab").on("click", function () {
+            GetListItemByCategory(1);
+
+        });
+        $("#tours-tab").on("click", function () {
+            GetListItemByCategory(2);
+        });
+    });
+    function fun_AddCard(masp) {
+        $.ajax({
+            type: "GET",
+            url: "/GioHang/ThemGiohang",
+            data: { "iMASP": masp },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data === "success") {
+                    ToastNotify('Thêm vào giỏ hàng thành công', 'success');
+                } else {
+                    ToastNotify(data, 'warning');
+                }
+                return false;
+            },
+            failure: function (response) {
+                alert(response)
+                DevExpress.ui.notify(response, 3000);
+            },
+            error: function (response) {
+                alert(response)
+            }
+        })
+    }
+    //Lấy danh sách item theo loại
+    function GetListItemByCategory(categoryId) {
+        $.ajax({
+            type: "GET",
+            url: "/User/GetListItemByCategory",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: { "categoryId": categoryId },
+            success: function (data) {
+                if (typeof (data) == 'object') {
+                    var html = "";
+                    if (categoryId == 1) {
+                        html += `<div class="agile-tp"><p class="w3l-ad">Sản phẩm được Dino Store đánh giá là chất lượng, đảm bảo sức khỏe cho thú cưng của bạn .</p></div>`
+                    } else {
+                        html += `<div class="agile-tp"><p class="w3l-ad">Sản phẩm mới nhà Dino.</p></div>`
+                    }
+                    html += `<div class="clearfix"> </div>`;
+                    $.each(data, function (index, item) {
+                        html += `<div class="agile_top_brands_grids">
+                                    <div class="col-md-4 top_brand_left">
+                                        <div class="hover14 column" style="padding-block: 5px">
+                                            <div class="agile_top_brand_left_grid">
+                                                <div class="agile_top_brand_left_grid1">
+                                                    <figure>
+                                                        <div class="snipcart-item block">
+                                                            <div class="snipcart-thumb">
+                                                                <a href="/Chitiet/User/${item.MASP}">
+                                                                    <img title=" " alt="Index Img New Items" src="/img/${item.HINHANH}" style="height: 350px; width: 250px;" />
+                                                                </a>
+                                                                <p>${item.TENSP}</p>
+                                                                <div class="stars">
+                                                                    <i class="fa fa-star blue-star" aria-hidden="true"></i>
+                                                                    <i class="fa fa-star blue-star" aria-hidden="true"></i>
+                                                                    <i class="fa fa-star blue-star" aria-hidden="true"></i>
+                                                                    <i class="fa fa-star blue-star" aria-hidden="true"></i>
+                                                                    <i class="fa fa-star gray-star" aria-hidden="true"></i>
+                                                                </div>
+                                                                <h4>${item.DONGIABAN}</h4>
+                                                            </div>
+                                                            <div class="snipcart-details top_brand_home_details">
+                                                                <fieldset>
+                                                                        <input type="hidden" name="cmd" value="_cart" />
+                                                                        <input type="hidden" name="add" value="1" />
+                                                                        <input type="hidden" name="business" value=" " />
+                                                                        <input type="hidden" name="item_name" value="${item.TENSP}" />
+                                                                        <input type="hidden" name="amount" value="${item.DONGIABAN}" />
+                                                                        <input type="hidden" name="discount_amount" value="${item.GIAMGIA}" />
+                                                                        <input type="hidden" name="currency_code" value="VND" />
+                                                                        <input type="hidden" name="return" value=" " />
+                                                                        <input type="hidden" name="cancel_return" value=" " />
+                                                                        <input type="submit" name="submit" value="${item.SOLUONG == 0 ? "TẠM HẾT HÀNG" : "THÊM VÀO GIỎ"}" onclick="${item.SOLUONG == 0 ? null : `fun_AddCard(${item.MASP})`}" class="button" />
+                                                                    </fieldset>
+                                                            </div>
+                                                        </div>
+                                                    </figure>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>`
+                    });
+                    if (categoryId == 1)
+                        $("#expeditions").html(html);
+                    else
+                        $("#tours").html(html);
+
+                }
+            },
+            failure: function (response) {
+                alert(response)
+                DevExpress.ui.notify(response, 3000);
+            },
+            error: function (response) {
+                alert(response)
+            }
+        })
+    }
+
+    function fun_GetListItemDiscount() {
+        $.ajax({
+            type: "GET",
+            url: "/User/GetListItemDiscount",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                if (typeof (data) == 'object') {
+                    var html = "";
+                    $.each(data, function (index, item) {
+                        html += `<div class="agile_top_brands_grids">
+                                    <div class="col-md-4 top_brand_left">
+                                        <div class="hover14 column" style="padding-block: 5px">
+                                            <div class="agile_top_brand_left_grid">
+                                                <div class="agile_top_brand_left_grid1">
+                                                    <figure>
+                                                        <div class="snipcart-item block">
+                                                            <div class="snipcart-thumb">
+                                                                <a href="/Chitiet/User/${item.MASP}">
+                                                                    <img title=" " alt="Index Img New Items" src="/img/${item.HINHANH}" style="height: 350px; width: 250px;" />
+                                                                </a>
+                                                                <p>${item.TENSP}</p>
+                                                                <div class="stars">
+                                                                    <i class="fa fa-star blue-star" aria-hidden="true"></i>
+                                                                    <i class="fa fa-star blue-star" aria-hidden="true"></i>
+                                                                    <i class="fa fa-star blue-star" aria-hidden="true"></i>
+                                                                    <i class="fa fa-star blue-star" aria-hidden="true"></i>
+                                                                    <i class="fa fa-star gray-star" aria-hidden="true"></i>
+                                                                </div>
+                                                                <h4>${item.DONGIABAN}</h4>
+                                                            </div>
+                                                            <div class="snipcart-details top_brand_home_details">
+                                                                <fieldset>
+                                                                        <input type="hidden" name="cmd" value="_cart" />
+                                                                        <input type="hidden" name="add" value="1" />
+                                                                        <input type="hidden" name="business" value=" " />
+                                                                        <input type="hidden" name="item_name" value="${item.TENSP}" />
+                                                                        <input type="hidden" name="amount" value="${item.DONGIABAN}" />
+                                                                        <input type="hidden" name="discount_amount" value="${item.GIAMGIA}" />
+                                                                        <input type="hidden" name="currency_code" value="VND" />
+                                                                        <input type="hidden" name="return" value=" " />
+                                                                        <input type="hidden" name="cancel_return" value=" " />
+                                                                        <input type="submit" name="submit" value="${item.SOLUONG == 0 ? "TẠM HẾT HÀNG" : "THÊM VÀO GIỎ"}" onclick="${item.SOLUONG == 0 ? null : `fun_AddCard(${item.MASP})`}" class="button" />
+                                                                    </fieldset>
+                                                            </div>
+                                                        </div>
+                                                    </figure>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>`
+                    });
+                    $("#itemdiscount").html(html);
+                }
+            },
+            failure: function (response) {
+                alert(response)
+                DevExpress.ui.notify(response, 3000);
+            },
+            error: function (response) {
+                alert(response)
+            }
+        })
+    }
+
+</script>

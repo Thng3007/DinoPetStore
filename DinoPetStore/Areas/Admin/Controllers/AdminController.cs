@@ -112,7 +112,7 @@ namespace DinoPetStore.Areas.Admin.Controllers
             }
             else
             {
-                if (ModelState.IsValid)
+                if (ModelState.IsValid) //do lỗi trường avâtrr nên modelstate sẽ trả giá trị false
                 {
                     try
                     {
@@ -126,7 +126,7 @@ namespace DinoPetStore.Areas.Admin.Controllers
                         {
                             fileUp.SaveAs(path);
                         }
-                        admin.AVATAR = fileName;
+                        admin.AVATAR = fileName; 
                         data.ADMINs.Add(admin);
                         data.SaveChanges();
                     }

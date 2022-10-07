@@ -38,22 +38,51 @@ namespace DinoPetStore.Controllers
             return dsGioHang;
         }
 
-        public ActionResult ThemGiohang(int iMASP, string strURL)
+        public JsonResult ThemGiohang(int iMASP)
         {
-            List<GioHang> dsGiohang = LayGioHang();
-            GioHang sanpham = dsGiohang.Find(n => n.iMASP == iMASP);
-            if (sanpham == null)
+            try
             {
-                sanpham = new GioHang(iMASP);
-                dsGiohang.Add(sanpham);
-                return Redirect(strURL);
+
+                List<GioHang> dsGiohang = LayGioHang();
+                GioHang sanpham = dsGiohang.Find(n => n.iMASP == iMASP);
+
+
+                if (sanpham == null)
+                {
+                    sanpham = new GioHang(iMASP);
+                    dsGiohang.Add(sanpham);
+                    //return Redirect(strURL);
+                }
+                else
+                {
+                    sanpham.iSOLUONG ++;
+                    //return Redirect(strURL);
+                }
+                return Json("success", JsonRequestBehavior.AllowGet);
+
             }
-            else
+            catch (Exception ex)
             {
-                sanpham.iSOLUONG++;
-                return Redirect(strURL);
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
             }
         }
+
+        //public ActionResult ThemGiohang(int iMASP)
+        //{
+        //    List<GioHang> dsGiohang = LayGioHang();
+        //    GioHang sanpham = dsGiohang.Find(n => n.iMASP == iMASP);
+        //    if (sanpham == null)
+        //    {
+        //        sanpham = new GioHang(iMASP);
+        //        dsGiohang.Add(sanpham);
+        //        return Redirect(strURL);
+        //    }
+        //    else
+        //    {
+        //        sanpham.iSOLUONG++;
+        //        return Redirect(strURL);
+        //    }
+        //}
 
 
         //Tong so luong
