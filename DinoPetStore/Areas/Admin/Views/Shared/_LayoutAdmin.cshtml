@@ -21,7 +21,22 @@
     <!-- Custom styles for this template-->
     <link href="~/Asses/Admin/css/sb-admin-2.min.css" rel="stylesheet">
 
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">*@
 
+
+    <link href="~/Asses/User/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/Asses/Admin/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Asses/Admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="~/Asses/Admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>*@
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
+    <script src="~/Scripts/site.js"></script>
 </head>
 
 <body id="page-top">
@@ -109,7 +124,7 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("Index", "User", "User")">
+                <a class="nav-link" href="User/Index">
                     <i class="fas fa-bone"></i>
                     <span>Trang Người Dùng</span>
                 </a>
@@ -120,6 +135,12 @@
                 <a class="nav-link" href="@Url.Action("Index", "ThongKe")">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Thống Kê</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("GetListContact", "LienHe")">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Liên hệ</span>
                 </a>
             </li>
 
@@ -133,11 +154,11 @@
             </div>
 
             <!-- Lịch -->
-                <!-- <p class="text-center" style="text-align: center; color: palevioletred;">Lịch</p>
-                <div class="widget">
-                    <div class="datepicker"></div>
-                </div>
-                    -->
+            <!-- <p class="text-center" style="text-align: center; color: palevioletred;">Lịch</p>
+    <div class="widget">
+        <div class="datepicker"></div>
+    </div>
+        -->
 
         </ul>
         <!-- End of Sidebar -->
@@ -169,7 +190,7 @@
                                 @{ var ad = Session["Taikhoanadmin"] as DinoPetStore.EF.ADMIN;}
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">@ad.HOTEN</span>
                                 <img class="img-profile rounded-circle"
-                                     src="@Url.Content("~/img/" + @ad.AVATAR)" >
+                                     src="@Url.Content("~/img/" + @ad.AVATAR)">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -193,7 +214,7 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                  @RenderBody()
+                    @RenderBody()
 
                 </div>
                 <!-- /.container-fluid -->
@@ -240,10 +261,7 @@
         </div>
     </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="~/Asses/Admin/vendor/jquery/jquery.min.js"></script>
-    <script src="~/Asses/Admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+   
     <!-- Core plugin JavaScript-->
     <script src="~/Asses/Admin/vendor/jquery-easing/jquery.easing.min.js"></script>
 
@@ -257,3 +275,4 @@
 </body>
 
 </html>
+

@@ -8,7 +8,7 @@ namespace DinoPetStore.EF
     public partial class DinoStoreDbContext : DbContext
     {
         public DinoStoreDbContext()
-            : base("name=DinoStoreDbContext")
+            : base("name=DinoStoreDbContext2")
         {
         }
 
@@ -21,6 +21,7 @@ namespace DinoPetStore.EF
         public virtual DbSet<HINH> HINHs { get; set; }
         public virtual DbSet<KHACHHANG> KHACHHANGs { get; set; }
         public virtual DbSet<KICHTHUOC> KICHTHUOCs { get; set; }
+        public virtual DbSet<LIENHE> LIENHEs { get; set; }
         public virtual DbSet<LOAI> LOAIs { get; set; }
         public virtual DbSet<MAUSAC> MAUSACs { get; set; }
         public virtual DbSet<PHANQUYEN> PHANQUYENs { get; set; }

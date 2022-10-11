@@ -72,7 +72,6 @@ namespace DinoPetStore.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Create(KICHTHUOC kichthuoc)
         {
-            //Lỗi này tương tự giống phân quyền
             if (Session["Taikhoanadmin"] == null)
                 return RedirectToAction("dangnhap", "Admin");
             else

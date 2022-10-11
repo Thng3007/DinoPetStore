@@ -112,7 +112,7 @@ namespace DinoPetStore.Areas.Admin.Controllers
             }
             else
             {
-                if (ModelState.IsValid) //do lỗi trường avâtrr nên modelstate sẽ trả giá trị false
+                if (ModelState.IsValid) 
                 {
                     try
                     {

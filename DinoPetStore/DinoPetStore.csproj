@@ -271,6 +271,7 @@
     <Compile Include="Areas\Admin\Controllers\AdminPQController.cs" />
     <Compile Include="Areas\Admin\Controllers\BaoLoiController.cs" />
     <Compile Include="Areas\Admin\Controllers\DonHangController.cs" />
+    <Compile Include="Areas\Admin\Controllers\LienHeController.cs" />
     <Compile Include="Controllers\GioHangController.cs" />
     <Compile Include="Areas\Admin\Controllers\HinhController.cs" />
     <Compile Include="Areas\Admin\Controllers\KhoHangController.cs" />
@@ -293,6 +294,7 @@
     <Compile Include="EF\HINH.cs" />
     <Compile Include="EF\KHACHHANG.cs" />
     <Compile Include="EF\KICHTHUOC.cs" />
+    <Compile Include="EF\LIENHE.cs" />
     <Compile Include="EF\LOAI.cs" />
     <Compile Include="EF\MAUSAC.cs" />
     <Compile Include="EF\PHANQUYEN.cs" />
@@ -2772,6 +2774,7 @@
     <Content Include="Asses\User\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Asses\User\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Asses\User\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Areas\Admin\Views\LienHe\GetListContact.cshtml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />

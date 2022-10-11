@@ -1,0 +1,211 @@
+﻿@using DinoPetStore.EF
+@using PagedList.Mvc;
+@model PagedList.PagedList<DinoPetStore.EF.LIENHE>
+@{
+    ViewBag.Title = "Liên hệ";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@helper Truncate(string input, int length)
+{
+    if (input.Length < length)
+    {
+        @input
+    }
+    else
+    {
+        @input.Substring(0, length)<text>...</text>
+    }
+}
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary text-center">DANH SÁCH LIÊN HỆ TỪ KHÁCH HÀNG</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"><div id="dataTable_filter" class="dataTables_filter"></div></div><div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                            <thead>
+                                <tr role="row">
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px;">
+                                        Trạng thái
+                                    </th>
+                                    <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 155.281px;">
+                                        Email
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px;">
+                                        Tiêu đề
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1">
+                                        Nội dung
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px;">
+                                        Khách hàng
+                                    </th>
+
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px;">
+                                        Ngày liên hệ
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @{
+                                                if (item.IsResponse)
+                                                {
+                                                    <span class="label label-info">Chờ phản hồi</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="label label-success">Đã phản hồi</span>
+                                                }
+                                            }
+
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Email)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Title)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ContentContact)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.RequestBy)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.RequestDate)
+                                        </td>
+                                        <td>
+                                            <a href="javascript:void(0)" onclick="funcResponse(@item.Id)">Phản hồi</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <p>This is a large modal.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    Trang @(@Model.PageNumber>Model.PageCount?Model.PageCount: Model.PageNumber)/@Model.PageCount
+</div>
+<div align="center">@Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))</div>
+<link href="~/Content/phantrang.css" rel="stylesheet" />
+<script>
+
+    function funcResponse(Id) {
+        $.confirm({
+            title: 'Phản hồi khách hàng!',
+            boxWidth: '50%',
+            useBootstrap: false,
+            content: `<div class="form-group"><textarea class="form-control" id="contentResponse" rows="3"></textarea></div>`,
+            buttons: {
+                formSubmit: {
+                    text: 'Gửi',
+                    btnClass: 'btn-blue',
+                    action: function () {
+                        var contentResponse = $('#contentResponse').val();
+                        if (contentResponse == null || contentResponse == "") {
+                            ToastNotify('Nội dung phản hồi không được để trống', 'warning');
+                            return false;
+                        }
+                        $.ajax({
+                            type: "GET",
+                            url: "/LienHe/ResponseContact",
+                            data: { "Id": Id, "contentResponse": contentResponse },
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (data) {
+                                if (data === "success") {
+                                    ToastNotify('Phản hồi người dùng thành công', 'success');
+                                    window.location.reload();
+                                } else {
+                                    ToastNotify(data, 'warning');
+                                }
+                                return false;
+                            },
+                            failure: function (response) {
+                                alert(response)
+                                DevExpress.ui.notify(response, 3000);
+                            },
+                            error: function (response) {
+                                alert(response)
+                            }
+                        })
+                       
+                    }
+                },
+                cancel: function () {
+                    //close
+                },
+            },
+            onContentReady: function () {
+               
+            }
+        });
+    }
+
+    function fun_AddCard(masp) {
+        
+    }
+        /* $("#myModal").modal("show");*/
+        //$.confirm({
+        //    title: 'Phản hồi khách hàng!',
+        //    boxWidth: '50%',
+        //    useBootstrap: false,
+        //    content: `<div class="form-group">
+        //        <label>Enter something here</label>
+        //        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea></div>`,
+        //    buttons: {
+        //        formSubmit: {
+        //            text: 'Gửi',
+        //            btnClass: 'btn-blue',
+        //            action: function () {
+        //                var name = this.$content.find('.name').val();
+        //                if (!name) {
+        //                    $.alert('provide a valid name');
+        //                    return false;
+        //                }
+        //                $.alert('Your name is ' + name);
+        //            }
+        //        },
+        //        close: {
+        //            text: 'Đóng',
+        //            action: function () {
+                       
+        //            }
+        //        },
+               
+        //    }
+        //});
+</script>
+
+

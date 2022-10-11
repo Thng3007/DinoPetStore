@@ -241,13 +241,6 @@ namespace DinoPetStore.Controllers
         #endregion
 
 
-        //#region Lấy sản phẩm giảm giá
-        //public ActionResult GiamGia(int id)
-        //{
-        //    var giam = from SANPHAM in data.GIAMGIAs where SANPHAM.MASP == id select SANPHAM;
-        //    return View(giam);
-        //}
-        //#endregion
 
 
         #region Đăng Ký
@@ -538,10 +531,6 @@ namespace DinoPetStore.Controllers
         public ActionResult ResetPassword(ResetPassword model)
         {
             var message = "";
-            //Giải mã pass ở đay à b
-            // đúng r 
-            // phải giải mã ko b ? 
-            //Đây là lưu lại pass mới thì là mã hóa cái passmowsii rồi update vào bảng khách hàng mà nhỉ
             if (ModelState.IsValid)
             {
                 var mahoa_matkhau = MahoaMD5.EncryptMD5(model.NewPassword);
@@ -651,12 +640,20 @@ namespace DinoPetStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                sendcontact(lienhe.Name, lienhe.Email, lienhe.Subject, lienhe.Message);
-                return RedirectToAction("thongbaolienhe", "User");
-            }
-            else
-            {
-
+                var objData = new LIENHE
+                {
+                    Email = lienhe.Email,
+                    Title = lienhe.Subject,
+                    ContentContact = lienhe.Message,
+                    RequestBy = lienhe.Name,
+                    RequestDate = DateTime.Now,
+                    IsResponse = true
+                };
+                data.LIENHEs.Add(objData);
+                data.SaveChanges();
+                return RedirectToAction("thongbaolienhe", "User");  
+                //sendcontact(lienhe.Name, lienhe.Email, lienhe.Subject, lienhe.Message);
+                //return RedirectToAction("thongbaolienhe", "User");
             }
             return View(lienhe);
         }

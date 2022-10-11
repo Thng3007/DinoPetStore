@@ -68,7 +68,7 @@ namespace DinoPetStore.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Create(PHANQUYEN pquyen)
         {
-            //Lỗi này do có nhiều hơn 1 khóa chính trong 1 bảng -> lỗi
+    
             if (Session["Taikhoanadmin"] == null)
                 return RedirectToAction("dangnhap", "Admin");
             else
