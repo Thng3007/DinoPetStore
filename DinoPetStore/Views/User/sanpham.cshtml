@@ -1,7 +1,7 @@
 ﻿@using PagedList.Mvc;
 @model PagedList.IPagedList<DinoPetStore.Models.ProductViewModel>
 @{
-    ViewBag.Title = "sanpham";
+    ViewBag.Title = "Sản Phẩm";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -67,11 +67,11 @@
                                                         <input type="hidden" name="cancel_return" value=" ">
                                                         @if (item.SOLUONG != 0)
                                                         {
-                                                            <input type="submit" name="submit" value="THÊM VÀO GIỎ" onclick="window.location.href ='@Url.Action("ThemGiohang", "GioHang", new { @iMASP = item.MASP, @strURL = Request.Url.ToString() })'" class="button" />
+                                                            <input type="submit" name="submit" value="THÊM VÀO GIỎ" onclick="fun_AddCard(@item.MASP)" class="button" />
                                                         }
                                                         @if (item.SOLUONG == 0)
                                                         {
-                                                            <button type="submit" onclick="window.location.href=" #"><span>TẠM HẾT HÀNG</span></button>
+                                                            <input type="submit" name="submit" value="TẠM HẾT HÀNG" class="button" />
                                                         }
                                                     </fieldset>
                                                 </form>
@@ -102,3 +102,31 @@
         <div class="clearfix"> </div>
     </div>
 </div>
+
+
+<script>
+    function fun_AddCard(masp) {
+        $.ajax({
+            type: "GET",
+            url: "/GioHang/ThemGiohang",
+            data: { "iMASP": masp },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data === "success") {
+                    ToastNotify('Thêm vào giỏ hàng thành công', 'success');
+                } else {
+                    ToastNotify(data, 'warning');
+                }
+                return false;
+            },
+            failure: function (response) {
+                alert(response)
+                DevExpress.ui.notify(response, 3000);
+            },
+            error: function (response) {
+                alert(response)
+            }
+        })
+    }
+</script>

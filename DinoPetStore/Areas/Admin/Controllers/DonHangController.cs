@@ -75,25 +75,5 @@ namespace DinoPetStore.Areas.Admin.Controllers
             }
         }
 
-        [HttpGet]
-        public ActionResult Delete(int id)
-        {
-            DONDATHANG hang = data.DONDATHANGs.SingleOrDefault(h => h.MADH == id);
-            // ViewBag.MaHang = hang.MaHang;
-            //  if (hang == null)
-            // {
-            //     Response.StatusCode = 404;
-            // }
-            return View(hang);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        public ActionResult XoaDonHang(int id)
-        {
-            DONDATHANG hang = data.DONDATHANGs.SingleOrDefault(h => h.MADH == id);
-            data.DONDATHANGs.Remove(hang);
-            data.SaveChanges();
-            return RedirectToAction("DonDatHang", "DonHang");
-        }
     }
 }

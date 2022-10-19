@@ -12,20 +12,20 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+    <div class="form-horizontal" style="margin-left: 10px">
 
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             <label><strong>Tên Sản Phẩm:</strong></label>
-            <div class="col-md-10">
+            <div  >
                 @Html.DropDownList("MASP")
             </div>
         </div>
         <br />
         <div class="form-group">
             <label><strong>Hình Ảnh:</strong></label>
-            <div class="col-md-10">
+            <div  >
                 <input type="file" name="fileUpload" Required="required" />
                 @ViewBag.Thongbao
             </div>

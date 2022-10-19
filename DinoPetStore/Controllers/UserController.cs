@@ -111,6 +111,34 @@ namespace DinoPetStore.Controllers
 
         }
 
+        public ActionResult GiamGia (int? page, int? pageSize)
+        {
+
+            var giamgia = (from a in data.SANPHAMs
+                           join g in data.GIAMGIAs on a.MASP equals g.MASP
+                           join b in data.THUONGHIEUx on a.MATH equals b.MATH
+                           join c in data.LOAIs on a.MALOAI equals c.MALOAI
+                           join d in data.MAUSACs on a.MAMAUSAC equals d.MAMAUSAC
+
+                           select new ProductViewModel
+                           {
+                               MASP = a.MASP,
+                               TENSP = a.TENSP,
+                               DONGIABAN = a.DONGIABAN,
+                               HINHANH = a.HINHANH,
+                               MATH = a.MATH,
+                               MALOAI = a.MALOAI,
+                               TENTH = b.TENTH,
+                               TENLOAI = c.TENLOAI,
+                               SOLUONG = (int)a.SOLUONG,
+                               MOTA = a.MOTA,
+                               TENMAUSAC = d.TENMAUSAC,
+                               LOGO = b.LOGO
+                           }).OrderBy(x => x.MASP).ToList();
+
+            return View(giamgia);
+        }
+
 
         #region Lấy Sản Phẩm
         public ActionResult sanpham(int? page, int? pageSize)
@@ -477,8 +505,6 @@ namespace DinoPetStore.Controllers
                 //gửi email               
 
                 var account = data.KHACHHANGs.SingleOrDefault(n => n.EMAIL == quenMK.Email);
-                //Đây làm gì có đoạn lấy pass gửi cho khách hàng nhỉ
-                // lấy link truy cập để vào trang đổi pass thôi
                 if (account != null)
                 {
                     //gửi mail để thay đổi mật khẩu

@@ -32,7 +32,6 @@
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px; text-align: center">Sản phẩm</th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px; text-align: center">Số lượng</th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px; text-align: center">Đơn giá</th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px; text-align: center">Đơn Giá</th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px; text-align: center">Thành tiền</th>
 
                                 </tr>
@@ -73,10 +72,7 @@
                                             </a>
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.SANPHAM.TENSP)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.SANPHAM.SOLUONG)
+                                            @Html.DisplayFor(modelItem => item.SOLUONG)
                                         </td>
                                         <td>
                                             <span style="font-weight: 700; color: #F60; font-size: 14px">@Html.DisplayFor(modelItem => item.DONGIA)<sup> VNĐ</sup></span>
@@ -84,9 +80,7 @@
                                         <td>
                                             <span style="font-weight: 700; color: #F60; font-size: 14px">@Html.DisplayFor(modelItem => item.THANHTIEN)<sup> VNĐ</sup></span>
                                         </td>
-                                        <td>
-                                            @Html.ActionLink("Xóa", "Delete", new { id = item.MADH })
-                                        </td>
+
                                     </tr>
                                 }
 

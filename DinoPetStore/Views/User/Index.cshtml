@@ -81,7 +81,14 @@
                                                                         <input type="hidden" name="currency_code" value="VND" />
                                                                         <input type="hidden" name="return" value=" " />
                                                                         <input type="hidden" name="cancel_return" value=" " />
-                                                                        <input type="submit" name="submit" value="THÊM VÀO GIỎ" onclick="fun_AddCard(@i.MASP)" class="button" />
+                                                                        @if (i.SOLUONG != 0)
+                                                                        {
+                                                                            <input type="submit" name="submit" value="THÊM VÀO GIỎ" onclick="fun_AddCard(@i.MASP)" class="button" />
+                                                                        }
+                                                                        @if (i.SOLUONG == 0)
+                                                                        {
+                                                                            <input type="submit" name="submit" value="TẠM HẾT HÀNG" class="button" />
+                                                                        }
                                                                     </fieldset>
                                                                 </form>
                                                             </div>
@@ -270,6 +277,8 @@
             GetListItemByCategory(2);
         });
     });
+
+
     function fun_AddCard(masp) {
         $.ajax({
             type: "GET",
@@ -440,3 +449,6 @@
     }
 
 </script>
+
+<!--uhCHAT-->
+<script src="https://uhchat.net/code.php?f=46ef55"></script>

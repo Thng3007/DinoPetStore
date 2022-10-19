@@ -67,25 +67,7 @@ namespace DinoPetStore.Controllers
             }
         }
 
-        //public ActionResult ThemGiohang(int iMASP)
-        //{
-        //    List<GioHang> dsGiohang = LayGioHang();
-        //    GioHang sanpham = dsGiohang.Find(n => n.iMASP == iMASP);
-        //    if (sanpham == null)
-        //    {
-        //        sanpham = new GioHang(iMASP);
-        //        dsGiohang.Add(sanpham);
-        //        return Redirect(strURL);
-        //    }
-        //    else
-        //    {
-        //        sanpham.iSOLUONG++;
-        //        return Redirect(strURL);
-        //    }
-        //}
-
-
-        //Tong so luong
+   
         private int TongSoLuong()
         {
             int iTongSoLuong = 0;
@@ -180,6 +162,7 @@ namespace DinoPetStore.Controllers
             DONDATHANG ddh = new DONDATHANG();
             KHACHHANG kh = (KHACHHANG)Session["Taikhoan"];
             List<GioHang> gh = LayGioHang();
+            SANPHAM sp = new SANPHAM();
             ddh.MAKH = kh.MAKH;
             ddh.NGAYDAT = DateTime.Now;
             if (collection["Ngaygiao"].Equals(""))

@@ -1,0 +1,167 @@
+﻿
+@{
+    ViewBag.Title = "Sản Phẩm Giảm Giá";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- breadcrumbs -->
+<div class="breadcrumbs">
+    <div class="container">
+        <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+            <li><a href="@Url.Action("Index", "User")"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Trang Chủ</a></li>
+            <li class="active">Sản Phẩm Giảm Giá</li>
+        </ol>
+    </div>
+</div>
+<!-- //breadcrumbs -->
+
+
+<div class="col-md-8 products-right">
+    <div class="agile_top_brands_grids">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 top_brand_left">
+                <div class="hover14 column">
+                    <div class="agile_top_brand_left_grid">
+                        <div class="agile_top_brand_left_grid1">
+                            <figure>
+                                <div class="snipcart-item block">
+                                    <div class="snipcart-thumb">
+                                        <a href="@Url.Action("Chitiet", "User", new { id = item.MASP })"><img title=" " alt=" Ảnh Sản Phẩm @item.TENSP " src="@Url.Content("~/img/" + @item.HINHANH)" style="height: 295px; width: 175px;"></a>
+                                        <p>@item.TENSP</p>
+                                        <h4>@String.Format("{0:0,0}", @item.DONGIABAN)</h4>
+                                    </div>
+                                    <div class="snipcart-details top_brand_home_details">
+                                        <form action="#" method="post">
+                                            <fieldset>
+                                                <input type="hidden" name="cmd" value="_cart">
+                                                <input type="hidden" name="add" value="1">
+                                                <input type="hidden" name="business" value=" ">
+                                                <input type="hidden" name="item_name" value="@item.TENSP">
+                                                <input type="hidden" name="amount" value="@String.Format("{0:0,0}", @item.DONGIABAN)">
+                                                @*<input type="hidden" name="discount_amount" value="@item.GIAMGIA">*@
+                                                <input type="hidden" name="currency_code" value="VND">
+                                                <input type="hidden" name="return" value=" ">
+                                                <input type="hidden" name="cancel_return" value=" ">
+                                                @if (item.SOLUONG != 0)
+                                                {
+                                                    <input type="submit" name="submit" value="THÊM VÀO GIỎ" onclick="fun_AddCard(@item.MASP)" class="button" />
+                                                }
+                                                @if (item.SOLUONG == 0)
+                                                {
+                                                    <input type="submit" name="submit" value="TẠM HẾT HÀNG" class="button" />
+                                                }
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                </div>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+            </div>
+
+
+        }
+        <div class="clearfix"> </div>
+
+
+    </div> <!--end agile_top_brands_grids-->
+</div>
+<div class="clearfix"> </div>
+
+<script>
+    function fun_GetListItemDiscount() {
+        $.ajax({
+            type: "GET",
+            url: "/User/GetListItemDiscount",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                if (typeof (data) == 'object') {
+                    var html = "";
+                    $.each(data, function (index, item) {
+                        html += `<div class="agile_top_brands_grids">
+                                    <div class="col-md-4 top_brand_left">
+                                        <div class="hover14 column" style="padding-block: 5px">
+                                            <div class="agile_top_brand_left_grid">
+                                                <div class="agile_top_brand_left_grid1">
+                                                    <figure>
+                                                        <div class="snipcart-item block">
+                                                            <div class="snipcart-thumb">
+                                                                <a href="/Chitiet/User/${item.MASP}">
+                                                                    <img title=" " alt="Index Img New Items" src="/img/${item.HINHANH}" style="height: 350px; width: 250px;" />
+                                                                </a>
+                                                                <p>${item.TENSP}</p>
+                                                                <div class="stars">
+                                                                    <i class="fa fa-star blue-star" aria-hidden="true"></i>
+                                                                    <i class="fa fa-star blue-star" aria-hidden="true"></i>
+                                                                    <i class="fa fa-star blue-star" aria-hidden="true"></i>
+                                                                    <i class="fa fa-star blue-star" aria-hidden="true"></i>
+                                                                    <i class="fa fa-star gray-star" aria-hidden="true"></i>
+                                                                </div>
+                                                                <h4>${item.DONGIABAN}</h4>
+                                                            </div>
+                                                            <div class="snipcart-details top_brand_home_details">
+                                                                <fieldset>
+                                                                        <input type="hidden" name="cmd" value="_cart" />
+                                                                        <input type="hidden" name="add" value="1" />
+                                                                        <input type="hidden" name="business" value=" " />
+                                                                        <input type="hidden" name="item_name" value="${item.TENSP}" />
+                                                                        <input type="hidden" name="amount" value="${item.DONGIABAN}" />
+                                                                        <input type="hidden" name="discount_amount" value="${item.GIAMGIA}" />
+                                                                        <input type="hidden" name="currency_code" value="VND" />
+                                                                        <input type="hidden" name="return" value=" " />
+                                                                        <input type="hidden" name="cancel_return" value=" " />
+                                                                        <input type="submit" name="submit" value="${item.SOLUONG == 0 ? "TẠM HẾT HÀNG" : "THÊM VÀO GIỎ"}" onclick="${item.SOLUONG == 0 ? null : `fun_AddCard(${item.MASP})`}" class="button" />
+                                                                    </fieldset>
+                                                            </div>
+                                                        </div>
+                                                    </figure>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>`
+                    });
+                    $("#itemdiscount").html(html);
+                }
+            },
+            failure: function (response) {
+                alert(response)
+                DevExpress.ui.notify(response, 3000);
+            },
+            error: function (response) {
+                alert(response)
+            }
+        })
+    }
+    function fun_AddCard(masp) {
+        $.ajax({
+            type: "GET",
+            url: "/GioHang/ThemGiohang",
+            data: { "iMASP": masp },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data === "success") {
+                    ToastNotify('Thêm vào giỏ hàng thành công', 'success');
+                } else {
+                    ToastNotify(data, 'warning');
+                }
+                return false;
+            },
+            failure: function (response) {
+                alert(response)
+                DevExpress.ui.notify(response, 3000);
+            },
+            error: function (response) {
+                alert(response)
+            }
+        })
+    }
+</script>
+

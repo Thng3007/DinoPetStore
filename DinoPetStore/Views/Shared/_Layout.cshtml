@@ -147,9 +147,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 </div>
                             </ul>
                         </li>
-                        <li><a href="#">Giảm Giá</a></li>
-                        <li><a href="@Url.Action("tintuc")">Tin Tức</a></li>
-                        <li><a href="@Url.Action("giaitri")">Giải Trí</a></li>
+                        <li><a href="@Url.Action("GiamGia", "User")">Giảm Giá</a></li>
+                        @*<li><a href="@Url.Action("tintuc")">Tin Tức</a></li>
+                        <li><a href="@Url.Action("giaitri")">Giải Trí</a></li>*@
                         <li><a href="@Url.Action("Lienhe", "User")">Liên Hệ</a></li>
                         <li>
                             @if (Session["Taikhoan"] != null)
@@ -284,9 +284,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             action: '#'
         });
 
-        if (~window.location.search.indexOf('reset=true')) {
-            paypal.minicart.reset();
-        }
+        //if (~window.location.search.indexOf('reset=true')) {
+        //    paypal.minicart.reset();
+        //}
     </script>
     <!-- main slider-banner -->
     <script src="~/Asses/User/js/skdslider.min.js"></script>

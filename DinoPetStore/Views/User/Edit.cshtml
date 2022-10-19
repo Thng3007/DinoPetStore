@@ -27,60 +27,60 @@
                                 {
                                     @Html.AntiForgeryToken()
 
-                                    <div class="form-horizontal" align="justify">
+                                    <div class="form-horizontal" align="justify" style="margin-left: 30px;">
                                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                         @Html.HiddenFor(model => model.MAKH)
 
                                         <div class="form-group">
-                                            <label>Họ tên:</label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-5">
+                                                <label>Họ tên:</label>
                                                 @Html.EditorFor(model => model.HOTENKH, new { htmlAttributes = new { @class = "form-control input-full" }, @Required = "required" })
                                                 @Html.ValidationMessageFor(model => model.HOTENKH, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
 
                                         <div class="form-group ">
-                                            <label>Số Điện Thoại:</label>
-                                            <div class="col-md-6" onkeypress="return isNumberKey(event)">
+                                            <div class="col-md-5" onkeypress="return isNumberKey(event)">
+                                                <label>Số Điện Thoại:</label>
                                                 @Html.EditorFor(model => model.DIENTHOAI, new { htmlAttributes = new { @class = "form-control input-full" }, @Required = "required" })
                                                 @Html.ValidationMessageFor(model => model.DIENTHOAI, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            <label>Địa Chỉ:</label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-5">
+                                                <label>Địa Chỉ:</label>
                                                 @Html.EditorFor(model => model.DIACHI, new { htmlAttributes = new { @class = "form-control input-full" }, @Required = "required" })
                                                 @Html.ValidationMessageFor(model => model.DIACHI, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            <label>Tên đăng nhập:</label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-5">
+                                                <label>Tên đăng nhập:</label>
                                                 @Html.EditorFor(model => model.TENDNKH, new { htmlAttributes = new { @class = "form-control input-full" }, @Required = "required" })
                                                 @Html.ValidationMessageFor(model => model.TENDNKH, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Email:</label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-5">
+                                                <label>Email:</label>
                                                 @Html.EditorFor(model => model.EMAIL, new { htmlAttributes = new { @class = "form-control input-full" }, @Required = "required" })
                                                 @Html.ValidationMessageFor(model => model.EMAIL, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            <label>Ngày sinh:</label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-5">
+                                                <label>Ngày sinh:</label>
                                                 @Html.EditorFor(model => model.NGAYSINH, new { htmlAttributes = new { @class = "form-control input-full", @Required = "required" } })
                                                 @Html.ValidationMessageFor(model => model.NGAYSINH, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
                                         <br />
                                         <div class="form-group">
-                                            <label>Hình ảnh:</label>
                                             <div class="col-md-6 ">
+                                                <label>Hình ảnh:</label>
                                                 <img src="@Url.Content("~/img/" + @Model.HINHANH)" alt="" height="120" width="120" />
                                                 <input class="form-control text-box single-line input-full " id="fileUpload" required="required" name="fileUpload" type="file" value="">
 
