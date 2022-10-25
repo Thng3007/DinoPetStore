@@ -1,0 +1,51 @@
+﻿@model DinoPetStore.EF.GIAMGIA
+
+@{
+    ViewBag.Title = "Thêm Sản Phẩm Giảm Giá";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Thêm Sản Phẩm Giảm Giá</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Thêm Sản Phẩm Giảm Giá</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-3">
+                <label><strong>Tên Sản Phẩm:</strong></label>
+                @Html.ValidationMessageFor(model => model.MASP, "", new { @class = "text-danger" })
+                <div>
+                    @Html.DropDownList("MASP");
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-3">
+                <label><strong>Phần Trăm Giảm:</strong></label>
+                @Html.ValidationMessageFor(model => model.PHAMTRAMGIAM, "", new { @class = "text-danger" })
+                <div>
+                    <input required="required" class="form-control text-box single-line" data-val="true"  data-val-required="Phần Trăm Giảm Bắt Buộc." id="PHANTRAMGIAM" name="PHANTRAMGIAM" type="text" value="">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Tạo Mới" class="btn btn-success" /> |
+                <a href="@Url.Action("Index", "GiamGia")" class="btn btn-danger btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </span>
+                    <span class="text">Huỷ</span>
+                </a>
+            </div>
+        </div>
+    </div>
+}
+

@@ -1,39 +1,39 @@
-﻿@using DinoPetStore.EF
-@using PagedList.Mvc;
-@model PagedList.PagedList<DinoPetStore.EF.PHIEUNHAPKHO>
+﻿@using PagedList
+@using PagedList.Mvc
+@model PagedList.PagedList<DinoPetStore.EF.GIAMGIA>
+
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Quản Lý Sản Phẩm Giảm Giá";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-
+<h2 style="padding-top:10px">Quản Lý Sản Phẩm Giảm Giá</h2>
 <h4 style="width: 100%; padding-top:20px;">
     <u>
-        <a href="@Url.Action("Create", "KhoHang")" class="btn btn-success btn-icon-split">
+        <a href="@Url.Action("Create", "GiamGia")" class="btn btn-success btn-icon-split">
             <span class="icon text-white-50">
                 <img src="~/img/icons/add.png" />
             </span>
-            <span class="text">THÊM MỚI SỐ LƯỢNG SẢN PHẨM NHẬP KHO</span>
+            <span class="text">THÊM MỚI SẢN PHẨM GIẢM GIÁ</span>
         </a>
     </u>
 </h4>
-
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary text-center">Kho Hàng</h6>
+        <h6 class="m-0 font-weight-bold text-primary text-center">DANH SÁCH SẢN PHẨM GIẢM GIÁ</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
             <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                <div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"><div id="dataTable_filter" class="dataTables_filter"></div></div><div class="row">
+                <div class="row"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="dataTable_length"><label>Show <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select></label></div></div><div class="col-sm-12 col-md-6"><div id="dataTable_filter" class="dataTables_filter"></div></div></div><div class="row">
                     <div class="col-sm-12">
                         <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
                             <thead>
                                 <tr role="row">
-                                    <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 155.281px;">Ngày Nhập</th>
+                                    <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 155.281px;">Mã Giảm Giá</th>
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px;">Mã Sản Phẩm</th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px;">Tên Sản Phẩm</th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px;">Số Lượng</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 260.344px;">Têm Sảm Phẩm</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 260.344px;">Phần Trăm Giảm</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -42,7 +42,7 @@
                                 {
                                     <tr>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.NGAYNK)
+                                            @Html.DisplayFor(modelItem => item.MAGIAMGIA)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.MASP)
@@ -51,17 +51,14 @@
                                             @Html.DisplayFor(modelItem => item.SANPHAM.TENSP)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.SOLUONG)
+                                            @Html.DisplayFor(modelItem => item.PHAMTRAMGIAM)
                                         </td>
                                         <td>
-                                            <a href="@Url.Action("Edit", "KhoHang", new { id = item.MAPHIEUNK })">
-                                                <img src="~/img/icons/icon_Sua.png" />
-                                            </a>|
-                                            <a href="@Url.Action("Edit", "KhoHang", new { id = item.MAPHIEUNK })">
-                                                <img src="~/img/info_25px.png" />
-                                            </a>|
-                                            <a href="@Url.Action("Delete", "KhoHang", new { id = item.MAPHIEUNK })">
-                                                <img src="~/img/icons/icon_Xoa.png" />
+                                            <a href="@Url.Action("Edit", "GiamGia", new { id = item.MAGIAMGIA })">
+                                                <img  src="~/img/icons/icon_Sua.png" />
+                                            </a> |
+                                            <a href="@Url.Action("Delete", "GiamGia", new { id = item.MAGIAMGIA })">
+                                                <img  src="~/img/icons/icon_Xoa.png" />
                                             </a>
                                         </td>
                                     </tr>
@@ -80,3 +77,5 @@
 </div>
 <div align="center">@Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))</div>
 <link href="~/Content/phantrang.css" rel="stylesheet" />
+
+

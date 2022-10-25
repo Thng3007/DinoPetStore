@@ -138,7 +138,7 @@
                                             <option value="1" selected="selected">Ship COD thanh toán khi nhận hàng</option>
                                         </select>
                                     </div>
-                                    <table style="width: 685px; height: 100px; border: 1px solid rgb(208, 208, 208); text-align: center">
+                                    <table style="width: 685px; height: 100px; border: 1px solid rgb(208, 208, 208); text-align: center" class="Thanhtoan">
                                         <tr>
                                             <td style="text-align: left; padding-left: 20px">
                                                 <p class="Thanhtoan" target="_blank" style="display: none; color: #2d485a; padding-top: 10px; padding-bottom: 10px; ">
@@ -169,60 +169,79 @@
         }
     </div>
 </div>
-    
-    <script type="text/javascript">
 
-        ////Khi Click "Lấy từ thông tin tài khoản" thì Gán các giá trị của thông tin tài khoản cho thông tin giao hàng (Lưu ý phải có thư viện Js)
-        //$(function () {
-        //    $(".LayThongTin").click(function () {
-        //        document.getElementById('txt_HoTenNhan').value = $('#txt_HoTen').val();
-        //        document.getElementById('txt_DiaChiNhan').value = $('#txt_DiaChi').val();
-        //        document.getElementById('txt_DienThoaiNhan').value = $('#txt_DienThoai').val();
-        //    });
-        //});
+<script type="text/javascript">
 
-        ////Mặc định load lên thì Href liên kết đến bảo kim ẩn đi
-        //$(document).ready(function () {
-        //    $('.LinkBaoKim').hide();
-        //});
+    ////Khi Click "Lấy từ thông tin tài khoản" thì Gán các giá trị của thông tin tài khoản cho thông tin giao hàng (Lưu ý phải có thư viện Js)
+    //$(function () {
+    //    $(".LayThongTin").click(function () {
+    //        document.getElementById('txt_HoTenNhan').value = $('#txt_HoTen').val();
+    //        document.getElementById('txt_DiaChiNhan').value = $('#txt_DiaChi').val();
+    //        document.getElementById('txt_DienThoaiNhan').value = $('#txt_DienThoai').val();
+    //    });
+    //});
 
-        //Script Khi chọn hình thức thanh toán sẽ ẩn hiện Href liên kết đến bảo kim, Input xác nhận và ngược lại
-        function ThayDoi() {
-            var Chon = document.getElementById("sl_ThanhToan").value;
-            if (Chon == "0") {
-                $('.Thanhtoan').show();
-            }
-            else {
-                $('.Thanhtoan').hide();
-            }
-        };
+    ////Mặc định load lên thì Href liên kết đến bảo kim ẩn đi
+    //$(document).ready(function () {
+    //    $('.LinkBaoKim').hide();
+    //});
 
-    </script>
+    //Script Khi chọn hình thức thanh toán sẽ ẩn hiện Href liên kết đến bảo kim, Input xác nhận và ngược lại
+    function ThayDoi() {
+        var Chon = document.getElementById("sl_ThanhToan").value;
+        if (Chon == "0") {
+            $('.Thanhtoan').show();
+        }
+        else {
+            $('.Thanhtoan').hide();
+        }
+    };
+
+</script>
+
+<!--quantity-->
+<script>
+    $('.value-plus').on('click', function () {
+        var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10) + 1;
+        divUpd.text(newVal);
+    });
+
+    $('.value-minus').on('click', function () {
+        var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10) - 1;
+        if (newVal >= 1) divUpd.text(newVal);
+    });
+</script>
+<!--quantity--> 
 <style type="text/css">
     #infoOrder {
         background-color: antiquewhite;
         align-items: center;
-        display: block; 
+        display: block;
         margin: 0 auto;
         text-align: start;
+    }
 
-
-        }
-    input#billing_address_full_name  {
+    input#billing_address_full_name {
         padding: 5px;
         margin: 10px
     }
+
     input#billing_address_phone {
         padding: 5px;
         margin: 10px
     }
+
     input#billing_address_address {
         padding: 5px;
         margin: 10px
     }
+
     .btn {
         padding: 20px;
         background-color: skyblue;
     }
-    
+
+    input {
+        border: none;
+    }
 </style>

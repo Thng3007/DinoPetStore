@@ -86,6 +86,7 @@ namespace DinoPetStore.Controllers
             if (dsGiohang != null)
             {
                 iTongTien = dsGiohang.Sum(n => n.dTHANHTIEN);
+
             }
             return iTongTien;
         }

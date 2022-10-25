@@ -5,7 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Create</h2>
+<h2>Thêm sản phẩm vào kho</h2>
 
 @using (Html.BeginForm("Create", "KhoHang", FormMethod.Post, new { @enctype = "multipart/form-data" })) 
 {
@@ -19,7 +19,7 @@
         <label><strong>Ngày nhập:</strong></label>
         @Html.ValidationMessageFor(model => model.NGAYNK, "", new { @class = "text-danger" })
         <div  >
-            <input required="required" class="form-control text-box single-line" data-val="true" data-val-date="The field NGAYNK must be a date." data-val-required="The NGAYNK field is required." id="NGAYNK" name="NGAYNK" type="date" value="">
+            <input required="required" class="form-control text-box single-line" data-val="true" data-val-date="The field NGAYNK must be a date." data-val-required="The NGAYNK field is required." id="NGAYNK" name="NGAYNK" type="date" value="@DateTime.Now">
         </div>
     </div>
 

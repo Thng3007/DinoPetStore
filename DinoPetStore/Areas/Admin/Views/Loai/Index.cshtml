@@ -52,9 +52,15 @@
                                             @Html.DisplayFor(modelItem => item.TENLOAI)
                                         </td>
                                         <td>
-                                            @Html.ActionLink("Sửa", "Edit", new { id = item.MALOAI }) |
-                                            @Html.ActionLink("Chi tiết", "Details", new { id = item.MALOAI }) |
-                                            @Html.ActionLink("Xóa", "Delete", new { id = item.MALOAI })
+                                            <a href="@Url.Action("Edit", "Loai", new { id = item.MALOAI })">
+                                                <img src="~/img/icons/icon_Sua.png" />
+                                            </a>|
+                                            <a href="@Url.Action("Edit", "Loai", new { id = item.MALOAI })">
+                                                <img src="~/img/info_25px.png" />
+                                            </a>|
+                                            <a href="@Url.Action("Delete", "Loai", new { id = item.MALOAI })">
+                                                <img src="~/img/icons/icon_Xoa.png" />
+                                            </a>
                                         </td>
                                     </tr>
                                 }

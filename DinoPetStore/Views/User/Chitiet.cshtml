@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Chitiet";
+    ViewBag.Title = "Chi Tiết Sản Phẩm";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -59,7 +59,14 @@
                                 <input type="hidden" name="currency_code" value="VND">
                                 <input type="hidden" name="return" value=" ">
                                 <input type="hidden" name="cancel_return" value=" ">
-                                <input type="submit" name="submit" value="Add to cart" class="button">
+                                @if (Model.SOLUONG != 0)
+                                {
+                                    <input type="submit" name="submit" value="THÊM VÀO GIỎ" onclick="fun_AddCard(@Model.MASP)" class="button" />
+                                }
+                                @if (Model.SOLUONG == 0)
+                                {
+                                    <input type="submit" name="submit" value="TẠM HẾT HÀNG" class="button" />
+                                }
                             </fieldset>
                         </form>
                     </div>
@@ -138,3 +145,31 @@
         </style>
     </div>
 </div>
+
+<script>
+    function fun_AddCard(masp) {
+        $.ajax({
+            type: "GET",
+            url: "/GioHang/ThemGiohang",
+            data: { "iMASP": masp },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data === "success") {
+                    ToastNotify('Thêm vào giỏ hàng thành công', 'success');
+                } else {
+                    ToastNotify(data, 'warning');
+                }
+                return false;
+            },
+            failure: function (response) {
+                alert(response)
+                DevExpress.ui.notify(response, 3000);
+            },
+            error: function (response) {
+                alert(response)
+            }
+        })
+    }
+
+</script>

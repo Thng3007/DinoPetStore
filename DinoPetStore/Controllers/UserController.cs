@@ -10,6 +10,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Antlr.Runtime;
+using System.Drawing.Printing;
 
 namespace DinoPetStore.Controllers
 {
@@ -21,6 +22,7 @@ namespace DinoPetStore.Controllers
         // GET: User
         public ActionResult Index()
         {
+
             var allacc = (from a in data.SANPHAMs
                           join b in data.THUONGHIEUx on a.MATH equals b.MATH
                           join c in data.LOAIs on a.MALOAI equals c.MALOAI
@@ -149,7 +151,7 @@ namespace DinoPetStore.Controllers
             }
             if (pageSize == null)
             {
-                pageSize = 9;
+                pageSize = 5;
             }
             int pagenum = (page ?? 1);
 
@@ -252,19 +254,40 @@ namespace DinoPetStore.Controllers
 
 
         #region Lấy sản phẩm theo loại sản phẩm
-        public ActionResult SPTheoloai(int id)
+        public  ActionResult SPTheoloai( int? page, int? pageSize)
         {
-            var sanpham = from SANPHAM in data.SANPHAMs where SANPHAM.MALOAI == id select SANPHAM;
-            return View(sanpham);
+            var sanpham = (from SANPHAM in data.SANPHAMs select SANPHAM).OrderBy(id => id.MALOAI);
+
+            if (page == null)
+            {
+                page = 1;
+            }
+            if (pageSize == null)
+            {
+                pageSize = 6;
+            }
+            int pagenum = (page ?? 1);
+            return View(sanpham.ToPagedList(pagenum, (int)pageSize));
         }
         #endregion
-
+// tham số truyền vào của SPTheoloai và SPTheothuonghieu chưa đc
 
         #region Lấy sản phẩm theo thương hiệu
-        public ActionResult SPTheothuonghieu(int id)
+        public  ActionResult SPTheothuonghieu(int? page, int? pageSize)
         {
-            var sanpham = from SANPHAM in data.SANPHAMs where SANPHAM.MATH == id select SANPHAM;
-            return View(sanpham);
+
+            var sanpham = (from SANPHAM in data.SANPHAMs select SANPHAM).OrderBy(id => id.MATH);
+
+            if (page == null)
+            {
+                page = 1;
+            }
+            if (pageSize == null)
+            {
+                pageSize = 6;
+            }
+            int pagenum = (page ?? 1);
+            return View(sanpham.ToPagedList(pagenum, (int)pageSize));
         }
         #endregion
 
@@ -455,7 +478,7 @@ namespace DinoPetStore.Controllers
             var verifyUrl = "/User/" + emailFor + "/" + activationCode;
             var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
 
-            var fromEmail = new MailAddress("thanh170120@outlook.com.vn", "Thanh"); //mail của mình để gửi mail đổi mật khẩu cho khách
+            var fromEmail = new MailAddress("thanh170120@outlook.com.vn", "DinoStore"); //mail của mình để gửi mail đổi mật khẩu cho khách
             var toEmail = new MailAddress(emailId);
             var fromEmailPassword = "Thanh30072020"; //Mật khẩu của tài khoản mail
             string subject = "";
@@ -598,7 +621,7 @@ namespace DinoPetStore.Controllers
         {
            try
             {
-                var fromEmail = new MailAddress("thanh170120@outlook.com.vn", "Thanh"); //mail của mình để gửi mail đổi mật khẩu cho khách
+                var fromEmail = new MailAddress("thanh170120@outlook.com.vn", "DinoStore"); //mail của mình để gửi mail đổi mật khẩu cho khách
                 var toEmail = new MailAddress(email);
                 var fromEmailPassword = "Thanh30072020"; //Mật khẩu của tài khoản mail
                 string body = "<br/> Họ tên: " + name + "<br/><br/> Email: " + " " + email + "<br/><br/> Nội dung: " + message;

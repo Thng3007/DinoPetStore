@@ -99,9 +99,15 @@
                                             @Truncate(item.MOTA, 50)
                                         </td>
                                         <td>
-                                            @Html.ActionLink("Sửa", "Edit", new { id = item.MASP }) |
-                                            @Html.ActionLink("Chi tiết", "Details", new { id = item.MASP }) |
-                                            @Html.ActionLink("Xóa", "Delete", new { id = item.MASP })
+                                            <a href="@Url.Action("Edit", "SanPham", new { id = item.MASP })">
+                                                <img src="~/img/icons/icon_Sua.png" />
+                                            </a>|
+                                            <a href="@Url.Action("Edit", "SanPham", new { id = item.MASP })">
+                                                <img src="~/img/info_25px.png" />
+                                            </a>|
+                                            <a href="@Url.Action("Delete", "SanPham", new { id = item.MASP })">
+                                                <img src="~/img/icons/icon_Xoa.png" />
+                                            </a>
                                         </td>
                                     </tr>
                                 }

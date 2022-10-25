@@ -40,25 +40,23 @@
                         <li role="presentation" class="active"><a href="#expeditions" id="expeditions-tab" role="tab" data-toggle="tab" aria-controls="expeditions" aria-expanded="true">SẢN PHẨM CHẤT LƯỢNG</a></li>
                         <li role="presentation"><a href="#tours" role="tab" id="tours-tab" data-toggle="tab" aria-controls="tours">SẢN PHẨM MỚI</a></li>
                     </ul>
-                    <div id="myTabContent" class="tab-content">
+                    <div id="myTabContent" class="tab-content" style="width: 1080px; height: 1450px">
                         <div role="tabpanel" class="tab-pane fade in active" id="expeditions" aria-labelledby="expeditions-tab">
                             <div class="agile-tp">
                                 <p class="w3l-ad">Sản phẩm được Dino Store đánh giá là chất lượng, đảm bảo sức khỏe cho thú cưng của bạn .</p>
                             </div>
-                            @foreach (var i in Model)
-                            {
-                                <div class="agile_top_brands_grids">
 
-                                    <div class="col-md-4 top_brand_left" style="padding-bottom: 15px">
+                            <div class="agile_top_brands_grids">
+                                @foreach (var i in Model)
+                                {
+                                    <div class="col-md-4 top_brand_left">
                                         <div class="hover14 column">
-                                            <div class="agile_top_brand_left_grid" style="height: 602.44px">
+                                            <div class="agile_top_brand_left_grid" style="margin-bottom: 10px">
                                                 <div class="agile_top_brand_left_grid1">
                                                     <figure>
                                                         <div class="snipcart-item block">
                                                             <div class="snipcart-thumb">
-                                                                <a href="@Url.Action("Chitiet", "User" , new { id = i.MASP })">
-                                                                    <img title=" " alt="Index Img Top Items" src="@Url.Content("~/img/" + @i.HINHANH)" style="height: 350px; width: 250px;" />
-                                                                </a>
+                                                                <a href="@Url.Action("Chitiet", "User", new { id = @i.MASP })"><img title=" " alt="Index Img Top Items" src="@Url.Content("~/img/" + @i.HINHANH)" style="height: 350px; width: 250px;" /></a>
                                                                 <p>@i.TENSP</p>
                                                                 <div class="stars">
                                                                     <i class="fa fa-star blue-star" aria-hidden="true"></i>
@@ -99,9 +97,11 @@
                                         </div>
 
                                     </div>
+                                }
+                                <div class="clearfix"> </div>
 
-                                </div>
-                            }
+                            </div>
+                            
 
                             <div class="clearfix"> </div>
                         </div> <!--/end san pham noi bat-->
@@ -110,18 +110,18 @@
                             <div class="agile-tp">
                                 <p class="w3l-ad">Sản phẩm mới nhà Dino.</p>
                             </div>
-                            @foreach (var i in Model)
-                            {
-                                <div class="agile_top_brands_grids">
 
+                            <div class="agile_top_brands_grids">
+                                @foreach (var i in Model)
+                                {
                                     <div class="col-md-4 top_brand_left">
-                                        <div class="hover14 column" style="padding-block: 5px">
+                                        <div class="hover14 column" >
                                             <div class="agile_top_brand_left_grid">
                                                 <div class="agile_top_brand_left_grid1">
                                                     <figure>
                                                         <div class="snipcart-item block">
                                                             <div class="snipcart-thumb">
-                                                                <a href="@Url.Action("Chitiet", "User" , new { id = i.MASP })">
+                                                                <a href="@Url.Action("Chitiet", "User", new { id = @i.MASP })">
                                                                     <img title=" " alt="Index Img New Items" src="@Url.Content("~/img/" + @i.HINHANH)" style="height: 350px; width: 250px;" />
                                                                 </a>
                                                                 <p>@i.TENSP</p>
@@ -165,14 +165,16 @@
                                         </div>
 
                                     </div>
+                                }
+                                <div class="clearfix"> </div>
 
-                                </div>
-                            }
+                            </div>
+
 
                             <div class="clearfix"> </div>
                         </div> <!--end sp moi-->
 
-                    </div> <!--end tag content-->
+                    </div> <!--end tab content-->
                 </div>
             </div> <!--end grid 3-5-->
         </div> <!--/end container-->

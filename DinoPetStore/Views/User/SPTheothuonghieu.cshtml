@@ -1,4 +1,7 @@
-﻿
+﻿@using PagedList
+@using PagedList.Mvc
+@model PagedList.PagedList<DinoPetStore.EF.SANPHAM>
+
 @{
     ViewBag.Title = "Sản Phẩm Theo Thương Hiệu";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -31,7 +34,7 @@
                     <li><a href="products.html"><i class="fa fa-arrow-right" aria-hidden="true"></i>Loại Sản Phẩm</a></li>
                     <ul>
                         <li>
-                            @Html.Action("thuonghieu", "User")
+                            @Html.Action("loai", "User")
                         </li>
                     </ul>
                 </ul> <!--end cate-->
@@ -91,6 +94,13 @@
 
 
             </div> <!--end agile_top_brands_grids-->
+            <nav class="numbering">
+                <ul class="pagination paging">
+                    <li>
+                        <div>@Html.PagedListPager(Model, page => Url.Action("SPTheothuonghieu", new { page = page }))</div>
+                    </li>
+                </ul>
+            </nav>
         </div>
         <div class="clearfix"> </div>
     </div>

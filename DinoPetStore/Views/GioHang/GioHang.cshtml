@@ -42,7 +42,7 @@
                     {
                         <tr class="rem1">
                             <td class="invert">@item.iMASP</td>
-                            <td class="invert-image"><a href="@Url.Action("Chitiet", "User")"><img src="~/img/@item.gHINHANH" alt="@item.gTENSP" class="img-responsive" /></a></td>
+                            <td class="invert-image"><a href="@Url.Action("Chitiet", "User", new { id = item.iMASP })"><img src="~/img/@item.gHINHANH" alt="@item.gTENSP" class="img-responsive" /></a></td>
                             <td class="invert" style="width: 250px">
                                 <div class="quantity">
                                     <div class="quantity-select">
@@ -78,19 +78,6 @@
                     }
 
                 }
-                <!--quantity-->
-                <script>
-                    $('.value-plus').on('click', function () {
-                        var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10) + 1;
-                        divUpd.text(newVal);
-                    });
-
-                    $('.value-minus').on('click', function () {
-                        var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10) - 1;
-                        if (newVal >= 1) divUpd.text(newVal);
-                    });
-                </script>
-                <!--quantity-->
             </table>
         </div>
         <div class="checkout-left">
@@ -108,5 +95,16 @@
     </div>
 </div>
 <!-- //checkout -->
+<!--quantity-->
+<script>
+    $('.value-plus').on('click', function () {
+        var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10) + 1;
+        divUpd.text(newVal);
+    });
 
-
+    $('.value-minus').on('click', function () {
+        var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10) - 1;
+        if (newVal >= 1) divUpd.text(newVal);
+    });
+</script>
+<!--quantity-->
