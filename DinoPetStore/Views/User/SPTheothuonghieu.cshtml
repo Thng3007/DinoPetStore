@@ -97,7 +97,7 @@
             <nav class="numbering">
                 <ul class="pagination paging">
                     <li>
-                        <div>@Html.PagedListPager(Model, page => Url.Action("SPTheothuonghieu", new { page = page }))</div>
+                        <div>@Html.PagedListPager(Model, page => Url.Action("SPTheothuonghieu", new { math = Model[0].MATH, page = page, pageSize = 6 }));</div>
                     </li>
                 </ul>
             </nav>

@@ -41,7 +41,40 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <script src="~/Scripts/site.js"></script>
     <!-- start-smoth-scrolling -->
 
+    <style>
+        .hoverCart {
+            position: relative;
+        }
 
+            .hoverCart .tooltiptext {
+                visibility: hidden;
+                background-color: #fff;
+                border-radius: 6px;
+                position: absolute;
+                z-index: 1;
+                left: -360px;
+                background-color: floralwhite;
+                top: 40px;
+                opacity: 0;
+                transition: opacity 0.3s;
+            }
+
+                .hoverCart .tooltiptext::before {
+                    content: "";
+                    position: absolute;
+                    top: -24px;
+                    left: 360px;
+                    margin-left: 0px;
+                    border-width: 12px;
+                    border-style: solid;
+                    border-color: transparent transparent #fff transparent;
+                }
+
+        /* .hoverCart:hover .tooltiptext {
+                visibility: visible;
+                opacity: 1;
+            }*/
+    </style>
 </head>
 
 <body>
@@ -58,14 +91,30 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
                 </ul>
             </div>
-            <div class="product_list_header">
-                <form action="@Html.ActionLink("GiohangPartial", "GioHang")" method="post" class="last">
-                    <input type="hidden" name="cmd" value="_cart">
-                    <input type="hidden" name="display" value="1">
-                    <button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
-                    <a href="@Url.Action("Giohang", "GioHang")" >Giỏ Hàng Của Tôi</a>
-                </form>
+            <div class="product_list_header hoverCart">
+                <button><i class="fa fa-cart-arrow-down" id="viewCart" aria-hidden="true"></i></button>
+                <div class="tooltiptext" style="height: fit-content;padding:10px;font-size:small">
+                    <div class="form-group form-group-sm row" style="margin-bottom:0px!important">
+                        <div class="col-sm-12" id="content-cart">
+
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm row" style="margin-bottom:0px!important" id="footer-cart">
+                        <div class="col-sm-6 col-xs-6" id="totalPrice">TỔNG TIỀN: </div>
+                        <div class="col-sm-6 col-xs-6 text-right"><a class="text-success" href="/Giohang/DatHang">ĐẶT HÀNG >> </a></div>
+                    </div>
+
+                </div>
+
             </div>
+            @*<div class="product_list_header">
+            <form action="@Html.ActionLink("GiohangPartial", "GioHang")" method="post" class="last">
+                <input type="hidden" name="cmd" value="_cart">
+                <input type="hidden" name="display" value="1">
+                <button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
+                <a href="@Url.Action("Giohang", "GioHang")" >Giỏ Hàng Của Tôi</a>
+            </form>
+        </div>*@
             <div class="clearfix"> </div>
         </div>
     </div>
@@ -148,7 +197,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             </ul>
                         </li>
                         <li><a href="@Url.Action("GiamGia", "User")">Giảm Giá</a></li>
-                        <li><a href="@Url.Action("tintuc")">Tin Tức</a></li>
+                        <li><a href="@Url.Action("TinTuc", "User")">Tin Tức</a></li>
                         <li><a href="@Url.Action("Lienhe", "User")">Liên Hệ</a></li>
                         <li>
                             @if (Session["Taikhoan"] != null)
@@ -259,34 +308,73 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <script src="~/Asses/User/js/bootstrap.min.js"></script>
 
     <!-- top-header and slider -->
-    <!-- here stars scrolling icon -->
+    <!-- minicart -->
     <script type="text/javascript">
         $(document).ready(function () {
-            /*
-                var defaults = {
-                containerID: 'toTop', // fading element id
-                containerHoverID: 'toTopHover', // fading element hover id
-                scrollSpeed: 1200,
-                easingType: 'linear'
-                };
-            */
+            //var checkClick = false;
+            $("#viewCart").on("click", function () {
+                window.location.href = "/GioHang/Giohang";
+            });
+            $('.hoverCart').hover(
+                function () {
+                    getListMiniCart();
+                },
 
+                function () {
+                    $(".tooltiptext").css("visibility", "hidden");
+                    $(".tooltiptext").css("opacity", 0);
+                }
+            );
             $().UItoTop({ easingType: 'easeOutQuart' });
 
         });
+
+        function getListMiniCart() {
+            var totalQuan = 0;
+            $.ajax({
+                type: "GET",
+                url: "/GioHang/getListCart",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    var check = false;
+                    var html = "";
+                    if (data.length > 0) {
+                        var totalPrice = 0;
+                        $.each(data, function (index, item) {
+                            totalPrice += item.iSOLUONG * item.dDONGIA;
+                            html += `<div class="form-group form-group-sm row">
+                                        <div class="col-sm-2 col-xs-2"><img src="/img/${item.gHINHANH}" width="40" height="50" /> </div>
+                                        <div class="col-sm-8 col-xs-8">${item.gTENSP}</div>
+                                        <div class="col-sm-2 col-xs-2" style="padding:0px">${item.iSOLUONG}x${item.dDONGIA}</div>
+                                        </div><hr />`;
+                        });
+                        var footercart = ` <div class="col-sm-6 col-xs-6" id="totalPrice">TỔNG TIỀN: ${totalPrice} </div>
+                                                <div class="col-sm-6 col-xs-6 text-right"><a class="text-success" href="/Giohang/DatHang">ĐẶT HÀNG >> </a></div>`
+                        $("#footer-cart").html(footercart);
+                        /*$(".tooltiptext").css("margin-left", "365px")*/
+                    } else {
+                        html += `<div class="form-group form-group-sm row" style = "text-align: center;width: 401px;margin-top: 15px;"><div class="col-sm-12 col-xs-12"><b>Không có sản phẩm nào trong giỏ</b></div></div>`;
+
+                        $("#footer-cart").html("");
+                    }
+                    $("#content-cart").html(html);
+                    $(".tooltiptext").css("visibility", "visible");
+                    $(".tooltiptext").css("opacity", 1);
+                },
+                failure: function (response) {
+                    alert(response)
+                    DevExpress.ui.notify(response, 3000);
+                },
+                error: function (response) {
+                    alert(response)
+                }
+            })
+        }
+
     </script>
     <!-- //here ends scrolling icon -->
-    <script src="~/Asses/User/js/minicart.min.js"></script>
-    <script>
-        // Mini Cart
-        paypal.minicart.render({
-            action: '#'
-        });
-
-        //if (~window.location.search.indexOf('reset=true')) {
-        //    paypal.minicart.reset();
-        //}
-    </script>
+  
     <!-- main slider-banner -->
     <script src="~/Asses/User/js/skdslider.min.js"></script>
     <link href="~/Asses/User/css/skdslider.css" rel="stylesheet" />

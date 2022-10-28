@@ -69,5 +69,88 @@ namespace DinoPetStore.Areas.Admin.Controllers
             }
             return TongTien;
         }
+
+        public JsonResult StatisticsSaleByMonth()
+        {
+            try
+            {
+                var lstData = (from a in data.DONDATHANGs.AsNoTracking()
+                               where a.TINHTRANGDH == true && a.NGAYDAT.Year == DateTime.Now.Year
+                               group a by new { a.NGAYDAT.Month, a.NGAYDAT.Year } into g
+                               select new
+                               {
+                                   g.Key.Month,
+                                   g.Key.Year,
+                                   TotalAmout = g.Sum(c => c.TONGTIEN)
+                               }).ToList();
+                return Json(lstData, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+        public JsonResult CountOrderByMonth()
+        {
+            try
+            {
+                var lstData = (from a in data.DONDATHANGs.AsNoTracking()
+                               where a.TINHTRANGDH == true && a.NGAYDAT.Year == DateTime.Now.Year
+                               group a by new { a.NGAYDAT.Month, a.NGAYDAT.Year } into g
+                               select new
+                               {
+                                   g.Key.Month,
+                                   g.Key.Year,
+                                   TotalOrder = g.Count()
+                               }).ToList();
+                return Json(lstData, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult CountCustomOrder()
+        {
+            try
+            {
+                var lstCusOrder = data.DONDATHANGs.AsNoTracking().Select(c => c.MAKH).Distinct().ToList();
+
+                var lstCustomer = data.KHACHHANGs.AsNoTracking().Count();
+
+                var setRate = lstCustomer == 0 ? 0 : Math.Round(((double)lstCusOrder.Count() / (double)lstCustomer) * 100, 2);
+
+                var lstData = new List<CountCustomOrderModel>
+                {
+                    new CountCustomOrderModel
+                    {
+                        Name = "Đã đặt",
+                        Ratio = setRate
+                    },
+                    new CountCustomOrderModel
+                    {
+                         Name = "Chưa đặt",
+                        Ratio = 100 - setRate
+                    }
+                };
+
+                return Json(lstData, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
+}
+public class CountCustomOrderModel
+{
+    public string Name { get; set; }
+    public double Ratio { get; set; }
 }

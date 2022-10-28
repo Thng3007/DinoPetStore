@@ -199,11 +199,13 @@ namespace DinoPetStore.Controllers
         #region Lấy chi tiết sản phẩm
         public ActionResult Chitiet(int id)
         {
+            //Mã Sp 1027 không tồn tại trong bảng hình HINH
             var detail = from a in data.SANPHAMs
                          join b in data.THUONGHIEUx on a.MATH equals b.MATH
                          join c in data.LOAIs on a.MALOAI equals c.MALOAI
                          join d in data.MAUSACs on a.MAMAUSAC equals d.MAMAUSAC
-                         join h in data.HINHs on a.MASP equals h.MASP
+                         join h in data.HINHs on a.MASP equals h.MASP into hi
+                         from g in hi.DefaultIfEmpty()
                          where a.MASP == id
                          select new ProductViewModel
                          {
@@ -218,9 +220,9 @@ namespace DinoPetStore.Controllers
                              SOLUONG = (int)a.SOLUONG,
                              MOTA = a.MOTA,
                              TENMAUSAC = d.TENMAUSAC,
-                             HINH1 = h.HINH1,
+                             HINH1 = g.HINH1 == null ? "" : g.HINH1,//Sử dujnh leftjoin thay vì join
                              THANHTOANON = a.THANHTOANON
-                         };
+                         }; 
             return View(detail.FirstOrDefault());
         }
         #endregion
@@ -254,9 +256,11 @@ namespace DinoPetStore.Controllers
 
 
         #region Lấy sản phẩm theo loại sản phẩm
-        public  ActionResult SPTheoloai( int? page, int? pageSize)
+        public  ActionResult SPTheoloai(int maloai, int? page, int? pageSize)
         {
-            var sanpham = (from SANPHAM in data.SANPHAMs select SANPHAM).OrderBy(id => id.MALOAI);
+            var sanpham = (from a in data.SANPHAMs
+                           where a.MALOAI == maloai
+                           select a).OrderBy(id => id.MALOAI);
 
             if (page == null)
             {
@@ -273,10 +277,12 @@ namespace DinoPetStore.Controllers
 // tham số truyền vào của SPTheoloai và SPTheothuonghieu chưa đc
 
         #region Lấy sản phẩm theo thương hiệu
-        public  ActionResult SPTheothuonghieu(int? page, int? pageSize)
+        public  ActionResult SPTheothuonghieu(int math,int? page, int? pageSize)
         {
 
-            var sanpham = (from SANPHAM in data.SANPHAMs select SANPHAM).OrderBy(id => id.MATH);
+            var sanpham = (from a in data.SANPHAMs.AsNoTracking()
+                           where a.MATH == math
+                           select a).OrderBy(id => id.MATH);
 
             if (page == null)
             {
@@ -649,30 +655,6 @@ namespace DinoPetStore.Controllers
                 var exxx = ex.Message;
             }
 
-            //KHACHHANG kh = new KHACHHANG();
-            //var fromEmail = new MailAddress("thanh170120@outlook.com.vn");
-            //var toEmail = new MailAddress(email);
-            //var fromEmailPassword = "Thanh30072020"; // password
-            //string subject = Subject;
-            //string body = "<br/> Họ tên: " + name + "<br/><br/> Email: " + " " + email + "<br/><br/> Nội dung: " + message;
-
-            //var smtp = new SmtpClient
-            //{
-            //    Host = "smtp.office365.com",
-            //    Port = 587,
-            //    EnableSsl = true,
-            //    DeliveryMethod = SmtpDeliveryMethod.Network,
-            //    UseDefaultCredentials = false,
-            //    Credentials = new NetworkCredential(fromEmail.Address, fromEmailPassword)
-            //};
-
-            //using (var tinnhan = new MailMessage(fromEmail, toEmail)
-            //{
-            //    Subject = subject,
-            //    Body = body,
-            //    IsBodyHtml = true
-            //}) smtp.Send(tinnhan);
-
         }
 
 
@@ -701,10 +683,13 @@ namespace DinoPetStore.Controllers
                 data.LIENHEs.Add(objData);
                 data.SaveChanges();
                 return RedirectToAction("thongbaolienhe", "User");  
-                //sendcontact(lienhe.Name, lienhe.Email, lienhe.Subject, lienhe.Message);
-                //return RedirectToAction("thongbaolienhe", "User");
             }
             return View(lienhe);
+        }
+
+        public ActionResult TinTuc()
+        {
+            return View();
         }
     }
 }

@@ -85,8 +85,11 @@ namespace DinoPetStore.Controllers
             List<GioHang> dsGiohang = Session["GioHang"] as List<GioHang>;
             if (dsGiohang != null)
             {
-                iTongTien = dsGiohang.Sum(n => n.dTHANHTIEN);
-
+                foreach(var item in dsGiohang)
+                {
+                    iTongTien += item.iTONGTIEN == 0 ? item.dTHANHTIEN : item.iTONGTIEN;
+                }    
+                //iTongTien = dsGiohang.Sum(n => n.dTHANHTIEN);
             }
             return iTongTien;
         }
@@ -146,9 +149,18 @@ namespace DinoPetStore.Controllers
             {
                 return RedirectToAction("Index", "User");
             }
+            //Check sp xem có được giảm giá hay không
+            
 
             //Lay gio hang tu Session
             List<GioHang> lstGiohang = LayGioHang();
+            foreach(var item in lstGiohang)
+            {
+                var objDiscount = data.GIAMGIAs.FirstOrDefault(c=>c.MASP == item.iMASP);
+                if(objDiscount == null)
+                    continue;
+                item.iTONGTIEN = item.dTHANHTIEN - ((item.dTHANHTIEN * objDiscount.PHAMTRAMGIAM) / 100);
+            }    
             ViewBag.Tongsoluong = TongSoLuong();
             ViewBag.TongTien = TongTien();
 
@@ -199,7 +211,7 @@ namespace DinoPetStore.Controllers
                     ctdh.MASP = item.iMASP;
                     ctdh.SOLUONG = item.iSOLUONG;
                     ctdh.DONGIA = (int)item.dDONGIA;
-                    ctdh.THANHTIEN = (decimal)item.dTHANHTIEN;
+                    ctdh.THANHTIEN = item.iTONGTIEN == 0 ? (decimal)item.dTHANHTIEN : (decimal)item.iTONGTIEN;
                     data.CTDONDATHANGs.Add(ctdh);
                     sanpham.SOLUONG = sanpham.SOLUONG - item.iSOLUONG;
                     data.SaveChanges();
@@ -234,6 +246,47 @@ namespace DinoPetStore.Controllers
         {
             var listthuonghieu = from THUONGHIEU in data.THUONGHIEUx select THUONGHIEU;
             return PartialView(listthuonghieu);
+        }
+        #endregion
+        #region HANHTD
+        public JsonResult updateCart(int iMaSP, int quantity)
+        {
+            var dsGiohang = LayGioHang();
+            var checkExit = dsGiohang.FirstOrDefault(c => c.iMASP == iMaSP);
+            if (checkExit == null)
+                return Json("Sản phẩm không tồn tại trong giỏ hàng", JsonRequestBehavior.AllowGet);
+            if (checkExit.iSOLUONG <= 1 && quantity < 0)
+            {
+                // không làm gì cả
+            }
+            else
+            {
+                checkExit.iSOLUONG += quantity;
+            }
+            return Json("success", JsonRequestBehavior.AllowGet);
+
+        }
+
+        public JsonResult DeleteCart(int iMaSP)
+        {
+            var dsGiohang = LayGioHang();
+            var checkExit = dsGiohang.FirstOrDefault(c => c.iMASP == iMaSP);
+            if (checkExit == null)
+                return Json("Sản phẩm không tồn tại trong giỏ hàng", JsonRequestBehavior.AllowGet);
+            dsGiohang.Remove(checkExit);
+            return Json("success", JsonRequestBehavior.AllowGet);
+
+        }
+
+        public JsonResult getListCart()
+        {
+            List<GioHang> dsGioHang = Session["Giohang"] as List<GioHang>;
+            if (dsGioHang == null)
+            {
+                dsGioHang = new List<GioHang>();
+                Session["Giohang"] = dsGioHang;
+            }
+            return Json(dsGioHang, JsonRequestBehavior.AllowGet);
         }
         #endregion
     }

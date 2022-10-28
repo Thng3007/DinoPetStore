@@ -1,10 +1,8 @@
 ﻿@using DinoPetStore.EF
 @model List<DinoPetStore.Models.GioHang>
 
-@{
-    ViewBag.Title = "ĐƠN ĐẶT HÀNG - KP PET'S HOME";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+@{ ViewBag.Title = "ĐƠN ĐẶT HÀNG - KP PET'S HOME";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
 
 <!-- breadcrumbs -->
 <div class="breadcrumbs">
@@ -74,7 +72,7 @@
                                 </button>
                             </td>
                         </tr>
-                    }
+}
 
                 }
             </table>
@@ -83,10 +81,8 @@
     <br />
     <div class="container" id="infoOrder">
         <h1 style=" margin-top:35px; color:black; padding-block: inherit; text-align: center"><b>THÔNG TIN ĐẶT HÀNG</b></h1>
-        @{
-            KHACHHANG kh = (KHACHHANG)Session["Taikhoan"];
-            DONDATHANG ddh;
-        }
+        @{ KHACHHANG kh = (KHACHHANG)Session["Taikhoan"];
+            DONDATHANG ddh; }
 
         @using (Html.BeginForm())
         {
@@ -138,9 +134,9 @@
                                             <option value="1" selected="selected">Ship COD thanh toán khi nhận hàng</option>
                                         </select>
                                     </div>
-                                    <table style="width: 685px; height: 100px; border: 1px solid rgb(208, 208, 208); text-align: center" class="Thanhtoan">
+                                    <table style="width: 685px; height: 100px; border: 1px solid rgb(208, 208, 208); text-align: center" onchange="ThayDoi();">
                                         <tr>
-                                            <td style="text-align: left; padding-left: 20px">
+                                            <td style="text-align: left; padding-left: 20px" onchange="ThayDoi();">
                                                 <p class="Thanhtoan" target="_blank" style="display: none; color: #2d485a; padding-top: 10px; padding-bottom: 10px; ">
                                                     <b style="color: rebeccapurple; font-size:15px">LƯU Ý:</b>
                                                     <br /> - Chỉ nên chuyển khoản sau khi nhân viên bán hàng liên hệ đến bạn xác nhận đơn hàng<br />
@@ -165,12 +161,106 @@
                 </div>
 
 
-            </div>
-        }
+            </div>}
     </div>
 </div>
 
-<script type="text/javascript">
+
+<script>
+    $(document).ready(function () {
+        getListCart();
+    });
+
+    function getListCart() {
+        var totalQuan = 0;
+        $.ajax({
+            type: "GET",
+            url: "/GioHang/getListCart",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data.length > 0) {
+                    html = `<thead>
+                    <tr>
+                        <th>Mã Sản Phẩm.</th>
+                        <th>Sản Phẩm</th>
+                        <th>Số Lượng</th>
+                        <th>Tên Sản Phẩm</th>
+
+                        <th>Giá Tiền</th>
+                        <th>Xóa</th>
+                        <th></th>
+                    </tr>`;
+                    $.each(data, function (index, item) {
+                        totalQuan += item.iSOLUONG;
+                        html += `  <tr class="rem1" style="background-color: white;">
+                        <td class="invert">${item.iMASP}</td>
+                        <td class="invert-image"><a href="/Chitiet/User"><img src="/img/${item.gHINHANH}" alt="${item.gTENSP}" class="img-responsive" /></a></td>
+                        <td class="invert" style="width: 250px">
+                            <div class="quantity">
+                                <div class="quantity-select">
+                                    <div class="entry value-minus">&nbsp;</div>
+                                    <div class="entry value"><span>${item.iSOLUONG}</span></div>
+                                    <div class="entry value-plus" >&nbsp;</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="invert">${item.gTENSP}</td>
+
+                        <td class="invert">${item.iTONGTIEN == 0 ? item.dTHANHTIEN : item.iTONGTIEN}</td>
+                        <td class="invert">
+                            <div class="rem" style="width: 100px">
+                                <div class="close1"> </div>
+                            </div>
+                        </td>
+                        <td class="invert">
+                            <button class="btn-close-white">
+                                Xóa
+                            </button>
+                        </td>
+                    </tr>`
+                    });
+                    html += "</thead>"
+                    $(".timetable_sub").html(html);
+                    $("#totalquantity").html(totalQuan);
+                }
+            },
+            failure: function (response) {
+                alert(response)
+                DevExpress.ui.notify(response, 3000);
+            },
+            error: function (response) {
+                alert(response)
+            }
+        })
+    }
+    function updateSecsionQty(masp, type) {
+        var quantity = 1;
+        if (type === "minus") {
+            quantity = quantity * -1;
+        }
+        $.ajax({
+            type: "GET",
+            url: "/GioHang/updateCart",
+            data: { "iMASP": masp, "quantity": quantity },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data != "success") {
+                    ToastNotify(data, 'warning');
+                } else {
+                    getListCart();
+                }
+            },
+            failure: function (response) {
+                alert(response)
+                DevExpress.ui.notify(response, 3000);
+            },
+            error: function (response) {
+                alert(response)
+            }
+        })
+    }
 
     ////Khi Click "Lấy từ thông tin tài khoản" thì Gán các giá trị của thông tin tài khoản cho thông tin giao hàng (Lưu ý phải có thư viện Js)
     //$(function () {
@@ -186,7 +276,6 @@
     //    $('.LinkBaoKim').hide();
     //});
 
-    //Script Khi chọn hình thức thanh toán sẽ ẩn hiện Href liên kết đến bảo kim, Input xác nhận và ngược lại
     function ThayDoi() {
         var Chon = document.getElementById("sl_ThanhToan").value;
         if (Chon == "0") {
@@ -198,20 +287,6 @@
     };
 
 </script>
-
-<!--quantity-->
-<script>
-    $('.value-plus').on('click', function () {
-        var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10) + 1;
-        divUpd.text(newVal);
-    });
-
-    $('.value-minus').on('click', function () {
-        var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10) - 1;
-        if (newVal >= 1) divUpd.text(newVal);
-    });
-</script>
-<!--quantity--> 
 <style type="text/css">
     #infoOrder {
         background-color: antiquewhite;
@@ -239,9 +314,5 @@
     .btn {
         padding: 20px;
         background-color: skyblue;
-    }
-
-    input {
-        border: none;
     }
 </style>
