@@ -7,14 +7,17 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Quản Lí Hình Ảnh</h2>
-
-<h5 style="width:100%; padding-top:20px">
+<h2 style="padding-top:10px">Quản Lý Hình Ảnh</h2>
+<h4 style="width: 100%; padding-top:20px;">
     <u>
-        <img style="margin-left:25px" src="~/img/icons/add.png" />
-        @Html.ActionLink("THÊM HÌNH MÔ TẢ", "Create")
+        <a href="@Url.Action("Create", "GiamGia")" class="btn btn-success btn-icon-split">
+            <span class="icon text-white-50">
+                <img src="~/img/icons/add.png" />
+            </span>
+            <span class="text">THÊM MỚI HÌNH ẢNH CHI TIẾT</span>
+        </a>
     </u>
-</h5>
+</h4>
 <table class="table">
     <tr>
         <th> Tên Sản Phẩm </th>
