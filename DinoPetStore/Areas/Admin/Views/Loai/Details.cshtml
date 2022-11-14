@@ -20,7 +20,9 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Sửa", "Edit", new { id = Model.MALOAI }) |
-    @Html.ActionLink("Quay loại trang quản lý loại", "Index")
-</p>
+
+<div class="col-md-offset-2 col-md-10">
+    <a href="@Url.Action("Edit", "Loai", new { id = Model.MALOAI })" class="btn btn-success">Sửa</a> |
+    <a href="@Url.Action("Index", "Loai")" class="btn btn-primary">Quay Lại Trang Quản Lý</a>
+</div>
+

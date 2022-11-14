@@ -40,6 +40,23 @@ namespace DinoPetStore.Areas.Admin.Controllers
             }
         }
 
+        public JsonResult getKH()
+        {
+            var kh = (from k in db.KHACHHANGs
+                      select new
+                      {
+                          k.MAKH,
+                          k.HOTENKH,
+                          k.DIENTHOAI,
+                          k.DIACHI,
+                          k.TENDNKH,
+                          k.EMAIL,
+                          k.NGAYSINH,
+                          k.HINHANH
+                      }).ToList();
+            return Json(kh, JsonRequestBehavior.AllowGet);
+        }
+
 
         public ActionResult Details(int id)
         {

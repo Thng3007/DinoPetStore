@@ -8,16 +8,12 @@
 }
 
 <h2 style="padding-top:10px">Quản Lý Hình Ảnh</h2>
-<h4 style="width: 100%; padding-top:20px;">
-    <u>
-        <a href="@Url.Action("Create", "GiamGia")" class="btn btn-success btn-icon-split">
-            <span class="icon text-white-50">
-                <img src="~/img/icons/add.png" />
-            </span>
-            <span class="text">THÊM MỚI HÌNH ẢNH CHI TIẾT</span>
-        </a>
-    </u>
-</h4>
+<div class="row form-group-sm">
+    <div class="btn btn-group btn-sm col-sm-2" style="padding-top: 0px;">
+        <a href="@Url.Action("Create", "Hinh")" class="btn btn-sm btn-success">THÊM MỚI HÌNH ẢNH CHI TIẾT</a>
+    </div>
+</div>
+
 <table class="table">
     <tr>
         <th> Tên Sản Phẩm </th>
@@ -39,7 +35,7 @@
                 <a href="@Url.Action("Edit", "Hinh", new { id = item.MAHINH })">
                     <img src="~/img/icons/icon_Sua.png" />
                 </a>|
-                <a href="@Url.Action("Edit", "Hinh", new { id = item.MAHINH })">
+                <a href="@Url.Action("Details", "Hinh", new { id = item.MAHINH })">
                     <img src="~/img/info_25px.png" />
                 </a>|
                 <a href="@Url.Action("Delete", "Hinh", new { id = item.MAHINH })">

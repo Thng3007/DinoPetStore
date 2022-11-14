@@ -40,6 +40,18 @@ namespace DinoPetStore.Areas.Admin.Controllers
             }
         }
 
+        public JsonResult getListTH()
+        {
+            var TH = (from c in db.THUONGHIEUx
+                      select new
+                        {
+                            c.MATH,
+                            c.TENTH,
+                            c.LOGO
+                        }).ToList();
+            return Json(TH, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpGet]
         public ActionResult Create()
         {

@@ -15,6 +15,10 @@ namespace DinoPetStore.EF
         public int MASP { get; set; }
 
         public int PHAMTRAMGIAM { get; set; }
+        [Required]
+        public DateTime TUNGAY { get; set; }
+        [Required]
+        public DateTime DENNGAY { get; set; }
 
         public bool? ANHIEN { get; set; }
 

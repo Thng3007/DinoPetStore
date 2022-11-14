@@ -89,6 +89,22 @@ namespace DinoPetStore.Areas.Admin.Controllers
             }
         }
 
+        public JsonResult getListAdmin()
+        {
+            var listAdmin = (from a in data.ADMINs
+                             select new
+                             {
+                                 a.HOTEN,
+                                 a.DIENTHOAI,
+                                 a.TENLOAI,
+                                 a.TENDN,
+                                 a.DIACHI,
+                                 a.EMAIL,
+                                 a.AVATAR
+                             }).ToList();
+            return Json(listAdmin, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpGet]
         public ActionResult Create()
         {

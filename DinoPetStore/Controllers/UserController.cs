@@ -78,6 +78,7 @@ namespace DinoPetStore.Controllers
 
         public JsonResult GetListItemDiscount()
         {
+            var today = DateTime.Now.Date;
             try
             {
                 var result = (from a in data.SANPHAMs
@@ -85,6 +86,7 @@ namespace DinoPetStore.Controllers
                               join b in data.THUONGHIEUx on a.MATH equals b.MATH
                               join c in data.LOAIs on a.MALOAI equals c.MALOAI
                               join d in data.MAUSACs on a.MAMAUSAC equals d.MAMAUSAC
+                              where g.TUNGAY <= today && today <= g.DENNGAY
 
                               select new ProductViewModel
                               {
@@ -199,7 +201,6 @@ namespace DinoPetStore.Controllers
         #region Lấy chi tiết sản phẩm
         public ActionResult Chitiet(int id)
         {
-            //Mã Sp 1027 không tồn tại trong bảng hình HINH
             var detail = from a in data.SANPHAMs
                          join b in data.THUONGHIEUx on a.MATH equals b.MATH
                          join c in data.LOAIs on a.MALOAI equals c.MALOAI
@@ -274,7 +275,7 @@ namespace DinoPetStore.Controllers
             return View(sanpham.ToPagedList(pagenum, (int)pageSize));
         }
         #endregion
-// tham số truyền vào của SPTheoloai và SPTheothuonghieu chưa đc
+
 
         #region Lấy sản phẩm theo thương hiệu
         public  ActionResult SPTheothuonghieu(int math,int? page, int? pageSize)

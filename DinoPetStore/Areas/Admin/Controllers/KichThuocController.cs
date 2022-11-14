@@ -47,14 +47,14 @@ namespace DinoPetStore.Areas.Admin.Controllers
             }
             else
             {
-                var kichthuoc = from k in data.KICHTHUOCs select k;
+                var kichthuoc = data.KICHTHUOCs.AsNoTracking().FirstOrDefault(c=>c.MAKICHTHUOC == id);
                 if (kichthuoc == null)
                 {
                     Response.StatusCode = 404;
                     return null;
                 }
 
-                return View(kichthuoc.Single());
+                return View(kichthuoc);
             }
         }
 
@@ -84,7 +84,30 @@ namespace DinoPetStore.Areas.Admin.Controllers
             }
         }
 
-        
+        public ActionResult Edit(int Id)
+        {
+            if (Session["Taikhoanadmin"] == null)
+                return RedirectToAction("dangnhap", "Admin");
+
+
+            ViewBag.MASP = new SelectList(data.SANPHAMs.ToList().OrderBy(n => n.TENSP), "MASP", "TENSP");
+            var objData = data.KICHTHUOCs.AsNoTracking().FirstOrDefault(c => c.MAKICHTHUOC == Id);
+            return View(objData);
+        }
+
+        [HttpPost, ActionName("Edit")]
+        [ValidateInput(false)]
+        public ActionResult Capnhat(KICHTHUOC kichthuoc)
+        {
+            if (Session["Taikhoanadmin"] == null)
+                return RedirectToAction("dangnhap", "Admin");
+
+            var objData = data.KICHTHUOCs.FirstOrDefault(n => n.MAKICHTHUOC == kichthuoc.MAKICHTHUOC);
+            objData.MASP = kichthuoc.MASP;
+            objData.TENKICHTHUOC = kichthuoc.TENKICHTHUOC;
+            data.SaveChanges();
+            return RedirectToAction("Index", "KichThuoc");
+        }
         public ActionResult Delete(int id)
         {
             if (Session["Taikhoanadmin"] == null)
@@ -108,5 +131,8 @@ namespace DinoPetStore.Areas.Admin.Controllers
                 return RedirectToAction("Index", "KichThuoc");
             }
         }
+
+
+
     }
 }

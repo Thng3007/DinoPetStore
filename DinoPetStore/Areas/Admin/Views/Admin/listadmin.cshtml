@@ -8,71 +8,146 @@
 <h2>Trang Quản Lý Admin</h2>
 
 <div>
-    <h4 style="width: 100%; padding-top:20px;">
-        <u>
-            <a href="@Url.Action("Create", "Admin")" class="btn btn-success btn-icon-split">
-                <span class="icon text-white-50">
-                    <img src="~/img/icons/add.png" />
-                </span>
-                <span class="text">THÊM MỚI ADMIN</span>
-            </a>
-        </u>
-    </h4>
-    <hr />
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary text-center">Quản Lí Admin</h6>
+    <div class="row form-group-sm">
+        <div class="btn btn-group btn-sm col-sm-2" style="padding-top: 0px;">
+            <a href="@Url.Action("Create", "Admin")" class="btn btn-sm btn-success">THÊM MỚI</a>
         </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                    <div class="row"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="dataTable_length"><label>Show <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select></label></div></div><div class="col-sm-12 col-md-6"><div id="dataTable_filter" class="dataTables_filter"></div></div></div><div class="row">
-                        <div class="col-sm-12">
-                            <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
-                                <thead>
-                                    <tr role="row"><th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="HOTEN: activate to sort column descending" style="width: 155.281px;">Họ Tên</th><th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="diachi: activate to sort column ascending" style="width: 264.344px;">Địa Chỉ</th><th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="SODT: activate to sort column ascending" style="width: 111.406px;">Số ĐT</th><th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="LOAITAIKHOAN: activate to sort column ascending" style="width: 50.3125px;">Loại Tài Khoản</th><th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="TENDN: activate to sort column ascending" style="width: 107.234px;">Tên Đăng Nhập</th><th  tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 86.4219px;">AVATAR</th><th tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 86.4219px;">Email</th></tr>
-                                </thead>
-                                <tfoot>
-                                    <tr><th rowspan="1" colspan="1">Họ Tên</th><th rowspan="1" colspan="1">Địa Chỉ</th><th rowspan="1" colspan="1">Số ĐT</th><th rowspan="1" colspan="1">Loại Tài Khoản</th><th rowspan="1" colspan="1">Tên Đăng Nhập</th><th rowspan="1" colspan="1">Avatar</th><th rowspan="1" colspan="1">Email</th></tr>
-                                </tfoot>
-                                <tbody>
+    </div>
 
-                                    @foreach (var item in Model)
-                                    {
-                                        <tr>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.HOTEN)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.DIACHI)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.DIENTHOAI)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.TENLOAI)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.TENDN)
-                                            </td>
-                                            <td>
-                                                <img src="@Url.Content("~/img/" + item.AVATAR)" height="100" width="100" />
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.EMAIL)
-                                            </td>
-                                            <td>
-                                                @Html.ActionLink("Sửa", "Edit", new { id = item.MAADMIN }) |
-                                                @Html.ActionLink("Xóa", "Delete", new { id = item.MAADMIN })
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
+    <hr />
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary text-center">DANH SÁCH ADMIN</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"><div id="dataTable_filter" class="dataTables_filter"></div></div><div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-bordered dataTable" id="datatable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;"></table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+
+        getListAdmin();
+    });
+    function getListAdmin() {
+
+        $.ajax({
+            type: "GET",
+            url: "/Admin/Admin/getListAdmin",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                    var tbl = $('#datatable').DataTable({
+                        data: data,
+                        searching: false,
+                        stateSave: true,
+                        "bDestroy": true,
+
+                        columns: [
+                            { title: 'Họ Tên', data: "HOTEN" },
+                            { title: 'Điện Thoại', data: "DIENTHOAI" },
+                            { title: 'Loại Tài Khoản', data: "TENLOAI" },
+                            { title: 'Tên Đăng Nhập', data: "TENDN" },
+                            { title: 'Địa Chỉ', data: "DIACHI" },
+                            { title: 'Email', data: "EMAIL" },
+                            {
+                                title: 'Avatar',
+                                data: "AVATAR",
+                                "render": function (data, type, row) {
+                                    return `<img src='/img/${data}' style= "width:60px;height:60px" />`;
+                                }
+                            },
+                            {
+                                data: null,
+                                defaultContent: `<a href = "#"><i class="fa fa-edit" style = "color: blue;"></i></a>`,
+                                className: 'row-edit dt-center'
+                            },
+                            {
+                                data: null,
+                                defaultContent: '<i class="fa fa-trash" style = "color: red;"  />',
+                                className: 'row-remove dt-center'
+                            },
+                        ],
+
+                    });
+
+                    $('#datatable').on('click', 'tbody td.row-edit', function (e) {
+                        var objData = tbl.row(this).data();
+                        window.location.href = `/Admin/Admin/Edit?Id=${objData.MAADMIN}`;
+                    });
+
+                    $('#datatable').on('click', 'tbody td.row-remove', function (e) {
+                        var objData = tbl.row(this).data();
+                        var frm = $.confirm({
+                            title: 'Thông báo',
+                            content: `Bạn có chắc chắn muốn xóa admin này không?`,
+                            buttons: {
+                                ok: {
+                                    text: 'Đồng ý',
+                                    btnClass: 'btn-success',
+                                    keys: ['enter', 'shift'],
+                                    action: function () {
+                                        deleteProduct(frm, objData.MAADMIN);
+                                    }
+                                },
+                                cancel: {
+                                    text: 'Hủy',
+                                    btnClass: 'btn-blue',
+                                    action: function () {
+
+                                    }
+                                }
+                            }
+                        });
+
+                    });
+                console.log(data);
+
+            },
+            failure: function (response) {
+                alert(response)
+                DevExpress.ui.notify(response, 3000);
+            },
+            error: function (response) {
+                alert(response)
+            }
+        })
+    }
+
+    function deleteProduct(frm, Id) {
+        $.ajax({
+            type: "GET",
+            url: "/Admin/Delete",
+            data: { "Id": Id },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data == "success") {
+                    getListThuongHieu();
+                    ToastNotify("Xóa dữ liệu thành công", "success");
+                    frm.close();
+                } else {
+                    ToastNotify(data, "warning");
+                }
+            },
+            failure: function (response) {
+                alert(response)
+                DevExpress.ui.notify(response, 3000);
+            },
+            error: function (response) {
+                alert(response)
+            }
+
+        });
+    }
+
+</script>
+

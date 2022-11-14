@@ -1,34 +1,29 @@
 ﻿@model DinoPetStore.EF.KICHTHUOC
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Chi Tiết Kích Thước";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Chi Tiết Kích Thước</h2>
 
-<div>
-    <h4>KICHTHUOC</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Mã Sản Phẩm
-        </dt>
+<div class="row form-group-sm">
+    <div class="col-sm-1">
+        <label> Mã SP:</label>
+    </div>
+    <div class="col-sm-11">
+        @Html.DisplayFor(model => model.MASP)
+    </div>
+    <div class="col-sm-1">
+        <label>Tên KT: </label>
+    </div>
+    <div class="col-sm-11">
+        @Html.DisplayFor(model => model.TENKICHTHUOC)
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.MASP)
-        </dd>
-
-        <dt>
-            Tên Kích Thước 
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TENKICHTHUOC)
-        </dd>
-
-    </dl>
 </div>
-<p>
-    @Html.ActionLink("Quay lại trang quản lý", "Index")
-</p>
+
+<div class="col-md-offset-2 col-md-10">
+    <a href="@Url.Action("Edit", "KichThuoc", new { id = Model.MAKICHTHUOC })" class="btn btn-success">Sửa</a> |
+    <a href="@Url.Action("Index", "KichThuoc")" class="btn btn-primary">Quay Lại Trang Quản Lý</a>
+</div>

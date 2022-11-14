@@ -25,6 +25,18 @@ namespace DinoPetStore.Areas.Admin.Controllers
             }
         }
 
+        public JsonResult getAdminPQ()
+        {
+            var adminpq = (from a in db.ADMINs
+                           select new
+                           {
+                               a.MAADMIN,
+                               a.TENLOAI,
+                               a.HOTEN
+                           }).ToList();
+            return Json(adminpq, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult ChiTietDSPhanQuyen(int id)
         {
 

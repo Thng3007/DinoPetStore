@@ -25,6 +25,7 @@ namespace DinoPetStore.EF
         public DateTime? NGAYGIAO { get; set; }
 
         public bool? TINHTRANGDH { get; set; }
+        public string TRANGTHAI { get; set; }
 
         public bool? DATHANHTOAN { get; set; }
 

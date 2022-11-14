@@ -36,7 +36,9 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MAPHIEUNK }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+
+<div class="col-md-offset-2 col-md-10">
+    <a href="@Url.Action("Edit", "KhoHang", new { id = Model.MAPHIEUNK })" class="btn btn-success">Sửa</a> |
+    <a href="@Url.Action("Index", "KhoHang")" class="btn btn-primary">Quay Lại Trang Quản Lý</a>
+</div>

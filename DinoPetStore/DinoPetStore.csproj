@@ -2779,6 +2779,7 @@
     <Content Include="Areas\Admin\Views\GiamGia\Index.cshtml" />
     <Content Include="Areas\Admin\Views\GiamGia\Create.cshtml" />
     <Content Include="Areas\Admin\Views\GiamGia\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\KichThuoc\Edit.cshtml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />

@@ -72,7 +72,8 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Sửa", "Edit", new { id = Model.MAKH }) |
-    @Html.ActionLink("Quay lại trang quản lý", "Index")
-</p>
+
+<div class="col-md-offset-2 col-md-10">
+    <a href="@Url.Action("Edit", "KhachHang", new { id = Model.MAKH })" class="btn btn-success">Sửa</a> |
+    <a href="@Url.Action("Index", "KhachHang")" class="btn btn-primary">Quay Lại Trang Quản Lý</a>
+</div>

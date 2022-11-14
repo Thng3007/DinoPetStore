@@ -3,6 +3,7 @@ using DinoPetStore.EF;
 using PagedList;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -227,6 +228,65 @@ namespace DinoPetStore.Areas.Admin.Controllers
 
             //Xuất ra (Trả về) đường dẫn hình để Update lại trên Form
             Response.Write(_Hinh);
+        }
+
+
+        public JsonResult SearchDataProduct(string fromDate, string toDate, string keyWord)
+        {
+            try
+            {
+                
+
+                if (!string.IsNullOrEmpty(fromDate) && !string.IsNullOrEmpty(toDate))
+                {
+                    var _fromDate = string.IsNullOrEmpty(fromDate) ? DateTime.Now : DateTime.ParseExact(fromDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+                    var _toDate = string.IsNullOrEmpty(toDate) ? DateTime.Now : DateTime.ParseExact(toDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+                    var sanpham = (from a in data.SANPHAMs.AsNoTracking()
+                                   join b in data.THUONGHIEUx.AsNoTracking() on a.MATH equals b.MATH
+                                   where a.NGAYTAO >= _fromDate && a.NGAYTAO <= _toDate
+                                   select new
+                                   {
+                                       a.MASP,
+                                       a.TENSP,
+                                       a.DONGIAMUA,
+                                       a.DONGIABAN,
+                                       a.SOLUONG,
+                                       a.MALOAI,
+                                       a.MOTA,
+                                       a.HINHANH,
+                                       a.ANHIEN,
+                                       b.TENTH
+                                   }).ToList();
+                    return Json(sanpham, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    var sanpham = (from a in data.SANPHAMs.AsNoTracking()
+                                   join b in data.THUONGHIEUx.AsNoTracking() on a.MATH equals b.MATH
+                                   select new
+                                   {
+                                       a.MASP,
+                                       a.TENSP,
+                                       a.DONGIAMUA,
+                                       a.DONGIABAN,
+                                       a.SOLUONG,
+                                       a.MALOAI,
+                                       a.MOTA,
+                                       a.HINHANH,
+                                       b.TENTH,
+                                       a.ANHIEN
+                                   }).ToList();
+
+                    return Json(sanpham, JsonRequestBehavior.AllowGet);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
         }
         #endregion
     }

@@ -40,6 +40,22 @@ namespace DinoPetStore.Areas.Admin.Controllers
             }
         }
 
+        public JsonResult getGiam()
+        {
+            var giamgia = (from a in data.GIAMGIAs.AsNoTracking()
+                           join b in data.SANPHAMs.AsNoTracking() on a.MASP equals b.MASP
+                           select new
+                           {
+                               a.MAGIAMGIA,
+                               a.MASP,
+                               b.TENSP,
+                               a.PHAMTRAMGIAM,
+                               a.TUNGAY,
+                               a.DENNGAY
+                           }).ToList();
+            return Json(giamgia, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpGet]
         public ActionResult Create()
         {
@@ -66,7 +82,7 @@ namespace DinoPetStore.Areas.Admin.Controllers
             }
         }
 
-
+        [HttpGet]
         public ActionResult Delete(int id)
         {
             if (Session["Taikhoanadmin"] == null)

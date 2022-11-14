@@ -28,7 +28,8 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Sửa", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Quay lại trang quản lý", "Index")
-</p>
+
+<div class="col-md-offset-2 col-md-10">
+    <a href="@Url.Action("Edit", "Hinh", new { id = Model.MAHINH })" class="btn btn-success">Sửa</a> |
+    <a href="@Url.Action("Index", "Hinh")" class="btn btn-primary">Quay Lại Trang Quản Lý</a>
+</div>

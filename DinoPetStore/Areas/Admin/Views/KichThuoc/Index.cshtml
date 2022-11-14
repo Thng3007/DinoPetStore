@@ -9,17 +9,12 @@
 
 
 <h2>TRANG QUẢN LÝ KÍCH THƯỚC SẢN PHẨM</h2>
+<div class="row form-group-sm">
+        <div class="btn btn-group btn-sm col-sm-2" style="padding-top: 0px;">
+            <a href="@Url.Action("Create", "KichThuoc")" class="btn btn-sm btn-success">THÊM MỚI</a>
+        </div>
+</div>
 
-<h5 style="width:100%; padding-top:10px">
-    <u>
-        <a href="@Url.Action("Create", "KichThuoc")" class="btn btn-success btn-icon-split">
-            <span class="icon text-white-50">
-                <img src="~/img/icons/add.png" />
-            </span>
-            <span class="text">THÊM MỚI KÍCH THƯỚC</span>
-        </a>
-    </u>
-</h5>
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
@@ -57,7 +52,7 @@
                                             <a href="@Url.Action("Edit", "KichThuoc", new { id = item.MAKICHTHUOC })">
                                                 <img src="~/img/icons/icon_Sua.png" />
                                             </a>|
-                                            <a href="@Url.Action("Edit", "KichThuoc", new { id = item.MAKICHTHUOC })">
+                                            <a href="@Url.Action("Details", "KichThuoc", new { id = item.MAKICHTHUOC })">
                                                 <img src="~/img/info_25px.png" />
                                             </a>|
                                             <a href="@Url.Action("Delete", "KichThuoc", new { id = item.MAKICHTHUOC })">

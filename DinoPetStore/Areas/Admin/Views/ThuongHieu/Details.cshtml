@@ -30,7 +30,8 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Sửa", "Edit", new { id = Model.MATH }) |
-    @Html.ActionLink("Quay lại trang quản lý thương hiệu", "Index")
-</p>
+
+<div class="col-md-offset-2 col-md-10">
+    <a href="@Url.Action("Edit", "ThuongHieu", new { id = Model.MATH })" class="btn btn-success">Sửa</a> |
+    <a href="@Url.Action("Index", "ThuongHieu")" class="btn btn-primary">Quay Lại Trang Quản Lý</a>
+</div>

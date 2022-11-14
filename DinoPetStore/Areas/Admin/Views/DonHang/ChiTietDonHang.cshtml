@@ -1,22 +1,16 @@
-﻿@using PagedList.Mvc;
-@using DinoPetStore.EF;
-@model PagedList.PagedList<DinoPetStore.EF.CTDONDATHANG>
-
-
-@{
-    ViewBag.Title = "Chi tiết đơn hàng - Dino Store";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
-}
+﻿
+@{ ViewBag.Title = "Chi tiết đơn hàng - Dino Store";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml"; }
 
 @*Chi Tiết Đơn hàng*@
 <div class="title_ne1"></div>
 <h2 style="padding-top:10px">CHI TIẾT ĐƠN HÀNG</h2>
 <br />
-
+<input type="hidden" id="txtMADH" value="@ViewBag.MADH" />
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary text-center">DANH SÁCH THƯƠNG HIỆU</h6>
+        <h6 class="m-0 font-weight-bold text-primary text-center">CHI TIẾT ĐƠN HÀNG</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -24,68 +18,6 @@
                 <div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"><div id="dataTable_filter" class="dataTables_filter"></div></div><div class="row">
                     <div class="col-sm-12">
                         <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
-                            <thead>
-                                <tr role="row">
-                                    <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 155.281px; text-align: center">Tình Trạng Đơn Hàng</th>
-                                    <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 155.281px; text-align: center">Mã ĐH</th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px; text-align: center">Mã SP</th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px; text-align: center">Sản phẩm</th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px; text-align: center">Số lượng</th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px; text-align: center">Đơn giá</th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px; text-align: center">Thành tiền</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-
-
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-
-                                        <td>
-                                            
-                                            @*@{
-                                                if ( item.DONDATHANG.TINHTRANGDH == false) 
-                                                {
-                                                    Html.Display("<strong>Đang Giao Hàng</strong>");
-                                                }
-                                                else
-                                                {
-                                                    Html.Display("<strong>Đã Giao Hàng</strong>");
-                                                }
-                                            }*@
-                                            @Html.DisplayFor(modelItem => item.DONDATHANG.TINHTRANGDH)
-                                        </td>
-
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.MADH)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.MASP)
-                                        </td>
-                                        <td>
-                                            <a href="@Url.Action("sanpham", "User", new { id = item.MASP })" target="_blank">
-                                                <img src="~/img/@item.SANPHAM.HINHANH" style="width: 80px;vertical-align:middle" />
-                                                <br>
-                                                <span style="font-weight: 700; color: #F60">@item.SANPHAM.TENSP</span>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.SOLUONG)
-                                        </td>
-                                        <td>
-                                            <span style="font-weight: 700; color: #F60; font-size: 14px">@Html.DisplayFor(modelItem => item.DONGIA)<sup> VNĐ</sup></span>
-                                        </td>
-                                        <td>
-                                            <span style="font-weight: 700; color: #F60; font-size: 14px">@Html.DisplayFor(modelItem => item.THANHTIEN)<sup> VNĐ</sup></span>
-                                        </td>
-
-                                    </tr>
-                                }
-
-
-                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -93,17 +25,174 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        getListOrder();
+    });
+    function getListOrder() {
+        var madh = $("#txtMADH").val();
+        $.ajax({
+            type: "GET",
+            url: "/DONHANG/GetListOrder",
+            data: { "MADH": madh },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) { //Chú ý data trả về phải là json array object 
+                if (typeof (data) == 'object') {
+                    $('#dataTable').DataTable({ // DataTables là một plug-in cho thư viện jQuery Javascript. Để sdung thì tại 1 table với Id tùy ý sau đó .DataTable và truyền các cột và data vào
+                        data: data, //data trả về từ server
+                        searching: false, //Mấy cái này nó là thuộc tính cua datâtble có tìm kiếm hay không,sắp xếp hay k..... true là có false không
+                        stateSave: false,// cái này mk cũng k hiểu nó là cái gì b có thể đọc thêm tài liệu về thuộc tính của nó. Với sdung cơ bản k quan tâm đến nó lắm :D phần dưới mới quan trọng
+                        "bDestroy": true,//
+                        columns: [ //ở đây sẽ định nghĩa ra các cột của bảng(title) và data sẽ hiển thị dữ liệu lên trên bảng (data)
+                            {
+                                title: 'Trạng thái',
+                                data: "TRANGTHAI", //Nó sẽ MAP tương ứng với trường có trong model trả về từ server
+                                "render": function (data, type, row) { //HÀm này để custom hiển thị của 1 dòng theo ý mình
+                                    if (data == "NEW") {
+                                        return `<span style="cursor:pointer" onClick = ChangStatusOrder('${row.MADH}','${row.TRANGTHAI}') class = 'label label-info'>Chờ xác nhận</span`
+                                    };
+                                    if (data == "APPROVAL") {
+                                        return `<span style="cursor:pointer" onClick = ChangStatusOrder('${row.MADH}','${row.TRANGTHAI}') class = 'label label-warning'>Đã xác nhận</span`
+                                    };
+                                    if (data == "REJECT") {
+                                        return `<span class = 'label label-danger'>Từ chối</span`
+                                    }
 
-<div>
-    Trang @(@Model.PageNumber>Model.PageCount?Model.PageCount: Model.PageNumber)/@Model.PageCount
-</div>
-<div align="center">@Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))</div>
-<link href="~/Content/phantrang.css" rel="stylesheet" />
+                                    if (data == "DELIVERY") {
+                                        return `<span style="cursor:pointer" onClick = ChangStatusOrder('${row.MADH}','${row.TRANGTHAI}') class = 'label label-primary'>Đang giao hàng</span`
+                                    };
+
+                                    if (data == "SUCCESS") {
+                                        return `<span class = 'label label-success'>Giao thành công</span`
+                                    };
+
+                                    if (data == "RETURN") {
+                                        return `<span class = 'label label-danger'>Trả về</span`
+                                    };
+
+                                }
+                            },
+                            { title: 'Mã ĐH', data: "MADH" }, //đây nêu k có custom gì thì nó sẽ như này là hiển thị được dữ liệu k cần phải tr/td...bala bla
+                            { title: 'Mã SP', data: "TENSP" },
+                            { title: 'Sản phẩm', data: "TENSP" },
+                            {
+                                title: 'Hình ảnh',
+                                data: "HINHANH",
+                                "render": function (data, type, row) {
+                                    return `<img src='/img/${data}' style= "width:50px;height:30px" />`;
+                                }
+                            },
+                            { title: 'Số lượng', data: "SOLUONG" },
+                            { title: 'Đơn giá', data: "DONGIA" },
+                            { title: 'Thành tiền', data: "THANHTIEN" }
+                        ],
+                    });
+                } else {
+                    ToastNotify(data, "warning");
+                }
+            },
+            failure: function (response) {
+                alert(response)
+                DevExpress.ui.notify(response, 3000);
+            },
+            error: function (response) {
+                alert(response)
+            }
+
+        });
+    }
 
 
-@*roadlinktop*@
-<ul class="roadlinktop">
-    <a href=@Url.Action("DonDatHang", "DonHang" )>
-        <br />
-    </a>
-</ul>
+    function ChangStatusOrder(MADH, status) {
+
+        var content = "";
+        var btnok = "";
+        var btnCanel = "";
+        var nextOKStatus = "";
+        var nextCancelStatus = "";
+
+        if (status == "NEW") {
+            content = "Bạn có muốn xác nhận hoặc từ chối đơn hàng?"
+            btnok = "Xác nhận";
+            btnCanel = "Từ chối";
+            nextOKStatus = "APPROVAL";
+            nextCancelStatus = "REJECT";
+        }
+        if (status == "APPROVAL") {
+            content = "Bạn có muốn giao đơn hàng này không?"
+            btnok = "Giao hàng";
+            btnCanel = "Từ chối";
+            nextOKStatus = "DELIVERY";
+            nextCancelStatus = "REJECT";
+        }
+        if (status == "DELIVERY") {
+            content = "Giao hàng thành công/Trả về!"
+            btnok = "Thành công";
+            btnCanel = "Trả về";
+            nextOKStatus = "SUCCESS";
+            nextCancelStatus = "RETURN";
+        }
+
+
+        var frm = $.confirm({
+            title: 'Thông báo',
+            content: `${content}`,
+            buttons: {
+                ok: {
+                    text: `${btnok}`,
+                    btnClass: 'btn-success',
+                    keys: ['enter', 'shift'],
+                    action: function () {
+
+                        UpdateStatus(MADH, nextOKStatus);
+                    }
+                },
+                cancel: {
+                    text: `${btnCanel}`,
+                    btnClass: 'btn-danger',
+                    action: function () {
+                        UpdateStatus(MADH, nextCancelStatus);
+                    }
+                },
+                close: {
+                    text: 'Đóng',
+                    action: function () {
+
+                    }
+                }
+            }
+        });
+    }
+
+    function UpdateStatus(MADH, TRANGTHAI) {
+
+        $.ajax({
+            type: "GET",
+            url: "/DONHANG/UpdateStatus",
+            data: { "MADH": MADH, "status": TRANGTHAI },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data == 'success') {
+                    ToastNotify("Cập nhật trạng thái thành công", "success");
+                    getListOrder();
+
+                } else {
+                    ToastNotify(data, "warning");
+                }
+            },
+            failure: function (response) {
+                alert(response)
+                DevExpress.ui.notify(response, 3000);
+            },
+            error: function (response) {
+                alert(response)
+            }
+
+        });
+
+    }
+</script>
+
+

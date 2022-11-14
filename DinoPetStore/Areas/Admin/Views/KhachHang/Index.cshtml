@@ -8,89 +8,22 @@
 }
 
 <h2 style="padding-top:10px">DANH SÁCH KHÁCH HÀNG</h2>
-<h4 style="width: 100%; padding-top:20px;">
-    <u>
-        <a href="@Url.Action("Create", "KhachHang")" class="btn btn-success btn-icon-split">
-            <span class="icon text-white-50">
-                <img src="~/img/icons/add.png" />
-            </span>
-            <span class="text">THÊM MỚI KHÁCH HÀNG</span>
-        </a>
-    </u>
-</h4>
+<div class="row form-group-sm">
+    <div class="btn btn-group btn-sm col-sm-2" style="padding-top: 0px;">
+        <a href="@Url.Action("Create", "KhachHang")" class="btn btn-sm btn-success">THÊM MỚI</a>
+    </div>
+</div>
+
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary text-center">DANH SÁCH KHÁCH HÀNG</h6>
+        <h6 class="m-0 font-weight-bold text-primary text-center">DANH SÁCH KHÁCH HÀNG</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
             <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                <div class="row"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="dataTable_length"><label>Show <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select></label></div></div><div class="col-sm-12 col-md-6"><div id="dataTable_filter" class="dataTables_filter"></div></div></div><div class="row">
+                <div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"><div id="dataTable_filter" class="dataTables_filter"></div></div><div class="row">
                     <div class="col-sm-12">
-                        <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
-                            <thead>
-                                <tr role="row">
-                                    <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"  style="width: 155.281px;">Họ Tên Khách</th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px;">Số Điện Thoại</th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 260.344px;">Địa Chỉ</th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px;">Tên Đăng Nhập</th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 260.344px;">Email</th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 160px;">Ngày Sinh</th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 260.344px;">Avatar</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.HOTENKH)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.DIENTHOAI)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.DIACHI)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.TENDNKH)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.EMAIL)
-                                        </td>
-                                        <td>
-                                            @string.Format("{0:dd/MM/yyyy}", item.NGAYSINH)
-                                        </td>
-                                        <td>
-                                            @if (item.HINHANH == null)
-                                            {
-                                                <img src="~/img/account.png" height="100" width="100" />
-                                            }
-                                            else
-                                            {
-                                                <img src="@Url.Content("~/img/" + @item.HINHANH)" height="100" width="100" />
-                                            }
-
-                                        </td>
-                                        <td>
-                                            <a href="@Url.Action("Edit", "KhachHang", new { id = item.MAKH })">
-                                                <img src="~/img/icons/icon_Sua.png" />
-                                            </a>|
-                                            <a href="@Url.Action("Edit", "KhachHang", new { id = item.MAKH })">
-                                                <img src="~/img/info_25px.png" />
-                                            </a>|
-                                            <a href="@Url.Action("Delete", "KhachHang", new { id = item.MAKH })">
-                                                <img src="~/img/icons/icon_Xoa.png" />
-                                            </a>
-
-
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
+                        <table class="table table-bordered dataTable" id="datatable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;"></table>
                     </div>
                 </div>
             </div>
@@ -98,12 +31,143 @@
     </div>
 </div>
 
-<div>
-    Trang @(@Model.PageNumber>Model.PageCount?Model.PageCount: Model.PageNumber)/@Model.PageCount
-</div>
-<div align="center">@Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))</div>
-<link href="~/Content/phantrang.css" rel="stylesheet" />
+
+<script>
+    $(document).ready(function () {
+
+        getKH();
+    });
+    function getKH() {
+
+        $.ajax({
+            type: "GET",
+            url: "/KhachHang/getKH",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                var tbl = $('#datatable').DataTable({
+                    data: data,
+                    searching: false,
+                    stateSave: true,
+                    "bDestroy": true,
+                    columns: [
+                        {
+                            title: 'Họ Tên Khách', data: "HOTENKH",
+                        },
+                        { title: 'Số Điện Thoại', data: "DIENTHOAI" },
+                        { title: 'Địa Chỉ', data: "DIACHI" },
+                        { title: 'Tên Đăng Nhập', data: "TENDNKH" },
+                        { title: 'Email', data: "EMAIL" },
+                        { title: 'Ngày Sinh', data: "NGAYSINH" },
+
+                        {
+                            title: 'Avatar',
+                            data: "HINHANH",
+                            "render": function (data, type, row) {
+                                return `<img src='/img/${data}' style= "width:60px;height:60px" />`;
+                            }
+                        },
+                        {
+                            data: null,
+                            defaultContent: `<a href = "#"><i class="fa fa-edit" style = "color: blue;"></i></a>`,
+                            className: 'row-edit dt-center'
+                        },
+                        {
+                            data: null,
+                            defaultContent: `<a href = "#"><i class="fa fa-info" style = "color: blue;"></i></a>`,
+                            className: 'row-info dt-center'
+                        },
+
+                        {
+                            data: null,
+                            defaultContent: '<i class="fa fa-trash" style = "color: red;"  />',
+                            className: 'row-remove dt-center'
+                        },
+
+
+                    ],
+
+                });
+
+                $('#datatable').on('click', 'tbody td.row-edit', function (e) {
+                    var objData = tbl.row(this).data();
+                    window.location.href = `/Admin/KhachHang/Edit?Id=${objData.MAKH}`;
+                });
+
+                $('#datatable').on('click', 'tbody td.row-info', function (e) {
+                    var objData = tbl.row(this).data();
+                    window.location.href = `/Admin/KhachHang/Details?Id=${objData.MAKH}`;
+                });
 
 
 
+                $('#datatable').on('click', 'tbody td.row-remove', function (e) {
+                    var objData = tbl.row(this).data();
+                    var frm = $.confirm({
+                        title: 'Thông báo',
+                        content: `Bạn có chắc chắn muốn xóa khách hàng này không?`,
+                        buttons: {
+                            ok: {
+                                text: 'Đồng ý',
+                                btnClass: 'btn-success',
+                                keys: ['enter', 'shift'],
+                                action: function () {
+                                    deleteKH(frm, objData.MAKH);
+                                }
+                            },
+                            cancel: {
+                                text: 'Hủy',
+                                btnClass: 'btn-blue',
+                                action: function () {
 
+                                }
+                            }
+                        }
+                    });
+
+                });
+
+
+
+            },
+            failure: function (response) {
+                alert(response)
+                DevExpress.ui.notify(response, 3000);
+            },
+            error: function (response) {
+                alert(response)
+            }
+        })
+    }
+
+
+
+    function deleteKH(frm, Id) {
+        $.ajax({
+            type: "GET",
+            url: "/Admin/KhachHang/Delete",
+            data: { "Id": Id },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data == "success") {
+                    getKH();
+                    ToastNotify("Xóa dữ liệu thành công", "success");
+                    frm.close();
+                } else {
+                    ToastNotify(data, "warning");
+                }
+            },
+            failure: function (response) {
+                alert(response)
+                DevExpress.ui.notify(response, 3000);
+            },
+            error: function (response) {
+                alert(response)
+            }
+
+        });
+    }
+
+
+</script>

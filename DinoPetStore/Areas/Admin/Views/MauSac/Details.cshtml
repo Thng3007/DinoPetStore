@@ -21,7 +21,11 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MAMAUSAC }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+
+<div class="col-md-offset-2 col-md-10">
+    <a href="@Url.Action("Edit", "MauSac", new { id = Model.MAMAUSAC })" class="btn btn-success">Sửa</a> |
+    <a href="@Url.Action("Index", "MauSac")" class="btn btn-primary">Quay Lại Trang Quản Lý</a>
+</div>
+
+

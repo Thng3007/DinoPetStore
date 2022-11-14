@@ -83,8 +83,8 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Sửa", "Edit", new { id = Model.MASP }) |
-    @Html.ActionLink("Quay lại trang quản lý", "Index")
-</p>
-</p>
+
+<div class="col-md-offset-2 col-md-10">
+    <a href="@Url.Action("Edit", "SanPham", new { id = Model.MASP })" class="btn btn-success">Sửa</a> |
+    <a href="@Url.Action("Index", "SanPham")" class="btn btn-primary">Quay Lại Trang Quản Lý</a>
+</div>

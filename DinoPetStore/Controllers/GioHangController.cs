@@ -154,9 +154,10 @@ namespace DinoPetStore.Controllers
 
             //Lay gio hang tu Session
             List<GioHang> lstGiohang = LayGioHang();
+            var today = DateTime.Now.Date;
             foreach(var item in lstGiohang)
             {
-                var objDiscount = data.GIAMGIAs.FirstOrDefault(c=>c.MASP == item.iMASP);
+                var objDiscount = data.GIAMGIAs.FirstOrDefault(c=>c.MASP == item.iMASP && c.TUNGAY <= today && today <= c.DENNGAY);
                 if(objDiscount == null)
                     continue;
                 item.iTONGTIEN = item.dTHANHTIEN - ((item.dTHANHTIEN * objDiscount.PHAMTRAMGIAM) / 100);

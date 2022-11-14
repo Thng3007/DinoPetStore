@@ -1,128 +1,199 @@
-﻿@using DinoPetStore.EF
-@using PagedList.Mvc;
-@model PagedList.PagedList<DinoPetStore.EF.SANPHAM>
-@{
-    ViewBag.Title = "Trang quản lý sản phẩm";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
-}
-@helper Truncate(string input, int length)
-{
-    if (input.Length < length)
-    {
-        @input
-    }
-    else
-    {
-        @input.Substring(0, length)<text>...</text>
-    }
-}
+﻿
 
-<h2>TRANG QUẢN LÝ SẢN PHẨM</h2>
+@{ ViewBag.Title = "Trang quản lý sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml"; }
 
-<h5 style="width:100%; padding-top:10px">
-    <u>
-        <a href="@Url.Action("Create", "SanPham")" class="btn btn-success btn-icon-split">
-            <span class="icon text-white-50">
-                <img src="~/img/icons/add.png" />
-            </span>
-            <span class="text">THÊM MỚI SẢN PHẨM</span>
-        </a>
-    </u>
-</h5>
+<div class="row form-group-sm">
+    <div class="col-sm-12">
+        <div class="col-sm-1">
+            <label>Từ ngày</label>
+        </div>
+        <div class="col-sm-1">
+            <input type="text" class="form-control form-control-sm" id="fromDate" />
+        </div>
+        <div class="col-sm-1">
+            <label>Đến ngày</label>
+        </div>
+        <div class="col-sm-1">
+            <input type="text" class="form-control form-control-sm" id="toDate" />
+        </div>
+        <div class="col-sm-1">
+            <label>Giá</label>
+        </div>
+        <div class="col-sm-4">
+            <div class="slidecontainer">
+            <input type="range" min="1" max="100" multiple value="0" id="myRange">
+            <p id="demo"></p>
+        </div>
+            @*<input type="text" class="form-control form-control-sm" id="txtKeyWord" placeholder="Từ khóa..." />*@
+        </div>
+        <div class="btn btn-group btn-sm col-sm-2" style="padding-top: 0px;">
+            <a href="@Url.Action("Create", "SanPham")" class="btn btn-sm btn-success">THÊM MỚI</a>
+            <button class="btn btn-sm btn-info" id="btnsearch">TÌM KIẾM</button>
+        </div>
+    </div>
+
+</div>
 
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary text-center">DANH SÁCH THƯƠNG HIỆU</h6>
+        <h6 class="m-0 font-weight-bold text-primary text-center">DANH SÁCH SẢN PHẨM</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
             <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
                 <div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"><div id="dataTable_filter" class="dataTables_filter"></div></div><div class="row">
                     <div class="col-sm-12">
-                        <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
-                            <thead>
-                                <tr role="row">
-                                    <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 155.281px;">
-                                        Tên Sản Phẩm
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px;">
-                                        Giá Mua
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 260.344px;">
-                                        Giá Bán
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px;">
-                                        Thương Hiệu
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px;">
-                                        Loại
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px;">
-                                        Tồn Kho
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px;">
-                                        Ảnh Bìa
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px;">
-                                        Mô Tả
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.TENSP)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.DONGIAMUA)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.DONGIABAN)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.THUONGHIEU.TENTH)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.LOAI.TENLOAI)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.SOLUONG)
-                                        </td>
-                                        <td>
-                                            <img src="@Url.Content("~/img/"+  item.HINHANH)" width="150" />
-                                        </td>
-                                        <td>
-                                            @Truncate(item.MOTA, 50)
-                                        </td>
-                                        <td>
-                                            <a href="@Url.Action("Edit", "SanPham", new { id = item.MASP })">
-                                                <img src="~/img/icons/icon_Sua.png" />
-                                            </a>|
-                                            <a href="@Url.Action("Edit", "SanPham", new { id = item.MASP })">
-                                                <img src="~/img/info_25px.png" />
-                                            </a>|
-                                            <a href="@Url.Action("Delete", "SanPham", new { id = item.MASP })">
-                                                <img src="~/img/icons/icon_Xoa.png" />
-                                            </a>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
+                        <table id="datatable" class="display" width="100%"></table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $('#fromDate').datepicker({
+            format: "dd/mm/yyyy"
+        });
 
-<div>
-    Trang @(@Model.PageNumber>Model.PageCount?Model.PageCount: Model.PageNumber)/@Model.PageCount
-</div>
-<div align="center">@Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))</div>
-<link href="~/Content/phantrang.css" rel="stylesheet" />
+        $('#toDate').datepicker({
+            format: "dd/mm/yyyy"
+        });
+
+        $("#btnsearch").on("click", function () {
+            searchData();
+        });
+        searchData();
+
+        var slider = document.getElementById("myRange");
+        var output = document.getElementById("demo");
+        output.innerHTML = slider.value;
+
+        slider.oninput = function () {
+            output.innerHTML = this.value;
+        }
+    });
+    function searchData() {
+        var fromDate = $("#fromDate").val();
+        var toDate = $("#toDate").val();
+        var keyWord = $("#txtKeyWord").val();
+
+        $.ajax({
+            type: "GET",
+            url: "/SanPham/SearchDataProduct",
+            data: { "fromDate": fromDate, "toDate": toDate, "keyWord": keyWord },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                var tbl = $('#datatable').DataTable({
+                    data: data,
+                    searching: true,
+                    stateSave: true,
+                    "bDestroy": true,
+                    columns: [
+                        { title: 'Tên Sản Phẩm', data: "TENSP" },
+                        { title: 'Giá Mua', data: "DONGIAMUA" },
+                        { title: ' Giá Bán', data: "DONGIABAN" },
+                        { title: 'Thương Hiệu', data: "TENTH" },
+                        { title: 'Loại', data: "MALOAI" },
+                        { title: 'Tồn Kho', data: "SOLUONG" },
+                        {
+                            title: 'Ảnh Bìa',
+                            data: "HINHANH",
+                            "render": function (data, type, row) {
+                                return `<img src='/img/${data}' style= "width:60px;height:60px" />`;
+                            }
+                        },
+                        { title: ' Mô Tả', data: "MOTA" },
+                        {
+                            data: null,
+                            defaultContent: `<a href = "#"><i class="fa fa-edit" style = "color: blue;"></i></a>`,
+                            className: 'row-edit dt-center'
+                        },
+                        {
+                            data: null,
+                            defaultContent: '<i class="fa fa-trash" style = "color: red;"  />',
+                            className: 'row-remove dt-center'
+                        },
+                    ],
+                });
+
+                $('#datatable').on('click', 'tbody td.row-edit', function (e) {
+                    var objData = tbl.row(this).data();
+                    window.location.href = `/Admin/SanPham/Edit?Id=${objData.MASP}`;
+                });
+
+                $('#datatable').on('click', 'tbody td.row-remove', function (e) {
+                    var objData = tbl.row(this).data();
+                    var frm = $.confirm({
+                        title: 'Thông báo',
+                        content: `Bạn có chắc chắn muốn xóa sản phẩm không?`,
+                        buttons: {
+                            ok: {
+                                text: 'Đồng ý',
+                                btnClass: 'btn-success',
+                                keys: ['enter', 'shift'],
+                                action: function () {
+                                    deleteProduct(frm, objData.MASP);
+                                }
+                            },
+                            cancel: {
+                                text: 'Hủy',
+                                btnClass: 'btn-blue',
+                                action: function () {
+
+                                }
+                            }
+                        }
+                    });
+
+
+                });
+            },
+            failure: function (response) {
+                alert(response)
+                DevExpress.ui.notify(response, 3000);
+            },
+            error: function (response) {
+                alert(response)
+            }
+        })
+    }
+
+    function deleteProduct(frm, Id) {
+        $.ajax({
+            type: "GET",
+            url: "/Admin/SanPham/Delete",
+            data: { "Id": Id },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data == "success") {
+                    searchData();
+                    ToastNotify("Xóa dữ liệu thành công", "success");
+                    frm.close();
+                } else {
+                    ToastNotify(data, "warning");
+                }
+            },
+            failure: function (response) {
+                alert(response)
+                DevExpress.ui.notify(response, 3000);
+            },
+            error: function (response) {
+                alert(response)
+            }
+
+        });
+    }
+</script>
+
+
+
+
+
+
+
 
