@@ -10,59 +10,21 @@
 
 <h2>TRANG QUẢN LÝ KÍCH THƯỚC SẢN PHẨM</h2>
 <div class="row form-group-sm">
-        <div class="btn btn-group btn-sm col-sm-2" style="padding-top: 0px;">
-            <a href="@Url.Action("Create", "KichThuoc")" class="btn btn-sm btn-success">THÊM MỚI</a>
-        </div>
+    <div class="btn btn-group btn-sm col-sm-2" style="padding-top: 0px;">
+        <a href="@Url.Action("Create", "KichThuoc")" class="btn btn-sm btn-success">THÊM MỚI</a>
+    </div>
 </div>
-
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary text-center">DANH SÁCH THƯƠNG HIỆU</h6>
+        <h6 class="m-0 font-weight-bold text-primary text-center">DANH SÁCH KHÁCH HÀNG</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
             <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
                 <div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"><div id="dataTable_filter" class="dataTables_filter"></div></div><div class="row">
                     <div class="col-sm-12">
-                        <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
-                            <thead>
-                                <tr role="row">
-                                    <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="MASP: activate to sort column descending" style="width: 155.281px;">Mã Sản Phẩm</th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="TENSP: activate to sort column ascending" style="width: 140px;">Tên Sản Phẩm</th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="TENKICHTHUOC: activate to sort column ascending" style="width: 140px;">Tên Kích Thước</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.SANPHAM.MASP)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.SANPHAM.TENSP)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.TENKICHTHUOC)
-
-                                        </td>
-                                        <td>
-                                            <a href="@Url.Action("Edit", "KichThuoc", new { id = item.MAKICHTHUOC })">
-                                                <img src="~/img/icons/icon_Sua.png" />
-                                            </a>|
-                                            <a href="@Url.Action("Details", "KichThuoc", new { id = item.MAKICHTHUOC })">
-                                                <img src="~/img/info_25px.png" />
-                                            </a>|
-                                            <a href="@Url.Action("Delete", "KichThuoc", new { id = item.MAKICHTHUOC })">
-                                                <img src="~/img/icons/icon_Xoa.png" />
-                                            </a>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
+                        <table class="table table-bordered dataTable" id="datatable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;"></table>
                     </div>
                 </div>
             </div>
@@ -70,8 +32,133 @@
     </div>
 </div>
 
-<div>
-    Trang @(@Model.PageNumber>Model.PageCount?Model.PageCount: Model.PageNumber)/@Model.PageCount
-</div>
-<div align="center">@Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))</div>
-<link href="~/Content/phantrang.css" rel="stylesheet" />
+
+<script>
+    $(document).ready(function () {
+
+        getKT();
+    });
+    function getKT() {
+
+        $.ajax({
+            type: "GET",
+            url: "/KichThuoc/getKichThuoc",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                var tbl = $('#datatable').DataTable({
+                    data: data,
+                    searching: false,
+                    stateSave: true,
+                    "bDestroy": true,
+                    columns: [
+                        {
+                            title: 'Mã Sản Phẩm', data: "MASP",
+                        },
+                        { title: 'Tên Sản Phẩm', data: "TENSP" },
+                        { title: 'Tên Kích Thước', data: "TENKICHTHUOC" },
+                      
+                        {
+                            data: null,
+                            defaultContent: `<a href = "#"><i class="fa fa-edit" style = "color: blue;"></i></a>`,
+                            className: 'row-edit dt-center'
+                        },
+                        {
+                            data: null,
+                            defaultContent: `<a href = "#"><i class="fa fa-info" style = "color: blue;"></i></a>`,
+                            className: 'row-info dt-center'
+                        },
+
+                        {
+                            data: null,
+                            defaultContent: '<i class="fa fa-trash" style = "color: red;"  />',
+                            className: 'row-remove dt-center'
+                        },
+
+
+                    ],
+
+                });
+
+                $('#datatable').on('click', 'tbody td.row-edit', function (e) {
+                    var objData = tbl.row(this).data();
+                    window.location.href = `/Admin/KichThuoc/Edit?Id=${objData.MAKICHTHUOC}`;
+                });
+
+                $('#datatable').on('click', 'tbody td.row-info', function (e) {
+                    var objData = tbl.row(this).data();
+                    window.location.href = `/Admin/KichThuoc/Details?Id=${objData.MAKICHTHUOC}`;
+                });
+
+
+
+                $('#datatable').on('click', 'tbody td.row-remove', function (e) {
+                    var objData = tbl.row(this).data();
+                    var frm = $.confirm({
+                        title: 'Thông báo',
+                        content: `Bạn có chắc chắn muốn xóa khách hàng này không?`,
+                        buttons: {
+                            ok: {
+                                text: 'Đồng ý',
+                                btnClass: 'btn-success',
+                                keys: ['enter', 'shift'],
+                                action: function () {
+                                    deleteKH(frm, objData.MAKICHTHUOC);
+                                }
+                            },
+                            cancel: {
+                                text: 'Hủy',
+                                btnClass: 'btn-blue',
+                                action: function () {
+
+                                }
+                            }
+                        }
+                    });
+
+                });
+
+
+
+            },
+            failure: function (response) {
+                alert(response)
+                DevExpress.ui.notify(response, 3000);
+            },
+            error: function (response) {
+                alert(response)
+            }
+        })
+    }
+
+
+
+    function deleteKH(frm, Id) {
+        $.ajax({
+            type: "GET",
+            url: "/Admin/KichThuoc/Delete",
+            data: { "Id": Id },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data == "success") {
+                    getKT();
+                    ToastNotify("Xóa dữ liệu thành công", "success");
+                    frm.close();
+                } else {
+                    ToastNotify(data, "warning");
+                }
+            },
+            failure: function (response) {
+                alert(response)
+                DevExpress.ui.notify(response, 3000);
+            },
+            error: function (response) {
+                alert(response)
+            }
+
+        });
+    }
+
+
+</script>

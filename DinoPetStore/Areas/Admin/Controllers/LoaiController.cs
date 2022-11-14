@@ -29,6 +29,20 @@ namespace DinoPetStore.Areas.Admin.Controllers
 
         }
 
+
+        public JsonResult getLoai()
+        {
+            var loai = (from l in data.LOAIs
+                     select new
+                     {
+                         l.MALOAI,
+                         l.TENLOAI
+                     }).ToList();
+            return Json(loai, JsonRequestBehavior.AllowGet);
+        }
+
+
+
         public ActionResult Details(int id)
         {
             if (Session["Taikhoanadmin"] == null)

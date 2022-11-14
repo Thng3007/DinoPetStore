@@ -37,6 +37,17 @@ namespace DinoPetStore.Areas.Admin.Controllers
             }
         }
 
+        public JsonResult getMau()
+        {
+            var mau = (from l in db.MAUSACs
+                        select new
+                        {
+                            l.MAMAUSAC,
+                            l.TENMAUSAC,
+                        }).ToList();
+            return Json(mau, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult Details(int id)
         {
             if (Session["Taikhoanadmin"] == null)

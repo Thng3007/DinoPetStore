@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using PagedList;
 using DinoPetStore.EF;
 using System.IO;
+using System.Web.Helpers;
 
 namespace DinoPetStore.Areas.Admin.Controllers
 {
@@ -132,6 +133,21 @@ namespace DinoPetStore.Areas.Admin.Controllers
             }
         }
 
+
+
+        public JsonResult getKichThuoc()
+        {
+            var kichthuoc = (from k in data.KICHTHUOCs
+                             join l in data.SANPHAMs on k.MASP equals l.MASP
+                             select new
+                             {
+                                 k.MAKICHTHUOC,
+                                 k.MASP,
+                                 l.TENSP,
+                                 k.TENKICHTHUOC
+                             }).ToList();
+            return Json(kichthuoc, JsonRequestBehavior.AllowGet);
+        }
 
 
     }
