@@ -52,6 +52,8 @@ namespace DinoPetStore.Areas.Admin.Controllers
             return Json(TH, JsonRequestBehavior.AllowGet);
         }
 
+
+
         [HttpGet]
         public ActionResult Create()
         {
@@ -197,5 +199,22 @@ namespace DinoPetStore.Areas.Admin.Controllers
             }
         }
 
+
+
+        public JsonResult deleteTH(int id)
+        {
+            if (Session["Taikhoanadmin"] == null)
+            {
+                return Json("fogetsecssion", JsonRequestBehavior.AllowGet);// retủn về trạng thái lỗi
+            }
+            else
+            {
+                THUONGHIEU thhieu = db.THUONGHIEUx.SingleOrDefault(n => n.MATH == id);
+                db.THUONGHIEUx.Remove(thhieu);
+                db.SaveChanges();
+                return Json("success", JsonRequestBehavior.AllowGet); 
+            }
+
+        }
     }
 }

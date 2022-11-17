@@ -234,6 +234,22 @@ namespace DinoPetStore.Areas.Admin.Controllers
         }
 
 
+        public JsonResult deleteAdmin(int id)
+        {
+            if (Session["Taikhoanadmin"] == null)
+            {
+                return Json("forgetsession", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                ADMIN ad = data.ADMINs.SingleOrDefault(n => n.MAADMIN == id);
+                data.ADMINs.Remove(ad);
+                data.SaveChanges();
+                return Json("success", JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
         [HttpGet]
         public ActionResult DoiMK(int id)
         {

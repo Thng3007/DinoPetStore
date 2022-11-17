@@ -122,15 +122,17 @@
     function deleteProduct(frm, Id) {
         $.ajax({
             type: "GET",
-            url: "/Admin/Loai/Delete",
+            url: "/Admin/Loai/deleteLoai",
             data: { "Id": Id },
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
                 if (data == "success") {
-                    getListThuongHieu();
+                    getLoai();
                     ToastNotify("Xóa dữ liệu thành công", "success");
                     frm.close();
+                } else if (data == "forgetsession") {
+                    window.location.href = "/Admin/Admin/dangnhap";
                 } else {
                     ToastNotify(data, "warning");
                 }

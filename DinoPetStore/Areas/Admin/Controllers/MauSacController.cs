@@ -134,5 +134,19 @@ namespace DinoPetStore.Areas.Admin.Controllers
                 return RedirectToAction("Index", "Mausac");
             }
         }
+
+
+        public JsonResult deleteMau(int id)
+        {
+            if (Session["Taikhoanadmin"] == null)
+                return Json("forgetsession", JsonRequestBehavior.AllowGet);
+            else
+            {
+                MAUSAC mau = db.MAUSACs.SingleOrDefault(n => n.MAMAUSAC == id);
+                db.MAUSACs.Remove(mau);
+                db.SaveChanges();
+                return Json("success", JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

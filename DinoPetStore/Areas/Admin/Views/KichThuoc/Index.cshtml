@@ -17,7 +17,7 @@
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary text-center">DANH SÁCH KHÁCH HÀNG</h6>
+        <h6 class="m-0 font-weight-bold text-primary text-center">DANH SÁCH KÍCH THƯỚC</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -103,7 +103,7 @@
                                 btnClass: 'btn-success',
                                 keys: ['enter', 'shift'],
                                 action: function () {
-                                    deleteKH(frm, objData.MAKICHTHUOC);
+                                    deleteKT(frm, objData.MAKICHTHUOC);
                                 }
                             },
                             cancel: {
@@ -133,10 +133,10 @@
 
 
 
-    function deleteKH(frm, Id) {
+    function deleteKT(frm, Id) {
         $.ajax({
             type: "GET",
-            url: "/Admin/KichThuoc/Delete",
+            url: "/Admin/KichThuoc/deleteKichThuoc",
             data: { "Id": Id },
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -145,7 +145,12 @@
                     getKT();
                     ToastNotify("Xóa dữ liệu thành công", "success");
                     frm.close();
-                } else {
+                }
+                else if (data == "forgetsession") {
+                    window.location.href = "/Admin/Admin/dangnhap";
+                }
+
+                else {
                     ToastNotify(data, "warning");
                 }
             },

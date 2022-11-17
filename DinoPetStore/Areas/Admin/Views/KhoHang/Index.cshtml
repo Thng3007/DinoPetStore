@@ -14,56 +14,17 @@
 </div>
 
 
+
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary text-center">Kho Hàng</h6>
+        <h6 class="m-0 font-weight-bold text-primary text-center">KHO HÀNG</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
             <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
                 <div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"><div id="dataTable_filter" class="dataTables_filter"></div></div><div class="row">
                     <div class="col-sm-12">
-                        <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
-                            <thead>
-                                <tr role="row">
-                                    <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 155.281px;">Ngày Nhập</th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px;">Mã Sản Phẩm</th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px;">Tên Sản Phẩm</th>
-                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 140px;">Số Lượng</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.NGAYNK)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.MASP)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.SANPHAM.TENSP)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.SOLUONG)
-                                        </td>
-                                        <td>
-                                            <a href="@Url.Action("Edit", "KhoHang", new { id = item.MAPHIEUNK })">
-                                                <img src="~/img/icons/icon_Sua.png" />
-                                            </a>|
-                                            <a href="@Url.Action("Details", "KhoHang", new { id = item.MAPHIEUNK })">
-                                                <img src="~/img/info_25px.png" />
-                                            </a>|
-                                            <a href="@Url.Action("Delete", "KhoHang", new { id = item.MAPHIEUNK })">
-                                                <img src="~/img/icons/icon_Xoa.png" />
-                                            </a>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
+                        <table class="table table-bordered dataTable" id="datatable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;"></table>
                     </div>
                 </div>
             </div>
@@ -71,8 +32,91 @@
     </div>
 </div>
 
-<div>
-    Trang @(@Model.PageNumber>Model.PageCount?Model.PageCount: Model.PageNumber)/@Model.PageCount
-</div>
-<div align="center">@Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))</div>
-<link href="~/Content/phantrang.css" rel="stylesheet" />
+
+<script>
+    $(document).ready(function () {
+
+        getKho();
+    });
+    function getKho() {
+
+        $.ajax({
+            type: "GET",
+            url: "/KhoHang/getKho",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                var tbl = $('#datatable').DataTable({
+                    data: data,
+                    searching: false,
+                    stateSave: true,
+                    "bDestroy": true,
+                    columns: [
+                        {
+                            title: 'Ngày Nhập Kho', data: "NGAYNK",
+                            "render": function (data, type, row) {
+                                var strNNK = convertJsonToDate(data);
+                                return `<span>${strNNK}</span`
+                            }
+                        },
+                        { title: 'Mã Sản Phẩm', data: "MASP" },
+                        { title: 'Tên Sản Phẩm', data: "TENSP" },
+                        { title: 'Số Lượng', data: "SOLUONG" },
+
+                        {
+                            data: null,
+                            defaultContent: `<a href = "#"><i class="fa fa-edit" style = "color: blue;"></i></a>`,
+                            className: 'row-edit dt-center'
+                        },
+                        {
+                            data: null,
+                            defaultContent: `<a href = "#"><i class="fa fa-info" style = "color: blue;"></i></a>`,
+                            className: 'row-info dt-center'
+                        },
+
+                        {
+                            data: null,
+                            defaultContent: '<i class="fa fa-trash" style = "color: red;"  />',
+                            className: 'row-remove dt-center'
+                        },
+
+
+                    ],
+
+                });
+
+                $('#datatable').on('click', 'tbody td.row-edit', function (e) {
+                    var objData = tbl.row(this).data();
+                    window.location.href = `/Admin/KhoHang/Edit?Id=${objData.MAPHIEUNK}`;
+                });
+
+                $('#datatable').on('click', 'tbody td.row-info', function (e) {
+                    var objData = tbl.row(this).data();
+                    window.location.href = `/Admin/KhoHang/Details?Id=${objData.MAPHIEUNK}`;
+                });
+
+
+
+                $('#datatable').on('click', 'tbody td.row-remove', function (e) {
+                    var objData = tbl.row(this).data();
+                    window.location.href = `/Admin/KhoHang/Delete?Id=${objData.MAPHIEUNK}`;
+                });
+
+
+
+            },
+            failure: function (response) {
+                alert(response)
+                DevExpress.ui.notify(response, 3000);
+            },
+            error: function (response) {
+                alert(response)
+            }
+        })
+    }
+
+
+
+  
+
+</script>

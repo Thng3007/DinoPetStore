@@ -159,6 +159,36 @@ namespace DinoPetStore.Areas.Admin.Controllers
                     return RedirectToAction("Index", "Hinh");
                 }
             }
-        
+
+            public JsonResult getHinh()
+            {
+            var hinh = (from h in data.HINHs
+                        join s in data.SANPHAMs on h.MASP equals s.MASP
+                        select new
+                        {
+                            h.MAHINH,
+                            h.HINH1,
+                            h.ANHIEN,
+                            s.MASP,
+                            s.TENSP
+                        }).ToList();
+            return Json(hinh, JsonRequestBehavior.AllowGet);
+            }
+
+
+            public JsonResult deleteHinh(int id) {
+
+                if (Session["Taikhoanadmin"] == null)
+                    return Json("forgetsession", JsonRequestBehavior.AllowGet);
+                else
+                {
+                    HINH hinh = data.HINHs.SingleOrDefault(g => g.MAHINH == id);
+                    data.HINHs.Remove(hinh);
+                    data.SaveChanges();
+                    return Json("success", JsonRequestBehavior.AllowGet);
+                }
+        }
+
+
     }
 }

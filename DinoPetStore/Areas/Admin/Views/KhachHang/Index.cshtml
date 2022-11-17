@@ -58,7 +58,13 @@
                         { title: 'Địa Chỉ', data: "DIACHI" },
                         { title: 'Tên Đăng Nhập', data: "TENDNKH" },
                         { title: 'Email', data: "EMAIL" },
-                        { title: 'Ngày Sinh', data: "NGAYSINH" },
+                        {
+                            title: 'Ngày Sinh', data: "NGAYSINH",
+                            "render": function (data, type, row) {
+                                var strNNK = convertJsonToDate(data);
+                                return `<span>${strNNK}</span`
+                            }
+                        },
 
                         {
                             title: 'Avatar',
@@ -145,7 +151,7 @@
     function deleteKH(frm, Id) {
         $.ajax({
             type: "GET",
-            url: "/Admin/KhachHang/Delete",
+            url: "/Admin/KhachHang/deleteKH",
             data: { "Id": Id },
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -154,7 +160,12 @@
                     getKH();
                     ToastNotify("Xóa dữ liệu thành công", "success");
                     frm.close();
-                } else {
+                }
+                else if (data == "forgetsession") {
+
+                    window.location.href = "/Admin/Admin/dangnhap";
+                }
+                else {
                     ToastNotify(data, "warning");
                 }
             },

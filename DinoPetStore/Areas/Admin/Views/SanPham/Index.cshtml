@@ -17,16 +17,6 @@
         <div class="col-sm-1">
             <input type="text" class="form-control form-control-sm" id="toDate" />
         </div>
-        <div class="col-sm-1">
-            <label>Giá</label>
-        </div>
-        <div class="col-sm-4">
-            <div class="slidecontainer">
-            <input type="range" min="1" max="100" multiple value="0" id="myRange">
-            <p id="demo"></p>
-        </div>
-            @*<input type="text" class="form-control form-control-sm" id="txtKeyWord" placeholder="Từ khóa..." />*@
-        </div>
         <div class="btn btn-group btn-sm col-sm-2" style="padding-top: 0px;">
             <a href="@Url.Action("Create", "SanPham")" class="btn btn-sm btn-success">THÊM MỚI</a>
             <button class="btn btn-sm btn-info" id="btnsearch">TÌM KIẾM</button>
@@ -165,7 +155,7 @@
     function deleteProduct(frm, Id) {
         $.ajax({
             type: "GET",
-            url: "/Admin/SanPham/Delete",
+            url: "/Admin/SanPham/deleteSP",
             data: { "Id": Id },
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -174,6 +164,8 @@
                     searchData();
                     ToastNotify("Xóa dữ liệu thành công", "success");
                     frm.close();
+                } else if (data == "forgetsession") {
+                    window.location.href = "/Admin/Admin/dangnhap";
                 } else {
                     ToastNotify(data, "warning");
                 }

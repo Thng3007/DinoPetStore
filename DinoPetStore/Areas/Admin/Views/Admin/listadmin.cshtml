@@ -13,6 +13,7 @@
             <a href="@Url.Action("Create", "Admin")" class="btn btn-sm btn-success">THÊM MỚI</a>
         </div>
     </div>
+</div>
 
     <hr />
 
@@ -95,7 +96,7 @@
                                     btnClass: 'btn-success',
                                     keys: ['enter', 'shift'],
                                     action: function () {
-                                        deleteProduct(frm, objData.MAADMIN);
+                                        deleteAdmin(frm, objData.MAADMIN);
                                     }
                                 },
                                 cancel: {
@@ -122,19 +123,23 @@
         })
     }
 
-    function deleteProduct(frm, Id) {
+    function deleteAdmin(frm, Id) {
         $.ajax({
             type: "GET",
-            url: "/Admin/Delete",
+            url: "/Admin/deleteAdmin",
             data: { "Id": Id },
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
                 if (data == "success") {
-                    getListThuongHieu();
+                    getListAdmin();
                     ToastNotify("Xóa dữ liệu thành công", "success");
                     frm.close();
-                } else {
+                }
+                else if (data = "forgetsession") {
+                    window.location.href = "/ Admin / Admin / dangnhap";
+                }
+                else {
                     ToastNotify(data, "warning");
                 }
             },

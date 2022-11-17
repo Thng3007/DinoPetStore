@@ -122,8 +122,8 @@
     function deleteProduct(frm, Id) {
         $.ajax({
             type: "GET",
-            url: "/Admin/ThuongHieu/Delete",
-            data: { "Id": Id },
+            url: "/Admin/ThuongHieu/deleteTH",
+            data: { "id": Id },
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
@@ -131,7 +131,13 @@
                     getListThuongHieu();
                     ToastNotify("Xóa dữ liệu thành công", "success");
                     frm.close();
-                } else {
+                }
+                else if (data == "fogetsecssion") 
+                {
+                    window.location.href = "/Admin/Admin/dangnhap";
+                }
+                else {
+
                     ToastNotify(data, "warning");
                 }
             },

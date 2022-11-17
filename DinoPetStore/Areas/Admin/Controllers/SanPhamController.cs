@@ -171,16 +171,6 @@ namespace DinoPetStore.Areas.Admin.Controllers
                 {
                     data.CTDONDATHANGs.Remove(item);
                 }
-                /*foreach (var item in dathang)
-                {
-                    foreach (var itam in dondathang)
-                    {
-                        if (itam.MADH != item.MADH)
-                        {
-                            data.DONDATHANGs.DeleteOnSubmit(itam);
-                        }
-                    }
-                }*/
                 foreach (var item in hinh)
                 {
                     data.HINHs.Remove(item);
@@ -196,6 +186,40 @@ namespace DinoPetStore.Areas.Admin.Controllers
                 data.SANPHAMs.Remove(sanpham);
                 data.SaveChanges();
                 return RedirectToAction("Index", "SanPham");
+            }
+        }
+
+        public JsonResult deleteSP(int id)
+        {
+            if (Session["Taikhoanadmin"] == null)
+                return Json("forgetsession", JsonRequestBehavior.AllowGet);
+            else
+            {
+                SANPHAM sanpham = data.SANPHAMs.SingleOrDefault(g => g.MASP == id);
+                var kichthuoc = from KICHTHUOC in data.KICHTHUOCs where KICHTHUOC.MASP == id select KICHTHUOC;
+                var hinh = from HINH in data.HINHs where HINH.MASP == id select HINH;
+                var kho = from PHIEUNHAPKHO in data.PHIEUNHAPKHOes where PHIEUNHAPKHO.MASP == id select PHIEUNHAPKHO;
+                var dathang = from CTDONDATHANG in data.CTDONDATHANGs where CTDONDATHANG.MASP == id select CTDONDATHANG;
+                var dondathang = from DONDATHANG in data.DONDATHANGs select DONDATHANG;
+                foreach (var item in dathang)
+                {
+                    data.CTDONDATHANGs.Remove(item);
+                }
+                foreach (var item in hinh)
+                {
+                    data.HINHs.Remove(item);
+                }
+                foreach (var item in kho)
+                {
+                    data.PHIEUNHAPKHOes.Remove(item);
+                }
+                foreach (var item in kichthuoc)
+                {
+                    data.KICHTHUOCs.Remove(item);
+                }
+                data.SANPHAMs.Remove(sanpham);
+                data.SaveChanges();
+                return Json("success", JsonRequestBehavior.AllowGet);
             }
         }
 

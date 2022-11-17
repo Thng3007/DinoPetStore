@@ -70,6 +70,21 @@ namespace DinoPetStore.Areas.Admin.Controllers
             return Json(donhang, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult deleteDH(int id)
+        {
+            if (Session["Taikhoanadmin"] == null)
+            {
+                return Json("forgetsession", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                DONDATHANG donhang = data.DONDATHANGs.SingleOrDefault(n => n.MADH == id);
+                data.DONDATHANGs.Remove(donhang);
+                data.SaveChanges();
+                return Json("success", JsonRequestBehavior.AllowGet);
+            }
+        }
+
 
         public ActionResult ChiTietDonHang(int id)
         {

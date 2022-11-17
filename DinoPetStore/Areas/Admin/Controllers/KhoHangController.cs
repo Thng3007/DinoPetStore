@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.SqlServer;
 using System.Data.Entity.Validation;
 using System.Drawing.Printing;
 using System.Linq;
@@ -174,6 +175,23 @@ namespace DinoPetStore.Areas.Admin.Controllers
         public ActionResult ThongBao()
         {
             return View();
+        }
+
+        
+        
+        public JsonResult getKho()
+        {
+            var kho = (from k in data.PHIEUNHAPKHOes
+                       join s in data.SANPHAMs on k.MASP equals s.MASP
+                       select new
+                       {
+                           k.NGAYNK,
+                           k.MAPHIEUNK,
+                           k.MASP,
+                           k.SOLUONG,
+                           s.TENSP
+                       }).ToList();
+            return Json(kho, JsonRequestBehavior.AllowGet);
         }
 
 

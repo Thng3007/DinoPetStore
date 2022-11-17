@@ -77,7 +77,7 @@ namespace DinoPetStore.Areas.Admin.Controllers
                 ViewBag.MASP = new SelectList(data.SANPHAMs.ToList().OrderBy(n => n.TENSP), "MASP", "TENSP");
                 data.GIAMGIAs.Add(giamgia);
                 data.SaveChanges();
-                return RedirectToAction("Index", "KichThuoc");
+                return RedirectToAction("Index", "GiamGia");
 
             }
         }
@@ -104,6 +104,19 @@ namespace DinoPetStore.Areas.Admin.Controllers
                 data.GIAMGIAs.Remove(giamza);
                 data.SaveChanges();
                 return RedirectToAction("Index", "KichThuoc");
+            }
+        }
+
+        public JsonResult deleteGiamGia(int id)
+        {
+            if (Session["Taikhoanadmin"] == null)
+                return Json("forgetsession", JsonRequestBehavior.AllowGet);
+            else
+            {
+                GIAMGIA giamza = data.GIAMGIAs.SingleOrDefault(n => n.MAGIAMGIA == id);
+                data.GIAMGIAs.Remove(giamza);
+                data.SaveChanges();
+                return Json("success", JsonRequestBehavior.AllowGet);
             }
         }
     }

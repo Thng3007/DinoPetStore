@@ -125,7 +125,7 @@
     function deleteProduct(frm, Id) {
         $.ajax({
             type: "GET",
-            url: "/Admin/MauSac/Delete",
+            url: "/Admin/MauSac/deleteMau",
             data: { "Id": Id },
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -134,6 +134,8 @@
                     getMau();
                     ToastNotify("Xóa dữ liệu thành công", "success");
                     frm.close();
+                } else if (data == "forgetsession") {
+                    window.location.href = "/Admin/Admin/dangnhap";
                 } else {
                     ToastNotify(data, "warning");
                 }

@@ -150,5 +150,19 @@ namespace DinoPetStore.Areas.Admin.Controllers
         }
 
 
+        public JsonResult deleteKichThuoc(int id)
+        {
+            if (Session["Taikhoanadmin"] == null)
+                return Json("forgetsession", JsonRequestBehavior.AllowGet);
+            else
+            {
+                KICHTHUOC kichthuoc = data.KICHTHUOCs.SingleOrDefault(n => n.MAKICHTHUOC == id);
+                data.KICHTHUOCs.Remove(kichthuoc);
+                data.SaveChanges();
+                return Json("success", JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
     }
 }

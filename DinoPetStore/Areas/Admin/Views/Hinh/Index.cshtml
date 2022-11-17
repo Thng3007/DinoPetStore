@@ -14,40 +14,163 @@
     </div>
 </div>
 
-<table class="table">
-    <tr>
-        <th> Tên Sản Phẩm </th>
-        <th> Hình Ảnh </th>
-        <th></th>
-    </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SANPHAM.TENSP)
-            </td>
-            <td>
-                <img src="@Url.Content("~/img/"+  item.HINH1)" width="120px" />
-            </td>
-            <td>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary text-center">HÌNH ẢNH CHI TIẾT</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"><div id="dataTable_filter" class="dataTables_filter"></div></div><div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-bordered dataTable" id="datatable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-                <a href="@Url.Action("Edit", "Hinh", new { id = item.MAHINH })">
-                    <img src="~/img/icons/icon_Sua.png" />
-                </a>|
-                <a href="@Url.Action("Details", "Hinh", new { id = item.MAHINH })">
-                    <img src="~/img/info_25px.png" />
-                </a>|
-                <a href="@Url.Action("Delete", "Hinh", new { id = item.MAHINH })">
-                    <img src="~/img/icons/icon_Xoa.png" />
-                </a>
-            </td>
-        </tr>
+
+<script>
+    $(document).ready(function () {
+
+        getHinh();
+    });
+    function getHinh() {
+
+        $.ajax({
+            type: "GET",
+            url: "/Hinh/getHinh",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                var tbl = $('#datatable').DataTable({
+                    data: data,
+                    searching: false,
+                    stateSave: true,
+                    "bDestroy": true,
+                    columns: [
+                        {
+                            title: 'Tên Sản Phẩm', data: "TENSP",
+                        },
+                        {
+                            title: 'Hình',
+                            data: "HINH1",
+                            "render": function (data, type, row) {
+                                return `<img src='/img/${data}' style= "width:300px;height:320px; padding: 3px" />`;
+                            }
+                        },
+
+                        {
+                            data: null,
+                            defaultContent: `<a href = "#"><i class="fa fa-edit" style = "color: blue;"></i></a>`,
+                            className: 'row-edit dt-center'
+                        },
+                        {
+                            data: null,
+                            defaultContent: `<a href = "#"><i class="fa fa-info" style = "color: blue;"></i></a>`,
+                            className: 'row-info dt-center'
+                        },
+
+                        {
+                            data: null,
+                            defaultContent: '<i class="fa fa-trash" style = "color: red;"  />',
+                            className: 'row-remove dt-center'
+                        },
+
+
+                    ],
+
+                });
+
+                $('#datatable').on('click', 'tbody td.row-edit', function (e) {
+                    var objData = tbl.row(this).data();
+                    window.location.href = `/Admin/Hinh/Edit?Id=${objData.MAHINH}`;
+                });
+
+                $('#datatable').on('click', 'tbody td.row-info', function (e) {
+                    var objData = tbl.row(this).data();
+                    window.location.href = `/Admin/Hinh/Details?Id=${objData.MAHINH}`;
+                });
+
+
+
+                $('#datatable').on('click', 'tbody td.row-remove', function (e) {
+                    var objData = tbl.row(this).data();
+                    var frm = $.confirm({
+                        title: 'Thông báo',
+                        content: `Bạn có chắc chắn muốn xóa mặt hàng này không?`,
+                        buttons: {
+                            ok: {
+                                text: 'Đồng ý',
+                                btnClass: 'btn-success',
+                                keys: ['enter', 'shift'],
+                                action: function () {
+                                    deleteHinh(frm, objData.MAHINH);
+                                }
+                            },
+                            cancel: {
+                                text: 'Hủy',
+                                btnClass: 'btn-blue',
+                                action: function () {
+
+                                }
+                            }
+                        }
+                    });
+
+                });
+
+
+
+            },
+            failure: function (response) {
+                alert(response)
+                DevExpress.ui.notify(response, 3000);
+            },
+            error: function (response) {
+                alert(response)
+            }
+        })
     }
 
-</table>
-<div>
-    Trang @(@Model.PageNumber>Model.PageCount?Model.PageCount: Model.PageNumber)/@Model.PageCount
-</div>
-<div align="center">@Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))</div>
-<link href="~/Content/phantrang.css" rel="stylesheet" />
+
+
+    function deleteHinh(frm, Id) {
+        $.ajax({
+            type: "GET",
+            url: "/Admin/Hinh/deleteHinh",
+            data: { "Id": Id },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data == "success") {
+                    getHinh();
+                    ToastNotify("Xóa dữ liệu thành công", "success");
+                    frm.close();
+                }
+                else if (data == "forgetsession") {
+
+                    window.location.href = "/Admin/Admin/dangnhap";
+
+                }
+
+                else {
+                    ToastNotify(data, "warning");
+                }
+            },
+            failure: function (response) {
+                alert(response)
+                DevExpress.ui.notify(response, 3000);
+            },
+            error: function (response) {
+                alert(response)
+            }
+
+        });
+    }
+
+
+</script>

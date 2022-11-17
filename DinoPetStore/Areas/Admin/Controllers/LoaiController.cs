@@ -123,6 +123,19 @@ namespace DinoPetStore.Areas.Admin.Controllers
                 return RedirectToAction("Index", "Loai");
             }
         }
+
+        public JsonResult deleteLoai(int id)
+        {
+            if (Session["Taikhoanadmin"] == null)
+                return Json("forgetsession", JsonRequestBehavior.AllowGet);
+            else
+            {
+                LOAI nhaxuatban = data.LOAIs.SingleOrDefault(n => n.MALOAI == id);
+                data.LOAIs.Remove(nhaxuatban);
+                data.SaveChanges();
+                return Json("success", JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 
 

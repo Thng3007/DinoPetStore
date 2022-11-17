@@ -190,6 +190,22 @@ namespace DinoPetStore.Areas.Admin.Controllers
                 return RedirectToAction("Index", "KhachHang");
             }
         }
+
+
+        public JsonResult deleteKH(int id)
+        {
+            if (Session["Taikhoanadmin"] == null)
+            {
+                return Json("forgetsession", JsonRequestBehavior.AllowGet);// retủn về trạng thái lỗi
+            }
+            else
+            {
+                KHACHHANG khach = db.KHACHHANGs.SingleOrDefault(n => n.MAKH == id);
+                db.KHACHHANGs.Remove(khach);
+                db.SaveChanges();
+                return Json("success", JsonRequestBehavior.AllowGet); 
+            }
+        }
     }
 
 
