@@ -94,8 +94,6 @@ namespace DinoPetStore.Areas.Admin.Controllers
             }
             else
             {
-                //Lấy ra thông tin Chi tiết đơn hàng từ mã đơn hàng truyền vào
-                //Ở đây 1 đơn hàng có thể có nhiều chi tiết ĐH(mua nhiều SP), nên dùng where như trang sản phẩm theo nhà sản xuất
 
                 ViewBag.MADH = id;
                 return View();

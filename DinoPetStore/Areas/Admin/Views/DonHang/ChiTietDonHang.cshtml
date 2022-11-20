@@ -25,6 +25,8 @@
         </div>
     </div>
 </div>
+
+
 <script>
     $(document).ready(function () {
         getListOrder();
@@ -37,18 +39,18 @@
             data: { "MADH": madh },
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            success: function (data) { //Chú ý data trả về phải là json array object 
+            success: function (data) {
                 if (typeof (data) == 'object') {
-                    $('#dataTable').DataTable({ // DataTables là một plug-in cho thư viện jQuery Javascript. Để sdung thì tại 1 table với Id tùy ý sau đó .DataTable và truyền các cột và data vào
+                    $('#dataTable').DataTable({ 
                         data: data, //data trả về từ server
-                        searching: false, //Mấy cái này nó là thuộc tính cua datâtble có tìm kiếm hay không,sắp xếp hay k..... true là có false không
-                        stateSave: false,// cái này mk cũng k hiểu nó là cái gì b có thể đọc thêm tài liệu về thuộc tính của nó. Với sdung cơ bản k quan tâm đến nó lắm :D phần dưới mới quan trọng
-                        "bDestroy": true,//
-                        columns: [ //ở đây sẽ định nghĩa ra các cột của bảng(title) và data sẽ hiển thị dữ liệu lên trên bảng (data)
+                        searching: false, 
+                        stateSave: false,
+                        "bDestroy": true,
+                        columns: [ 
                             {
                                 title: 'Trạng thái',
-                                data: "TRANGTHAI", //Nó sẽ MAP tương ứng với trường có trong model trả về từ server
-                                "render": function (data, type, row) { //HÀm này để custom hiển thị của 1 dòng theo ý mình
+                                data: "TRANGTHAI", 
+                                "render": function (data, type, row) { 
                                     if (data == "NEW") {
                                         return `<span style="cursor:pointer" onClick = ChangStatusOrder('${row.MADH}','${row.TRANGTHAI}') class = 'label label-info'>Chờ xác nhận</span`
                                     };
@@ -58,29 +60,25 @@
                                     if (data == "REJECT") {
                                         return `<span class = 'label label-danger'>Từ chối</span`
                                     }
-
                                     if (data == "DELIVERY") {
                                         return `<span style="cursor:pointer" onClick = ChangStatusOrder('${row.MADH}','${row.TRANGTHAI}') class = 'label label-primary'>Đang giao hàng</span`
                                     };
-
                                     if (data == "SUCCESS") {
                                         return `<span class = 'label label-success'>Giao thành công</span`
                                     };
-
                                     if (data == "RETURN") {
                                         return `<span class = 'label label-danger'>Trả về</span`
                                     };
-
                                 }
                             },
-                            { title: 'Mã ĐH', data: "MADH" }, //đây nêu k có custom gì thì nó sẽ như này là hiển thị được dữ liệu k cần phải tr/td...bala bla
-                            { title: 'Mã SP', data: "TENSP" },
+                            { title: 'Mã ĐH', data: "MADH" }, 
+                            { title: 'Mã SP', data: "MASP" },
                             { title: 'Sản phẩm', data: "TENSP" },
                             {
                                 title: 'Hình ảnh',
                                 data: "HINHANH",
                                 "render": function (data, type, row) {
-                                    return `<img src='/img/${data}' style= "width:50px;height:30px" />`;
+                                    return `<img src='/img/${data}' style= "width:150px;height:150px" />`;
                                 }
                             },
                             { title: 'Số lượng', data: "SOLUONG" },
@@ -99,19 +97,15 @@
             error: function (response) {
                 alert(response)
             }
-
         });
     }
 
-
     function ChangStatusOrder(MADH, status) {
-
         var content = "";
         var btnok = "";
         var btnCanel = "";
         var nextOKStatus = "";
         var nextCancelStatus = "";
-
         if (status == "NEW") {
             content = "Bạn có muốn xác nhận hoặc từ chối đơn hàng?"
             btnok = "Xác nhận";
@@ -133,8 +127,6 @@
             nextOKStatus = "SUCCESS";
             nextCancelStatus = "RETURN";
         }
-
-
         var frm = $.confirm({
             title: 'Thông báo',
             content: `${content}`,
@@ -144,7 +136,6 @@
                     btnClass: 'btn-success',
                     keys: ['enter', 'shift'],
                     action: function () {
-
                         UpdateStatus(MADH, nextOKStatus);
                     }
                 },
@@ -158,15 +149,12 @@
                 close: {
                     text: 'Đóng',
                     action: function () {
-
                     }
                 }
             }
         });
     }
-
     function UpdateStatus(MADH, TRANGTHAI) {
-
         $.ajax({
             type: "GET",
             url: "/DONHANG/UpdateStatus",
@@ -177,7 +165,6 @@
                 if (data == 'success') {
                     ToastNotify("Cập nhật trạng thái thành công", "success");
                     getListOrder();
-
                 } else {
                     ToastNotify(data, "warning");
                 }
@@ -189,10 +176,7 @@
             error: function (response) {
                 alert(response)
             }
-
         });
-
     }
-</script>
 
-
+   </script>

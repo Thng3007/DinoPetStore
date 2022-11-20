@@ -4,6 +4,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<!-- breadcrumbs -->
+<div class="breadcrumbs">
+    <div class="container">
+        <ol class="breadcrumb breadcrumb1 animated wow slideInLeft" data-wow-delay=".5s">
+            <li><a href="@Url.Action("Index", "User")"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Trang Chủ</a></li>
+            <li class="active">Kết Quả Tìm Kiếm</li>
+        </ol>
+    </div>
+</div>
+<!-- //breadcrumbs -->
+
 <div class="products">
     <div class="container">
         <h2> Kết Quả Tìm Kiếm </h2>

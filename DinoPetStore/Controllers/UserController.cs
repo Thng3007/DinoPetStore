@@ -334,7 +334,7 @@ namespace DinoPetStore.Controllers
                 }
                 else
                 {
-                    var mahoa_matkhau = MahoaMD5.EncryptMD5(model.matkhau);
+                    var mahoa_matkhau = MahoaMD5.GetMD5(model.matkhau);
                     var kh = new KHACHHANG();
                     kh.HOTENKH = model.hoten;
                     kh.TENDNKH = model.tendn;
@@ -363,7 +363,7 @@ namespace DinoPetStore.Controllers
         [HttpPost]
         public ActionResult dangnhap(DangNhapModel model)
         {
-            var mahoa_matkhaudangnhap = MahoaMD5.EncryptMD5(model.matkhau);
+            var mahoa_matkhaudangnhap = MahoaMD5.GetMD5(model.matkhau);
             if (ModelState.IsValid)
             {
                 KHACHHANG kh = data.KHACHHANGs.SingleOrDefault(n => n.TENDNKH == model.tendn && n.MATKHAUKH == mahoa_matkhaudangnhap);
@@ -589,7 +589,7 @@ namespace DinoPetStore.Controllers
             var message = "";
             if (ModelState.IsValid)
             {
-                var mahoa_matkhau = MahoaMD5.EncryptMD5(model.NewPassword);
+                var mahoa_matkhau = MahoaMD5.GetMD5(model.NewPassword);
                 KHACHHANG kh = data.KHACHHANGs.SingleOrDefault(n => n.KHOIPHUCMATKHAU == model.Resetcode);
                 if (kh != null)
                 {

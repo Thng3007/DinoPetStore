@@ -200,6 +200,7 @@ namespace DinoPetStore.Controllers
                 ddh.DATHANHTOAN = true;
 
             ddh.TONGTIEN = (decimal)TongTien();
+            ddh.TRANGTHAI = "New";
             data.DONDATHANGs.Add(ddh);
             data.SaveChanges();
             foreach (var item in gh)
