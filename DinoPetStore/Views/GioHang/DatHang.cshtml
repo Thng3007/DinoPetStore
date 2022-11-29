@@ -28,8 +28,6 @@
                         <th>Tên Sản Phẩm</th>
 
                         <th>Giá Tiền</th>
-                        <th>Xóa</th>
-                        <th></th>
                     </tr>
                 </thead>
                 @foreach (var item in Model)
@@ -52,27 +50,8 @@
                             <td class="invert">@item.gTENSP</td>
 
                             <td class="invert">@String.Format("{0:0,0}", item.dTHANHTIEN)</td>
-                            <td class="invert">
-                                <div class="rem" style="width: 100px">
-                                    <div class="close1"> </div>
-                                </div>
-                                <script>
-                                    $(document).ready(function (c) {
-                                        $('.close1').on('click', function (c) {
-                                            $('.rem1').fadeOut('slow', function (c) {
-                                                $('.rem1').remove();
-                                            });
-                                        });
-                                    });
-                                </script>
-                            </td>
-                            <td class="invert">
-                                <button class="btn-close-white">
-                                    @Html.ActionLink("Xóa", "XoaGiohang", new { @iMaSp = item.iMASP })
-                                </button>
-                            </td>
                         </tr>
-}
+                    }
 
                 }
             </table>
@@ -193,6 +172,7 @@
         getListCart();
     });
 
+
     function getListCart() {
         var totalQuan = 0;
         $.ajax({
@@ -201,8 +181,7 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
-                if (data.length > 0) {
-                    html = `<thead>
+                html = `<thead>
                     <tr>
                         <th>Mã Sản Phẩm.</th>
                         <th>Sản Phẩm</th>
@@ -213,6 +192,7 @@
                         <th>Xóa</th>
                         <th></th>
                     </tr>`;
+                if (data.length > 0) {
                     $.each(data, function (index, item) {
                         totalQuan += item.iSOLUONG;
                         html += `  <tr class="rem1" style="background-color: white;">
@@ -221,31 +201,34 @@
                         <td class="invert" style="width: 250px">
                             <div class="quantity">
                                 <div class="quantity-select">
-                                    <div class="entry value-minus">&nbsp;</div>
+                                    <div class="entry value-minus" onclick="updateSecsionQty(${item.iMASP},'minus')">&nbsp;</div>
                                     <div class="entry value"><span>${item.iSOLUONG}</span></div>
-                                    <div class="entry value-plus" >&nbsp;</div>
+                                    <div class="entry value-plus active" onclick="updateSecsionQty(${item.iMASP},'plus')">&nbsp;</div>
                                 </div>
                             </div>
                         </td>
                         <td class="invert">${item.gTENSP}</td>
 
-                        <td class="invert">${item.iTONGTIEN == 0 ? item.dTHANHTIEN : item.iTONGTIEN}</td>
+                        <td class="invert">${item.dTHANHTIEN}</td>
                         <td class="invert">
                             <div class="rem" style="width: 100px">
                                 <div class="close1"> </div>
                             </div>
                         </td>
                         <td class="invert">
-                            <button class="btn-close-white">
+                            <button class="btn-close-white" onclick="deleteSecsionQty(${item.iMASP})">
                                 Xóa
                             </button>
                         </td>
                     </tr>`
                     });
-                    html += "</thead>"
-                    $(".timetable_sub").html(html);
-                    $("#totalquantity").html(totalQuan);
+                } else {
+                    window.location.reload();
                 }
+                html += "</thead>";
+
+                $(".timetable_sub").html(html);
+                $("#totalquantity").html(totalQuan);
             },
             failure: function (response) {
                 alert(response)
@@ -256,6 +239,7 @@
             }
         })
     }
+
     function updateSecsionQty(masp, type) {
         var quantity = 1;
         if (type === "minus") {
@@ -283,6 +267,34 @@
             }
         })
     }
+    function deleteSecsionQty(masp) {
+        $.ajax({
+            type: "GET",
+            url: "/GioHang/DeleteCart",
+            data: { "iMASP": masp },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data == "success") {
+                    ToastNotify("Xóa sản phẩm thành công", 'success');
+                    getListCart();
+                }
+                else {
+                    ToastNotify(data, 'warning');
+                }
+            },
+            failure: function (response) {
+                alert(response)
+                DevExpress.ui.notify(response, 3000);
+            },
+            error: function (response) {
+                alert(response)
+            }
+        })
+    }
+
+
+
 
     ////Khi Click "Lấy từ thông tin tài khoản" thì Gán các giá trị của thông tin tài khoản cho thông tin giao hàng
 

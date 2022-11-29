@@ -8,6 +8,8 @@ using System.Web.Mvc;
 using PagedList;
 using Microsoft.Ajax.Utilities;
 using System.Web.Helpers;
+using System.Net.Mail;
+using System.Net;
 
 namespace DinoPetStore.Areas.Admin.Controllers
 {
@@ -156,7 +158,80 @@ namespace DinoPetStore.Areas.Admin.Controllers
                 }
 
                 objData.TRANGTHAI = status;
+
+                //Lấy danh sách sản phẩm
+                var lstItem = (from a in data.SANPHAMs.AsNoTracking()
+                               join b in data.CTDONDATHANGs.AsNoTracking() on a.MASP equals b.MASP
+                               where b.MADH == MADH
+                               select new
+                               {
+                                   a.TENSP,
+                                   b.DONGIA,
+                                   b.THANHTIEN
+                               }).ToList();
+                string tableItem = string.Empty;
+                tableItem += "<table>\r\n  <tr>\r\n    <th>Tên SP</th>\r\n    <th>Đơn giá</th>\r\n    <th>Thành tiền</th>\r\n  </tr>";
+                foreach (var item in lstItem)
+                {
+                    tableItem += $"<tr>\r\n    <td>{item.TENSP}</td>\r\n    <td>{item.DONGIA}</td>\r\n    <td>{item.THANHTIEN}</td>\r\n  </tr>";
+                }
+                tableItem += "</table>";
+                //Gửi mail cho khách hàng
+                var objCus = (from a in data.DONDATHANGs.AsNoTracking()
+                              join b in data.KHACHHANGs.AsNoTracking() on a.MAKH equals b.MAKH
+                              where a.MADH == MADH
+                              select new { b.EMAIL }).FirstOrDefault();
+                if (objCus == null)
+                {
+                    mess = "Không tìm thấy email khách hàng";
+                }
+                string strStatus = string.Empty;
+                switch (status)
+                {
+                    case "REJECT":
+                        strStatus = "Đơn hàng bị từ chối";
+                        break;
+                    case "APPROVAL":
+                        strStatus = "Đơn hàng đã được xác nhận";
+                        break;
+                    case "DELIVERY":
+                        strStatus = "Đơn hàng đang được vận chuyển";
+                        break;
+                    case "SUCCESS":
+                        strStatus = "Đơn hàng đã được giao thành công";
+                        break;
+                    case "RETURN":
+                        strStatus = "Đơn hàng đã được trả lại";
+                        break;
+                }
+                var fromEmail = new MailAddress("thanh170120@outlook.com.vn", "DinoStore"); //mail của mình để gửi mail đổi mật khẩu cho khách
+                var toEmail = new MailAddress(objCus.EMAIL);
+                var fromEmailPassword = "Thanh30072020"; //Mật khẩu của tài khoản mail
+                string body = $"<b>Mã đơn hàng</b> : {MADH} </br>";
+                body += $"<b>Danh sách sản phẩm</b> : </br> {tableItem} </br>";
+                body += $"<b>Trạng thái : </b> {strStatus}";
+                string subject = "Phản hồi trạng thái đơn hàng từ DinoStore";
+                var smtp = new SmtpClient
+                {
+                    Host = "smtp.office365.com",
+                    Port = 25,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(fromEmail.Address, fromEmailPassword),
+                };
+
+                using (var mail = new MailMessage(fromEmail, toEmail)
+                {
+                    Subject = subject,
+                    Body = body,
+                    IsBodyHtml = true
+                }) smtp.Send(mail);
+
+
                 data.SaveChanges();
+
+
                 return Json(mess, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -164,6 +239,9 @@ namespace DinoPetStore.Areas.Admin.Controllers
                 return Json(ex.Message, JsonRequestBehavior.AllowGet);
             }
         }
+
+        
+
 
     }
 }

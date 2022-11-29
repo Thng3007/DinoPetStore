@@ -113,6 +113,9 @@ namespace DinoPetStore.Controllers
             }
             return RedirectToAction("Giohang");
         }
+
+
+
         //Xoa Giohang
         public ActionResult XoaGiohang(int iMaSP)
         {
@@ -130,6 +133,8 @@ namespace DinoPetStore.Controllers
             }
             return RedirectToAction("GioHang");
         }
+
+
         //Xoa tat ca thong tin trong Gio hang
         public ActionResult XoaTatcaGiohang()
         {
@@ -137,6 +142,8 @@ namespace DinoPetStore.Controllers
             dsGiohang.Clear();
             return RedirectToAction("index", "User");
         }
+
+
         [HttpGet]
         public ActionResult DatHang()
         {
@@ -200,7 +207,7 @@ namespace DinoPetStore.Controllers
                 ddh.DATHANHTOAN = true;
 
             ddh.TONGTIEN = (decimal)TongTien();
-            ddh.TRANGTHAI = "New";
+            ddh.TRANGTHAI = "NEW";
             data.DONDATHANGs.Add(ddh);
             data.SaveChanges();
             foreach (var item in gh)
@@ -250,7 +257,7 @@ namespace DinoPetStore.Controllers
             return PartialView(listthuonghieu);
         }
         #endregion
-        #region HANHTD
+        #region update cart
         public JsonResult updateCart(int iMaSP, int quantity)
         {
             var dsGiohang = LayGioHang();

@@ -41,16 +41,16 @@
             dataType: "json",
             success: function (data) {
                 if (typeof (data) == 'object') {
-                    $('#dataTable').DataTable({ 
+                    $('#dataTable').DataTable({
                         data: data, //data trả về từ server
-                        searching: false, 
+                        searching: false,
                         stateSave: false,
                         "bDestroy": true,
-                        columns: [ 
+                        columns: [
                             {
                                 title: 'Trạng thái',
-                                data: "TRANGTHAI", 
-                                "render": function (data, type, row) { 
+                                data: "TRANGTHAI",
+                                "render": function (data, type, row) {
                                     if (data == "NEW") {
                                         return `<span style="cursor:pointer" onClick = ChangStatusOrder('${row.MADH}','${row.TRANGTHAI}') class = 'label label-info'>Chờ xác nhận</span`
                                     };
@@ -71,7 +71,7 @@
                                     };
                                 }
                             },
-                            { title: 'Mã ĐH', data: "MADH" }, 
+                            { title: 'Mã ĐH', data: "MADH" },
                             { title: 'Mã SP', data: "MASP" },
                             { title: 'Sản phẩm', data: "TENSP" },
                             {
@@ -179,4 +179,31 @@
         });
     }
 
-   </script>
+
+    function funcResponse(Id) {
+        $.ajax({
+            type: "GET",
+            url: "/DONHANG/ResponseToCustomer",
+            data: { "Id": Id, "contentResponse": contentResponse },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data === "success") {
+                    ToastNotify('Đã gửi email cho khách hàng', 'success');
+                    window.location.reload();
+                } else {
+                    ToastNotify(data, 'warning');
+                }
+                return false;
+            },
+            failure: function (response) {
+                alert(response)
+                DevExpress.ui.notify(response, 3000);
+            },
+            error: function (response) {
+                alert(response)
+            }
+        })
+
+    };
+</script>
